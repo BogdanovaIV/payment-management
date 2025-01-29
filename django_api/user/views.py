@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .models import UserProfile
 from .serializers import UserProfileSerializer
+from django_api.permissions import IsOwnerOrAdminOrReadOnly
 
 
 class UserProfileList(APIView):
@@ -11,7 +12,11 @@ class UserProfileList(APIView):
     def get(self, request):
         """Returns a serialized list of all UserProfile objects."""
         profiles = UserProfile.objects.all()
-        serializer = UserProfileSerializer(profiles, many=True)
+        serializer = UserProfileSerializer(
+            profiles,
+            many=True,
+            context={'request': request}
+        )
         return Response(serializer.data)
 
 
@@ -25,6 +30,7 @@ class UserProfileDetail(APIView):
     """
 
     serializer_class = UserProfileSerializer
+    permission_classes = [IsOwnerOrAdminOrReadOnly]
 
     def get_object(self, pk):
         """
@@ -33,6 +39,7 @@ class UserProfileDetail(APIView):
         """
         try:
             user_profile = UserProfile.objects.get(pk=pk)
+            self.check_object_permissions(self.request, user_profile)
             return user_profile
         except UserProfile.DoesNotExist:
             raise Http404
@@ -40,13 +47,19 @@ class UserProfileDetail(APIView):
     def get(self, request, pk):
         """Returns the serialized data of a specific UserProfile instance."""
         user_profile = self.get_object(pk)
-        serializer = UserProfileSerializer(user_profile)
+        serializer = UserProfileSerializer(
+            user_profile,
+            context={'request': request}
+        )
         return Response(serializer.data)
 
     def put(self, request, pk):
         """Updates a UserProfile instance with the provided data if valid."""
         user_profile = self.get_object(pk)
-        serializer = UserProfileSerializer(user_profile, data=request.data)
+        serializer = UserProfileSerializer(
+            user_profile,
+            data=request.data,
+            context={'request': request})
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
