@@ -2,6 +2,7 @@ from django.db import models
 from django.db.models.signals import post_save
 from django.contrib.auth.models import User
 
+
 class UserProfile(models.Model):
     """Model representing a user profile linked to the User model.
 
@@ -20,6 +21,7 @@ class UserProfile(models.Model):
         """Return a string representation of the UserProfile."""
         return f"{self.user.username}'s Profile"
 
+
 def create_user_profile(sender, instance, created, **kwargs):
     """
     Creates a UserProfile instance when a new User is created.
@@ -33,5 +35,6 @@ def create_user_profile(sender, instance, created, **kwargs):
     """
     if created:
         UserProfile.objects.create(user=instance)
+
 
 post_save.connect(create_user_profile, sender=User)
