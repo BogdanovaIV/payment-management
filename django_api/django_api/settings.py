@@ -44,6 +44,10 @@ REST_AUTH_SERIALIZERS = {
     'USER_DETAILS_SERIALIZER': 'django_api.serializers.CurrentUserSerializer'
 }
 
+REST_AUTH = {
+    "REGISTER_SERIALIZER": 'django_api.serializers.CustomRegisterSerializer'
+}
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -56,15 +60,8 @@ DEBUG = config('DEBUG', default=False, cast=bool)
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='*').split(',')
 
 if config('CLIENT_ORIGIN', default=''):
-    CORS_ALLOWED_ORIGINS = [
-        config('CLIENT_ORIGIN', default='').split(',')
-    ]
+    CORS_ALLOWED_ORIGINS = config('CLIENT_ORIGIN', default='').split(',')
 
-if config('CLIENT_ORIGIN_DEV', default=''):
-    CORS_ALLOWED_ORIGIN_REGEXES = [
-        r"^https:\/\/.*\.codeinstitute-ide\.net$",
-        r"^https://[0-9]+-[a-z]+-[a-z]+-[a-z0-9]+\.ws\.codeinstitute-ide\.net$"
-    ]
 
 CORS_ALLOW_CREDENTIALS = True
 
