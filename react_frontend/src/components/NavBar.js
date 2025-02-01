@@ -6,9 +6,53 @@ import { NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
 import styles from "../styles/NavBar.module.css";
 import useClickOutsideToggle from "../hooks/useClickOutsideToggle";
+import {
+  useCurrentUser,
+  useSetCurrentUser,
+} from "../contexts/CurrentUserContext";
 
 const NavBar = () => {
+  const currentUser = useCurrentUser();
+  const setCurrentUser = useSetCurrentUser();
   const { expanded, setExpanded, ref } = useClickOutsideToggle();
+  console.log(currentUser)
+  const loggedInIcons = (
+    <>
+      <NavLink
+        className={styles.NavLink}
+        activeClassName={styles.Active}
+        to="/signout"
+      >
+        <i className="fas fa-arrow-right-from-bracket"></i>Sign out
+      </NavLink>
+      <NavLink
+        className={styles.NavLink}
+        to={`/profiles/${currentUser?.profile_id}`}
+      >
+        {currentUser?.full_name}
+      </NavLink>
+    </>
+  );
+
+  const loggedOutIcons = (
+    <>
+      <NavLink
+        className={styles.NavLink}
+        activeClassName={styles.Active}
+        to="/signin"
+      >
+        <i className="fas fa-arrow-right-to-bracket"></i>Sign in
+      </NavLink>
+
+      <NavLink
+        className={styles.NavLink}
+        activeClassName={styles.Active}
+        to="/signup"
+      >
+        <i className="fas fa-user-plus"></i>Sign up
+      </NavLink>
+    </>
+  );
 
   return (
     <Navbar
@@ -39,30 +83,8 @@ const NavBar = () => {
             >
               <i className="fas fa-home-user"></i>Home
             </NavLink>
-
-            <NavLink
-              className={styles.NavLink}
-              activeClassName={styles.Active}
-              to="/signin"
-            >
-              <i className="fas fa-arrow-right-to-bracket"></i>Sign in
-            </NavLink>
-
-            <NavLink
-              className={styles.NavLink}
-              activeClassName={styles.Active}
-              to="/signup"
-            >
-              <i className="fas fa-user-plus"></i>Sign up
-            </NavLink>
-            <NavLink
-              className={styles.NavLink}
-              activeClassName={styles.Active}
-              to="/signout"
-            >
-              <i className="fas fa-arrow-right-from-bracket"></i>Sign out
-            </NavLink>
           </Nav>
+          {currentUser ? loggedInIcons : loggedOutIcons}
         </Navbar.Collapse>
       </Container>
     </Navbar>

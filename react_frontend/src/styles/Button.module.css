@@ -7,6 +7,7 @@
     margin-left: 2px;
     margin-right: 2px;
     min-width: 75px;
+    padding: 10px 50px;
 }
 
 .Button:hover {
@@ -28,7 +29,6 @@
 }
 
 .Wide {
-    padding: 10px 50px;
     width: 100%;
 }
 
@@ -41,4 +41,14 @@
 .Blue:hover {
     background-color:  var(--white-color);
     color: var(--blue-color);
+}
+
+.Orange {
+    background-color: var(--orange-color);
+    color: var(--white-color);
+}
+
+.Orange:hover {
+    background-color:  var(--white-color);
+    color: var(--orange-color);
 }

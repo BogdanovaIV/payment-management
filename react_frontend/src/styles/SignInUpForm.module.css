@@ -53,3 +53,14 @@
 .Link span {
   color: var(--orange-color);
 }
+
+
+.QuestionParagraph {
+    text-align: center;
+    display: block;
+    margin: auto;
+    font-weight: bold;
+    font-size: 20px;
+    line-height: 19px;
+    color: var(--red-color);
+}
