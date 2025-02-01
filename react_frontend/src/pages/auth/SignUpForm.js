@@ -60,17 +60,18 @@ const SignUpForm = () => {
   };
   return (
     <section className={styles.BgImage} style={backgroundStyle}>
-      <Container>
+      <Container className="pt-2">
+        <Row>
+          <Container >
+            <h1 className={styles.Header}>sign up</h1>
+            <Link className={styles.Link} to="/signin">
+              Do you already have an account? Then please <span>Sign in</span>{" "}
+              instead.
+            </Link>
+          </Container>
+        </Row>
         <Row>
           <Col className="my-auto offset-lg-3" lg={6}>
-            <h1 className={styles.Header}>sign up</h1>
-            <Container className="mt-3">
-              <Link className={styles.Link} to="/signin">
-                Do you already have an account? Then please <span>Sign in</span>{" "}
-                instead.
-              </Link>
-            </Container>
-
             <Container className="p-4">
               <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="username">

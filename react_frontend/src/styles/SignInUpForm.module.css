@@ -1,6 +1,6 @@
 .BgImage {
   position: relative;
-  min-height: calc(100vh - 75px);
+  min-height: calc(100vh - 70px);
 }
 
 .BgImage::before {
@@ -40,6 +40,7 @@
   letter-spacing: 0.2em;
   text-transform: uppercase;
   color: var(--blue-color);
+  margin-bottom: 10px;
 }
 
 .Link {
