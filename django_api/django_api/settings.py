@@ -19,9 +19,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [(
-        'rest_framework.authentication.SessionAuthentication'
-        if config('DEBUG', default='')
-        else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
     )],
     'DEFAULT_PAGINATION_CLASS':
         'rest_framework.pagination.PageNumberPagination',
@@ -35,16 +33,19 @@ if config('DEBUG', default=''):
     ]
 
 REST_USE_JWT = True
+
 JWT_AUTH_SECURE = True
-JWT_AUTH_COOKIE = 'my-app-auth'
-JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
+JWT_AUTH_COOKIE = 'django-api-app-auth'
+JWT_AUTH_REFRESH_COOKIE = 'django-api-refresh-token'
 JWT_AUTH_SAMESITE = 'None'
 
-REST_AUTH_SERIALIZERS = {
-    'USER_DETAILS_SERIALIZER': 'django_api.serializers.CurrentUserSerializer'
-}
-
 REST_AUTH = {
+    'USE_JWT': REST_USE_JWT,
+    'JWT_AUTH_SECURE': JWT_AUTH_SECURE,
+    'JWT_AUTH_COOKIE': JWT_AUTH_COOKIE,
+    'JWT_AUTH_REFRESH_COOKIE': JWT_AUTH_REFRESH_COOKIE,
+    'JWT_AUTH_SAMESITE': JWT_AUTH_SAMESITE,
+    'USER_DETAILS_SERIALIZER': 'django_api.serializers.CurrentUserSerializer',
     "REGISTER_SERIALIZER": 'django_api.serializers.CustomRegisterSerializer'
 }
 
@@ -54,13 +55,25 @@ REST_AUTH = {
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = config('SECRET_KEY')
 
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG', default=False, cast=bool)
 
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='*').split(',')
 
-if config('CLIENT_ORIGIN', default=''):
-    CORS_ALLOWED_ORIGINS = config('CLIENT_ORIGIN', default='').split(',')
+CLIENT_ORIGIN = config('CLIENT_ORIGIN', default='')
+
+# Set CORS allowed origins (split by comma if multiple origins)
+if CLIENT_ORIGIN:
+    CORS_ALLOWED_ORIGINS = CLIENT_ORIGIN.split(',')
+else:
+    CORS_ALLOWED_ORIGINS = []
+
+# Set CSRF trusted origins
+if CLIENT_ORIGIN:
+    CSRF_TRUSTED_ORIGINS = CLIENT_ORIGIN.split(',')
+else:
+    CSRF_TRUSTED_ORIGINS = []
 
 
 CORS_ALLOW_CREDENTIALS = True

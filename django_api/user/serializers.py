@@ -15,7 +15,6 @@ class UserProfileSerializer(serializers.ModelSerializer):
         checked (bool): Indicates whether the UserProfile has been checked.
     """
 
-    username = serializers.ReadOnlyField(source='user.username')
     user_full_name = serializers.ReadOnlyField(source='user.get_full_name')
     is_owner = serializers.SerializerMethodField()
 
@@ -36,4 +35,4 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserProfile
-        fields = ['id', 'username', 'checked', 'user_full_name', "is_owner"]
+        fields = ['id', 'checked', 'user_full_name', "is_owner"]

@@ -13,10 +13,12 @@ class CurrentUserSerializer(UserDetailsSerializer):
     """
 
     user_profile_id = serializers.ReadOnlyField(source='userprofile.id')
+    full_name = serializers.ReadOnlyField(source='get_full_name')
 
     class Meta(UserDetailsSerializer.Meta):
         fields = UserDetailsSerializer.Meta.fields + (
             'user_profile_id',
+            'full_name',
         )
 
 
