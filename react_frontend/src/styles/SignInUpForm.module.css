@@ -1,0 +1,54 @@
+.BgImage {
+  position: relative;
+  min-height: calc(100vh - 75px);
+}
+
+.BgImage::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.5);
+  z-index: 1;
+}
+
+.BgImage > * {
+  position: relative;
+  z-index: 2;
+}
+
+.Input {
+  border: 1px solid var(--blue-color);
+  box-sizing: border-box;
+  text-align: center;
+  color:var(--blue-color);
+  padding: 10px;
+  background-color:#ffffffc9;
+}
+
+.Input::placeholder {
+    color: var(--orange-color);
+}
+
+.Header {
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 19px;
+  text-align: center;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--blue-color);
+}
+
+.Link {
+  text-align: center;
+  display: block;
+  margin: auto;
+  font-weight: bold;
+}
+
+.Link span {
+  color: var(--orange-color);
+}
