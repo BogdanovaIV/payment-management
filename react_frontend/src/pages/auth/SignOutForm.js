@@ -21,14 +21,12 @@ function SignOutForm() {
   const history = useHistory();
 
   const handleSignOut = async () => {
-    try {  
+    try {
       await axios.post("dj-rest-auth/logout/");
       setCurrentUser(null);
       history.push("/");
     } catch (err) {
-      if (process.env.DEBUG === "True") {
-        console.log(err);
-      }
+      console.log(err);
     }
   };
 
