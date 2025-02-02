@@ -7,6 +7,7 @@ import "./styles/variables.css";
 import SignUpForm from "./pages/auth/SignUpForm";
 import SignInForm from "./pages/auth/SignInForm";
 import SignOutForm from "./pages/auth/SignOutForm";
+import Home from "./pages/home/Home";
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
             exact
             path="/"
             render={() => (
-              <p>Home page</p>
+              <Home />
             )}
           />
           <Route
