@@ -6,16 +6,13 @@ import { NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
 import styles from "../styles/NavBar.module.css";
 import useClickOutsideToggle from "../hooks/useClickOutsideToggle";
-import {
-  useCurrentUser,
-  useSetCurrentUser,
-} from "../contexts/CurrentUserContext";
+import { useCurrentUser } from "../contexts/CurrentUserContext";
+import SpinnerSecondary from "./Spinners";
 
 const NavBar = () => {
   const currentUser = useCurrentUser();
-  const setCurrentUser = useSetCurrentUser();
   const { expanded, setExpanded, ref } = useClickOutsideToggle();
-  console.log(currentUser)
+
   const loggedInIcons = (
     <>
       <NavLink
@@ -29,7 +26,7 @@ const NavBar = () => {
         className={styles.NavLink}
         to={`/profiles/${currentUser?.profile_id}`}
       >
-        {currentUser?.full_name}
+        <i className="fa-solid fa-user-gear"></i>{currentUser?.full_name}
       </NavLink>
     </>
   );
@@ -53,6 +50,10 @@ const NavBar = () => {
       </NavLink>
     </>
   );
+
+  if (currentUser === undefined) {
+    return <SpinnerSecondary />;
+  }
 
   return (
     <Navbar
@@ -83,8 +84,8 @@ const NavBar = () => {
             >
               <i className="fas fa-home-user"></i>Home
             </NavLink>
+            {currentUser ? loggedInIcons : loggedOutIcons}
           </Nav>
-          {currentUser ? loggedInIcons : loggedOutIcons}
         </Navbar.Collapse>
       </Container>
     </Navbar>
