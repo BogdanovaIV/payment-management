@@ -10,6 +10,7 @@ import { useHistory } from "react-router-dom";
 
 import styles from "../../styles/SignInUpForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
+import bgImageStyles from "../../styles/BgImage.module.css";
 
 import backgroundImage from "../../assets/signout.jpg";
 
@@ -37,7 +38,7 @@ function SignOutForm() {
   };
 
   return (
-    <section className={styles.BgImage} style={backgroundStyle}>
+    <section className={bgImageStyles.BgImage} style={backgroundStyle}>
       <Container className="pt-2">
         <Row className="pb-5">
           <Container>

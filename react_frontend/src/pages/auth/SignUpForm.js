@@ -3,6 +3,7 @@ import { Link, useHistory } from "react-router-dom";
 
 import styles from "../../styles/SignInUpForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
+import bgImageStyles from "../../styles/BgImage.module.css";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -59,7 +60,7 @@ const SignUpForm = () => {
     backgroundRepeat: "no-repeat",
   };
   return (
-    <section className={styles.BgImage} style={backgroundStyle}>
+    <section className={bgImageStyles.BgImage} style={backgroundStyle}>
       <Container className="pt-2">
         <Row>
           <Container >

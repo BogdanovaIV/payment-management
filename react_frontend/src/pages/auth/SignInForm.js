@@ -12,6 +12,7 @@ import { Link, useHistory } from "react-router-dom";
 
 import styles from "../../styles/SignInUpForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
+import bgImageStyles from "../../styles/BgImage.module.css";
 
 import backgroundImage from "../../assets/signin.jpg";
 
@@ -35,7 +36,8 @@ function SignInForm() {
 
     try {
       const { data } = await axios.post("/dj-rest-auth/login/", signInData);
-      setCurrentUser(data.user);
+      
+      setCurrentUser(data.user);  
       setTokenTimestamp(data);
       history.push("/");
     } catch (err) {
@@ -57,7 +59,7 @@ function SignInForm() {
   };
 
   return (
-    <section className={styles.BgImage} style={backgroundStyle}>
+    <section className={bgImageStyles.BgImage} style={backgroundStyle}>
       <Container className="pt-2">
         <Row className="mb-3">
           <Container>
