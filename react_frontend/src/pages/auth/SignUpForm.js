@@ -15,8 +15,12 @@ import Alert from "react-bootstrap/Alert";
 import backgroundImage from "../../assets/signup.jpg";
 
 import axios from "axios";
+import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
+import { setTokenTimestamp } from "../../utils/utils";
 
 const SignUpForm = () => {
+  const setCurrentUser = useSetCurrentUser();
+
   const [signUpData, setSignUpData] = useState({
     username: "",
     password1: "",
@@ -49,7 +53,14 @@ const SignUpForm = () => {
     };
     try {
       await axios.post("/dj-rest-auth/registration/", mappedData);
-      history.push("/signin");
+      const { data } = await axios.post("/dj-rest-auth/login/", {
+        username: signUpData.username,
+        password: signUpData.password1,
+      });
+
+      setCurrentUser(data.user);
+      setTokenTimestamp(data);
+      history.push("/");
     } catch (err) {
       setErrors(err.response?.data);
     }
@@ -63,7 +74,7 @@ const SignUpForm = () => {
     <section className={bgImageStyles.BgImage} style={backgroundStyle}>
       <Container className="pt-2">
         <Row>
-          <Container >
+          <Container>
             <h1 className={styles.Header}>sign up</h1>
             <Link className={styles.Link} to="/signin">
               Do you already have an account? Then please <span>Sign in</span>{" "}
