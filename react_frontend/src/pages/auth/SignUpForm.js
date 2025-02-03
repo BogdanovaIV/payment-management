@@ -36,31 +36,42 @@ const SignUpForm = () => {
     {
       id: "username",
       name: "username",
+      nameBackend: "username",
       type: "text",
       placeholder: t("auth.username"),
     },
     {
       id: "firstName",
       name: "firstName",
+      nameBackend: "first_name",
       type: "text",
       placeholder: t("auth.first_name"),
     },
     {
       id: "lastName",
       name: "lastName",
+      nameBackend: "last_name",
       type: "text",
       placeholder: t("auth.last_name"),
     },
-    { id: "email", name: "email", type: "email", placeholder: t("auth.email") },
+    {
+      id: "email",
+      name: "email",
+      nameBackend: "email",
+      type: "email",
+      placeholder: t("auth.email"),
+    },
     {
       id: "password1",
       name: "password1",
+      nameBackend: "password1",
       type: "password",
       placeholder: t("auth.password"),
     },
     {
       id: "password2",
       name: "password2",
+      nameBackend: "password2",
       type: "password",
       placeholder: t("auth.confirm_password"),
     },
@@ -97,6 +108,7 @@ const SignUpForm = () => {
       history.push("/");
     } catch (err) {
       setErrors(err.response?.data);
+      console.log(err.response?.data);
     }
   };
   const backgroundStyle = {
@@ -125,7 +137,7 @@ const SignUpForm = () => {
           <Col className="my-auto offset-lg-3" lg={6}>
             <Container className="p-4">
               <Form onSubmit={handleSubmit}>
-                {fields.map(({ id, name, type, placeholder }) => (
+                {fields.map(({ id, name, nameBackend, type, placeholder }) => (
                   <Form.Group controlId={id} key={id}>
                     <Form.Label className="d-none">{placeholder}</Form.Label>
                     <Form.Control
@@ -136,7 +148,7 @@ const SignUpForm = () => {
                       value={signUpData[name]}
                       onChange={handleChange}
                     />
-                    {errors[name]?.map((message, idx) => (
+                    {errors[nameBackend]?.map((message, idx) => (
                       <Alert variant="warning" key={idx}>
                         {message}
                       </Alert>

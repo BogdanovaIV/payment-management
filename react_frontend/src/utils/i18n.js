@@ -4,7 +4,7 @@ import { initReactI18next } from 'react-i18next';
 import { getLanguage } from './utils';
 
 import en from '../locales/en.json';
-import kz from '../locales/kz.json';
+import kk from '../locales/kk.json';
 import ru from '../locales/ru.json';
 
 i18n
@@ -12,7 +12,7 @@ i18n
   .init({
     resources: {
       en: { translation: en },
-      kz: { translation: kz },
+      kk: { translation: kk },
       ru: { translation: ru },
     },
     lng: getLanguage() || 'en',

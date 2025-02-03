@@ -1,16 +1,17 @@
 import React, { useState } from "react";
+import axios from "axios";
 import { useTranslation } from "react-i18next";
 import { setLanguage } from "../utils/utils";
 
 import flagEn from "../assets/flag-en.png";
-import flagKz from "../assets/flag-kz.png";
+import flagKk from "../assets/flag-kk.png";
 import flagRu from "../assets/flag-ru.png";
 
 import styles from "../styles/LanguageSelector.module.css";
 
 const languageOptions = {
   en: { label: "English", value: "en", flag: flagEn },
-  kz: { label: "Қазақ", value: "kz", flag: flagKz },
+  kk: { label: "Қазақ", value: "kk", flag: flagKk },
   ru: { label: "Русский", value: "ru", flag: flagRu },
 };
 
@@ -22,6 +23,7 @@ const LanguageSelector = () => {
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
     setLanguage(lng);
+    axios.defaults.headers['Accept-Language'] = lng;
     setDropdownOpen(false);
   };
 
