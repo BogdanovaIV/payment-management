@@ -30,3 +30,12 @@ export const shouldRefreshToken = () => {
 export const removeTokenTimestamp = () => {
   localStorage.removeItem("refreshTokenTimestamp");
 };
+
+export const getLanguage = () => {
+    return localStorage.getItem('lang');
+};
+
+export const setLanguage = (lng) => {
+    localStorage.setItem("lang", lng);
+};
+

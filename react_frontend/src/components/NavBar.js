@@ -8,8 +8,11 @@ import styles from "../styles/NavBar.module.css";
 import useClickOutsideToggle from "../hooks/useClickOutsideToggle";
 import { useCurrentUser } from "../contexts/CurrentUserContext";
 import SpinnerSecondary from "./Spinners";
+import { useTranslation } from "react-i18next";
+import LanguageSelector from "./LanguageSelector";
 
 const NavBar = () => {
+  const { t } = useTranslation();
   const currentUser = useCurrentUser();
   const { expanded, setExpanded, ref } = useClickOutsideToggle();
 
@@ -20,7 +23,7 @@ const NavBar = () => {
         activeClassName={styles.Active}
         to="/signout"
       >
-        <i className="fas fa-arrow-right-from-bracket"></i>Sign out
+        <i className="fas fa-arrow-right-from-bracket"></i>{t("Sign out")}
       </NavLink>
       <NavLink
         className={styles.NavLink}
@@ -38,7 +41,7 @@ const NavBar = () => {
         activeClassName={styles.Active}
         to="/signin"
       >
-        <i className="fas fa-arrow-right-to-bracket"></i>Sign in
+        <i className="fas fa-arrow-right-to-bracket"></i>{t("Sign in")}
       </NavLink>
 
       <NavLink
@@ -46,7 +49,7 @@ const NavBar = () => {
         activeClassName={styles.Active}
         to="/signup"
       >
-        <i className="fas fa-user-plus"></i>Sign up
+        <i className="fas fa-user-plus"></i>{t("Sign up")}
       </NavLink>
     </>
   );
@@ -82,9 +85,10 @@ const NavBar = () => {
               activeClassName={styles.Active}
               to="/"
             >
-              <i className="fas fa-home-user"></i>Home
+              <i className="fas fa-home-user"></i>{t("Home")}
             </NavLink>
             {currentUser ? loggedInIcons : loggedOutIcons}
+            <LanguageSelector />
           </Nav>
         </Navbar.Collapse>
       </Container>
