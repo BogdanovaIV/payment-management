@@ -1,7 +1,11 @@
 {
-    "sign_out": "Sign out",
-    "sign_in": "Sign in",
-    "sign_up": "Sign up",
-    "home": "Home",
-    "sign_out_question": "Are you sure you want to sign out?"
+  "sign_out": "Sign out",
+  "sign_in": "Sign in",
+  "sign_up": "Sign up",
+  "home": "Home",
+  "sign_out_question": "Are you sure you want to sign out?",
+  "sign_in_prompt": "Don't have an account?",
+  "sign_up_now": "Sign up now!",
+  "username": "Username",
+  "password": "Password"
 }

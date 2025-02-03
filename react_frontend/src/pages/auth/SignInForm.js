@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
@@ -20,6 +21,7 @@ import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 import { setTokenTimestamp } from "../../utils/utils";
 
 function SignInForm() {
+  const { t } = useTranslation();
   const setCurrentUser = useSetCurrentUser();
 
   const [signInData, setSignInData] = useState({
@@ -36,8 +38,8 @@ function SignInForm() {
 
     try {
       const { data } = await axios.post("/dj-rest-auth/login/", signInData);
-      
-      setCurrentUser(data.user);  
+
+      setCurrentUser(data.user);
       setTokenTimestamp(data);
       history.push("/");
     } catch (err) {
@@ -52,7 +54,7 @@ function SignInForm() {
     });
   };
 
- const backgroundStyle = {
+  const backgroundStyle = {
     backgroundImage: `url(${backgroundImage})`,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
@@ -63,9 +65,9 @@ function SignInForm() {
       <Container className="pt-2">
         <Row className="mb-3">
           <Container>
-            <h1 className={styles.Header}>sign in</h1>
+            <h1 className={styles.Header}>{t("sign_in")}</h1>
             <Link className={styles.Link} to="/signup">
-              Don't have an account? <span>Sign up now!</span>
+              {t("sign_in_prompt")} <span>{t("sign_up_now")}</span>
             </Link>
           </Container>
         </Row>
@@ -74,10 +76,10 @@ function SignInForm() {
             <Container>
               <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="username">
-                  <Form.Label className="d-none">Username</Form.Label>
+                  <Form.Label className="d-none">{t("username")}</Form.Label>
                   <Form.Control
                     type="text"
-                    placeholder="Username"
+                    placeholder={t("username")}
                     name="username"
                     className={styles.Input}
                     value={username}
@@ -91,10 +93,10 @@ function SignInForm() {
                 ))}
 
                 <Form.Group controlId="password">
-                  <Form.Label className="d-none">Password</Form.Label>
+                  <Form.Label className="d-none">{t("password")}</Form.Label>
                   <Form.Control
                     type="password"
-                    placeholder="Password"
+                    placeholder={t("password")}
                     name="password"
                     className={styles.Input}
                     value={password}
@@ -110,7 +112,7 @@ function SignInForm() {
                   className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Blue}`}
                   type="submit"
                 >
-                  Sign in
+                  {t("sign_in")}
                 </Button>
                 {errors.non_field_errors?.map((message, idx) => (
                   <Alert key={idx} variant="warning" className="mt-3">
