@@ -43,8 +43,8 @@ function SignOutForm() {
       <Container className="pt-2">
         <Row className="pb-5">
           <Container>
-            <h1 className={styles.Header}>{t("sign_out")}</h1>
-            <p className={styles.QuestionParagraph}>{t("sign_out_question")}</p>
+            <h1 className={styles.Header}>{t("auth.sign_out")}</h1>
+            <p className={styles.QuestionParagraph}>{t("auth.sign_out_question")}</p>
           </Container>
         </Row>
         <Row className="justify-content-center">
@@ -53,7 +53,7 @@ function SignOutForm() {
               className={`${btnStyles.Button} ${btnStyles.Orange}`}
               onClick={handleSignOut}
             >
-              {t("sign_out")}
+              {t("auth.sign_out")}
             </Button>
           </Col>
         </Row>

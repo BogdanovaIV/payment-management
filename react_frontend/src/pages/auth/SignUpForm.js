@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
+import { useTranslation, Trans } from "react-i18next";
 
 import styles from "../../styles/SignInUpForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
@@ -19,6 +20,7 @@ import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 import { setTokenTimestamp } from "../../utils/utils";
 
 const SignUpForm = () => {
+  const { t } = useTranslation();
   const setCurrentUser = useSetCurrentUser();
 
   const [signUpData, setSignUpData] = useState({
@@ -29,8 +31,40 @@ const SignUpForm = () => {
     lastName: "",
     email: "",
   });
-  const { username, password1, password2, firstName, lastName, email } =
-    signUpData;
+
+  const fields = [
+    {
+      id: "username",
+      name: "username",
+      type: "text",
+      placeholder: t("auth.username"),
+    },
+    {
+      id: "firstName",
+      name: "firstName",
+      type: "text",
+      placeholder: t("auth.first_name"),
+    },
+    {
+      id: "lastName",
+      name: "lastName",
+      type: "text",
+      placeholder: t("auth.last_name"),
+    },
+    { id: "email", name: "email", type: "email", placeholder: t("auth.email") },
+    {
+      id: "password1",
+      name: "password1",
+      type: "password",
+      placeholder: t("auth.password"),
+    },
+    {
+      id: "password2",
+      name: "password2",
+      type: "password",
+      placeholder: t("auth.confirm_password"),
+    },
+  ];
 
   const [errors, setErrors] = useState({});
 
@@ -75,10 +109,15 @@ const SignUpForm = () => {
       <Container className="pt-2">
         <Row>
           <Container>
-            <h1 className={styles.Header}>sign up</h1>
+            <h1 className={styles.Header}>{t("auth.sign_up")}</h1>
             <Link className={styles.Link} to="/signin">
-              Do you already have an account? Then please <span>Sign in</span>{" "}
-              instead.
+              <Trans
+                i18nKey="auth.already_have_account"
+                values={{
+                  signIn: t("auth.sign_in"),
+                }}
+                components={[<span />]}
+              />
             </Link>
           </Container>
         </Row>
@@ -86,113 +125,30 @@ const SignUpForm = () => {
           <Col className="my-auto offset-lg-3" lg={6}>
             <Container className="p-4">
               <Form onSubmit={handleSubmit}>
-                <Form.Group controlId="username">
-                  <Form.Label className="d-none">username</Form.Label>
-                  <Form.Control
-                    className={styles.Input}
-                    type="text"
-                    placeholder="Username"
-                    name="username"
-                    value={username}
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-                {errors.username?.map((message, idx) => (
-                  <Alert variant="warning" key={idx}>
-                    {message}
-                  </Alert>
-                ))}
-
-                <Form.Group controlId="firstName">
-                  <Form.Label className="d-none">First name</Form.Label>
-                  <Form.Control
-                    className={styles.Input}
-                    type="text"
-                    placeholder="First name"
-                    name="firstName"
-                    value={firstName}
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-                {errors.first_name?.map((message, idx) => (
-                  <Alert variant="warning" key={idx}>
-                    {message}
-                  </Alert>
-                ))}
-
-                <Form.Group controlId="lastName">
-                  <Form.Label className="d-none">Last name</Form.Label>
-                  <Form.Control
-                    className={styles.Input}
-                    type="text"
-                    placeholder="Last name"
-                    name="lastName"
-                    value={lastName}
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-                {errors.last_name?.map((message, idx) => (
-                  <Alert variant="warning" key={idx}>
-                    {message}
-                  </Alert>
-                ))}
-
-                <Form.Group controlId="email">
-                  <Form.Label className="d-none">Email</Form.Label>
-                  <Form.Control
-                    className={styles.Input}
-                    type="email"
-                    placeholder="Email"
-                    name="email"
-                    value={email}
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-                {errors.email?.map((message, idx) => (
-                  <Alert variant="warning" key={idx}>
-                    {message}
-                  </Alert>
-                ))}
-
-                <Form.Group controlId="password1">
-                  <Form.Label className="d-none">Password</Form.Label>
-                  <Form.Control
-                    className={styles.Input}
-                    type="password"
-                    placeholder="Password"
-                    name="password1"
-                    value={password1}
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-                {errors.password1?.map((message, idx) => (
-                  <Alert key={idx} variant="warning">
-                    {message}
-                  </Alert>
-                ))}
-
-                <Form.Group controlId="password2">
-                  <Form.Label className="d-none">Confirm password</Form.Label>
-                  <Form.Control
-                    className={styles.Input}
-                    type="password"
-                    placeholder="Confirm password"
-                    name="password2"
-                    value={password2}
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-                {errors.password2?.map((message, idx) => (
-                  <Alert key={idx} variant="warning">
-                    {message}
-                  </Alert>
+                {fields.map(({ id, name, type, placeholder }) => (
+                  <Form.Group controlId={id} key={id}>
+                    <Form.Label className="d-none">{placeholder}</Form.Label>
+                    <Form.Control
+                      className={styles.Input}
+                      type={type}
+                      placeholder={placeholder}
+                      name={name}
+                      value={signUpData[name]}
+                      onChange={handleChange}
+                    />
+                    {errors[name]?.map((message, idx) => (
+                      <Alert variant="warning" key={idx}>
+                        {message}
+                      </Alert>
+                    ))}
+                  </Form.Group>
                 ))}
 
                 <Button
                   className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Blue}`}
                   type="submit"
                 >
-                  Sign up
+                  {t("auth.sign_up")}
                 </Button>
                 {errors.non_field_errors?.map((message, idx) => (
                   <Alert key={idx} variant="warning" className="mt-3">
