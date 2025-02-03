@@ -1,4 +1,6 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
+
 import Container from "react-bootstrap/Container";
 import { Link } from "react-router-dom";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
@@ -9,6 +11,7 @@ import bgImageStyles from "../../styles/BgImage.module.css";
 import backgroundImage from "../../assets/home.jpg";
 
 const Home = () => {
+  const { t } = useTranslation();
   const currentUser = useCurrentUser();
 
   const backgroundStyle = {
@@ -24,28 +27,25 @@ const Home = () => {
   return (
     <section className={bgImageStyles.BgImage} style={backgroundStyle}>
       <Container>
-        <h1 className={styles.Header}>Welcome to CBC Management</h1>
+        <h1 className={styles.Header}>{t("home.welcome_message")}</h1>
 
         {!currentUser ? (
           <>
             <p>
-              If you already have an account, please{" "}
+              {t("home.if_have_account")}{" "}
               <Link to="/signin">
-                <span>Sign in</span>
+                <span>{t("auth.sign_in")}</span>
               </Link>
-              , otherwise please{" "}
+              , {t("home.otherwise_sign_up")}{" "}
               <Link to="/signup">
-                <span>Sign up</span>
+                <span>{t("auth.sign_up")}</span>
               </Link>{" "}
-              to create an account.
+              {t("home.to_create_account")}
             </p>{" "}
           </>
         ) : !currentUser?.checked ? (
           <>
-            <p>
-              Your profile is pending verification by an administrator. Once
-              verified, you will have full access to all features available to you.
-            </p>
+            <p>{t("home.profile_pending_verification")}</p>
           </>
         ) : (
           <> </>
