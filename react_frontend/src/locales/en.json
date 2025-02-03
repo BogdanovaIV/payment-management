@@ -1,7 +1,7 @@
 {
-    "Sign out": "Sign out",
-    "Sign in": "Sign in",
-    "Sign up": "Sign up",
-    "Home": "Home",
-    "Sign out question": "Are you sure you want to sign out?"
+    "sign_out": "Sign out",
+    "sign_in": "Sign in",
+    "sign_up": "Sign up",
+    "home": "Home",
+    "sign_out_question": "Are you sure you want to sign out?"
 }

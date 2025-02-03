@@ -1,7 +1,7 @@
 {
-    "Sign out": "Шығу",
-    "Sign in": "Кіру",
-    "Sign up": "Тіркелу",
-    "Home": "Басты бет",
-    "Sign out question": "Шығуды қалайсыз ба?"
+    "sign_out": "Шығу",
+    "sign_in": "Кіру",
+    "sign_up": "Тіркелу",
+    "home": "Басты бет",
+    "sign_out_question": "Шығуды қалайсыз ба?"
 }

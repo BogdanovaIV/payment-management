@@ -23,7 +23,7 @@ const NavBar = () => {
         activeClassName={styles.Active}
         to="/signout"
       >
-        <i className="fas fa-arrow-right-from-bracket"></i>{t("Sign out")}
+        <i className="fas fa-arrow-right-from-bracket"></i>{t("sign_out")}
       </NavLink>
       <NavLink
         className={styles.NavLink}
@@ -41,7 +41,7 @@ const NavBar = () => {
         activeClassName={styles.Active}
         to="/signin"
       >
-        <i className="fas fa-arrow-right-to-bracket"></i>{t("Sign in")}
+        <i className="fas fa-arrow-right-to-bracket"></i>{t("sign_in")}
       </NavLink>
 
       <NavLink
@@ -49,7 +49,7 @@ const NavBar = () => {
         activeClassName={styles.Active}
         to="/signup"
       >
-        <i className="fas fa-user-plus"></i>{t("Sign up")}
+        <i className="fas fa-user-plus"></i>{t("sign_up")}
       </NavLink>
     </>
   );
@@ -85,7 +85,7 @@ const NavBar = () => {
               activeClassName={styles.Active}
               to="/"
             >
-              <i className="fas fa-home-user"></i>{t("Home")}
+              <i className="fas fa-home-user"></i>{t("home")}
             </NavLink>
             {currentUser ? loggedInIcons : loggedOutIcons}
             <LanguageSelector />
