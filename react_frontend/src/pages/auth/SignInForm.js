@@ -28,7 +28,21 @@ function SignInForm() {
     username: "",
     password: "",
   });
-  const { username, password } = signInData;
+
+  const fields = [
+    {
+      id: "username",
+      name: "username",
+      type: "text",
+      placeholder: t("auth.username"),
+    },
+    {
+      id: "password",
+      name: "password",
+      type: "password",
+      placeholder: t("auth.password"),
+    },
+  ];
 
   const [errors, setErrors] = useState({});
 
@@ -75,39 +89,25 @@ function SignInForm() {
           <Col className="my-auto offset-lg-3" lg={6}>
             <Container>
               <Form onSubmit={handleSubmit}>
-                <Form.Group controlId="username">
-                  <Form.Label className="d-none">{t("auth.username")}</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder={t("auth.username")}
-                    name="username"
-                    className={styles.Input}
-                    value={username}
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-                {errors.username?.map((message, idx) => (
-                  <Alert key={idx} variant="warning">
-                    {message}
-                  </Alert>
+                {fields.map(({ id, name, type, placeholder }) => (
+                  <Form.Group controlId={id} key={id}>
+                    <Form.Label className="d-none">{placeholder}</Form.Label>
+                    <Form.Control
+                      className={styles.Input}
+                      type={type}
+                      placeholder={placeholder}
+                      name={name}
+                      value={signInData[name]}
+                      onChange={handleChange}
+                    />
+                    {errors[name]?.map((message, idx) => (
+                      <Alert variant="warning" key={idx}>
+                        {message}
+                      </Alert>
+                    ))}
+                  </Form.Group>
                 ))}
 
-                <Form.Group controlId="password">
-                  <Form.Label className="d-none">{t("auth.password")}</Form.Label>
-                  <Form.Control
-                    type="password"
-                    placeholder={t("auth.password")}
-                    name="password"
-                    className={styles.Input}
-                    value={password}
-                    onChange={handleChange}
-                  />
-                </Form.Group>
-                {errors.password?.map((message, idx) => (
-                  <Alert key={idx} variant="warning">
-                    {message}
-                  </Alert>
-                ))}
                 <Button
                   className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Blue}`}
                   type="submit"
