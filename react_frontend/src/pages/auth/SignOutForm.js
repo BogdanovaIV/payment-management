@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
@@ -17,8 +18,8 @@ import backgroundImage from "../../assets/signout.jpg";
 import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 
 function SignOutForm() {
+  const { t } = useTranslation();
   const setCurrentUser = useSetCurrentUser();
-
   const history = useHistory();
 
   const handleSignOut = async () => {
@@ -42,10 +43,8 @@ function SignOutForm() {
       <Container className="pt-2">
         <Row className="pb-5">
           <Container>
-            <h1 className={styles.Header}>sign out</h1>
-            <p className={styles.QuestionParagraph}>
-              Are you sure you want to sign out?
-            </p>
+            <h1 className={styles.Header}>{t("Sign out")}</h1>
+            <p className={styles.QuestionParagraph}>{t("Sign out question")}</p>
           </Container>
         </Row>
         <Row className="justify-content-center">
@@ -54,7 +53,7 @@ function SignOutForm() {
               className={`${btnStyles.Button} ${btnStyles.Orange}`}
               onClick={handleSignOut}
             >
-              Sign out
+              {t("Sign out")}
             </Button>
           </Col>
         </Row>

@@ -20,7 +20,7 @@ const Home = () => {
   if (currentUser === undefined) {
     return <SpinnerSecondary />;
   }
-  console.log(currentUser);
+
   return (
     <section className={bgImageStyles.BgImage} style={backgroundStyle}>
       <Container>

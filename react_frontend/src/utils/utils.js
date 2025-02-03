@@ -32,10 +32,9 @@ export const removeTokenTimestamp = () => {
 };
 
 export const getLanguage = () => {
-    return localStorage.getItem('lang');
+  return localStorage.getItem("lang");
 };
 
 export const setLanguage = (lng) => {
-    localStorage.setItem("lang", lng);
+  localStorage.setItem("lang", lng);
 };
-

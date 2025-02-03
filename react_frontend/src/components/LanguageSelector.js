@@ -21,7 +21,7 @@ const LanguageSelector = () => {
 
   const changeLanguage = (lng) => {
     i18n.changeLanguage(lng);
-    setLanguage(lng.key);
+    setLanguage(lng);
     setDropdownOpen(false);
   };
 
