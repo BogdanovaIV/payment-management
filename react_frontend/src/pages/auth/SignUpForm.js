@@ -5,6 +5,7 @@ import { useTranslation, Trans } from "react-i18next";
 import styles from "../../styles/SignInUpForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import bgImageStyles from "../../styles/BgImage.module.css";
+import inputStyles from "../../styles/Input.module.css"
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -141,7 +142,7 @@ const SignUpForm = () => {
                   <Form.Group controlId={id} key={id}>
                     <Form.Label className="d-none">{placeholder}</Form.Label>
                     <Form.Control
-                      className={styles.Input}
+                      className={inputStyles.Input}
                       type={type}
                       placeholder={placeholder}
                       name={name}

@@ -1,17 +1,3 @@
-
-.Input {
-  border: 1px solid var(--blue-color);
-  box-sizing: border-box;
-  text-align: center;
-  color:var(--blue-color);
-  padding: 10px;
-  background-color:#ffffffc9;
-}
-
-.Input::placeholder {
-    color: var(--orange-color);
-}
-
 .Header {
   font-weight: bold;
   font-size: 28px;
@@ -34,13 +20,12 @@
   color: var(--orange-color);
 }
 
-
 .QuestionParagraph {
-    text-align: center;
-    display: block;
-    margin: auto;
-    font-weight: bold;
-    font-size: 20px;
-    line-height: 19px;
-    color: var(--red-color);
+  text-align: center;
+  display: block;
+  margin: auto;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 19px;
+  color: var(--red-color);
 }
