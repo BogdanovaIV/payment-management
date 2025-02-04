@@ -36,7 +36,7 @@ export const UserProfileDataProvider = ({ children }) => {
   return (
     <UserProfileDataContext.Provider value={userProfileData}>
       <SetUserProfileDataContext.Provider
-        value={{ setUserProfileData }}
+        value={setUserProfileData}
       >
         {children}
       </SetUserProfileDataContext.Provider>

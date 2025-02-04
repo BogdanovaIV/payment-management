@@ -9,10 +9,12 @@ import SpinnerSecondary from "../../components/Spinners";
 import styles from "../../styles/Home.module.css";
 import bgImageStyles from "../../styles/BgImage.module.css";
 import backgroundImage from "../../assets/home.jpg";
+import { useUserProfileData } from "../../contexts/ProfileDataContext";
 
 const Home = () => {
   const { t } = useTranslation();
   const currentUser = useCurrentUser();
+  const UserProfileData = useUserProfileData();
 
   const backgroundStyle = {
     backgroundImage: `url(${backgroundImage})`,
@@ -43,7 +45,7 @@ const Home = () => {
               {t("home.to_create_account")}
             </p>{" "}
           </>
-        ) : !currentUser?.checked ? (
+        ) : !UserProfileData?.checked ? (
           <>
             <p>{t("home.profile_pending_verification")}</p>
           </>

@@ -10,10 +10,12 @@ import { useCurrentUser } from "../contexts/CurrentUserContext";
 import SpinnerSecondary from "./Spinners";
 import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
+import { useUserProfileData } from "../contexts/ProfileDataContext";
 
 const NavBar = () => {
   const { t } = useTranslation();
   const currentUser = useCurrentUser();
+  const UserProfileData = useUserProfileData();
   const { expanded, setExpanded, ref } = useClickOutsideToggle();
 
   const loggedInIcons = (
@@ -29,7 +31,7 @@ const NavBar = () => {
         className={styles.NavLink}
         to={`/user-profiles/${currentUser?.profile_id}`}
       >
-        <i className="fa-solid fa-user-gear"></i>{currentUser?.full_name}
+        <i className="fa-solid fa-user-gear"></i>{UserProfileData?.full_name}
       </NavLink>
     </>
   );

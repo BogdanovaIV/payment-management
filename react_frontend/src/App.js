@@ -9,6 +9,7 @@ import SignInForm from "./pages/auth/SignInForm";
 import SignOutForm from "./pages/auth/SignOutForm";
 import Home from "./pages/home/Home";
 import UserProfilePage from "./pages/userProfiles/UserProfilePage";
+import UserProfileEditForm from "./pages/userProfiles/UserProfileEditForm";
 
 function App() {
   return (
@@ -24,6 +25,11 @@ function App() {
             exact
             path="/user-profiles/:id"
             render={() => <UserProfilePage />}
+          />
+          <Route
+            exact
+            path="/user-profiles/:id/edit"
+            render={() => <UserProfileEditForm />}
           /> 
           <Route render={() => <p>Not found</p>} />
         </Switch>
