@@ -8,6 +8,7 @@ import SignUpForm from "./pages/auth/SignUpForm";
 import SignInForm from "./pages/auth/SignInForm";
 import SignOutForm from "./pages/auth/SignOutForm";
 import Home from "./pages/home/Home";
+import UserProfilePage from "./pages/userProfiles/UserProfilePage";
 
 function App() {
   return (
@@ -15,35 +16,16 @@ function App() {
       <NavBar />
       <div className={styles.Main}>
         <Switch>
+          <Route exact path="/" render={() => <Home />} />
+          <Route exact path="/signin" render={() => <SignInForm />} />
+          <Route exact path="/signup" render={() => <SignUpForm />} />
+          <Route exact path="/signout" render={() => <SignOutForm />} />
           <Route
             exact
-            path="/"
-            render={() => (
-              <Home />
-            )}
-          />
-          <Route
-            exact
-            path="/signin"
-            render={() => (
-              <SignInForm />
-            )}
-          />
-          <Route
-            exact
-            path="/signup"
-            render={() => (
-              <SignUpForm />
-            )}
-          />
-          <Route
-            exact
-            path="/signout"
-            render={() => (
-              <SignOutForm />
-            )}
-          />                    
-          <Route render={() => (<p>Not found</p>)} />
+            path="/user-profiles/:id"
+            render={() => <UserProfilePage />}
+          /> 
+          <Route render={() => <p>Not found</p>} />
         </Switch>
       </div>
     </div>

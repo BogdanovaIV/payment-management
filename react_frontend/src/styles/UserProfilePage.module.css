@@ -1,0 +1,35 @@
+.EditBar {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.Header {
+    font-weight: bold;
+    font-size: 28px;
+    line-height: 19px;
+    text-align: center;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--blue-color);
+    margin-bottom: 10px;
+  }
+  
+  .Link {
+    text-align: center;
+    display: block;
+    margin: auto;
+    font-weight: bold;
+    color: var(--red-color);
+    border-radius: 5px;
+    border-color: transparent;
+    border: ridge;
+    background-color: #ffffffab;
+    padding: 0px 5px;
+    margin: 0 10px 10px 0;
+  }
+.Link i {
+    color: var(--red-color);
+    margin-left: 5px;
+}

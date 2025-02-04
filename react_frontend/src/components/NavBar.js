@@ -27,7 +27,7 @@ const NavBar = () => {
       </NavLink>
       <NavLink
         className={styles.NavLink}
-        to={`/profiles/${currentUser?.profile_id}`}
+        to={`/user-profiles/${currentUser?.profile_id}`}
       >
         <i className="fa-solid fa-user-gear"></i>{currentUser?.full_name}
       </NavLink>
