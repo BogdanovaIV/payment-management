@@ -9,6 +9,8 @@ import Container from "react-bootstrap/Container";
 import styles from "../../styles/UserProfilePage.module.css";
 import inputStyles from "../../styles/Input.module.css";
 import bgImageStyles from "../../styles/BgImage.module.css";
+import btnStyles from "../../styles/Button.module.css";
+import headerStyles from "../../styles/Header.module.css";
 
 import backgroundImage from "../../assets/user-profile.jpg";
 
@@ -83,22 +85,22 @@ function UserProfilePage() {
       <Container className="pt-2">
         <Row className="mb-3">
           <Container>
-            <h1 className={styles.Header}>User profile</h1>
+            <h1 className={headerStyles.Header}>{t("auth.user_profile")}</h1>
           </Container>
         </Row>
         <Row>
-          <Col className="my-auto offset-lg-3" lg={6}>
+          <Col className="my-auto offset-lg-2" lg={8}>
             {is_owner ? (
               <>
                 <Container>
-                  <div className={styles.EditBar}>
+                  <div className={btnStyles.ButtonGroup}>
                     <Link
                       className={styles.Link}
                       to={`/user-profiles/${id}/edit`}
                       aria-label="edit-profile"
                     >
                       <i className="fa-solid fa-id-card" />
-                      Edit profile
+                      {t("button.edit_profile")}
                     </Link>
                     <Link
                       className={styles.Link}
@@ -106,7 +108,7 @@ function UserProfilePage() {
                       aria-label="edit-password"
                     >
                       <i className="fas fa-key" />
-                      Change password
+                      {t("button.change_password")}
                     </Link>
                   </div>
                 </Container>

@@ -16,7 +16,8 @@
     "confirm_new_password": "Confirm new password",
     "confirm_password": "Confirm password",
     "edit_user_profile": "Edit User's Profile",
-    "edit_user_password": "Edit User's Password"
+    "edit_user_password": "Edit User's Password",
+    "user_profile": "User's Profile"
   },
   "home": {
     "home": "Home",
@@ -28,6 +29,8 @@
   },
   "button": {
     "cancel": "Cancel",
-    "save": "Save"
+    "save": "Save",
+    "edit_profile": "Edit profile",
+    "change_password": "Change password"
   }
 }

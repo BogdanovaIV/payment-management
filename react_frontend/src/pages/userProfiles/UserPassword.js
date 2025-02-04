@@ -89,7 +89,7 @@ const UserPasswordForm = () => {
           </Container>
         </Row>
         <Row>
-          <Col className="my-auto offset-lg-3" lg={6}>
+          <Col className="my-auto offset-lg-2" lg={8}>
             <Container className="p-4">
               <Form onSubmit={handleSubmit}>
                 {fields.map(({ id, name, type, placeholder }) => (

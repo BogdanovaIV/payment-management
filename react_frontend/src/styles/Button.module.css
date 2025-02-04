@@ -118,3 +118,11 @@
     color: var(--green-color);
     border-color: var(--green-color);
 }
+
+/* Media query: extra small devices*/
+@media screen and (max-width: 576px) {
+    .ButtonGroup {
+        flex-direction: column;
+        justify-content: center;
+    } 
+}

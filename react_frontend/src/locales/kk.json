@@ -16,7 +16,8 @@
     "confirm_new_password": "Жаңа құпия сөзді растаңыз",
     "confirm_password": "Құпия сөзді растау",
     "edit_user_profile": "Пайдаланушы профилін өңдеу",
-    "edit_user_password": "Пайдаланушының құпия сөзін өңдеу"
+    "edit_user_password": "Пайдаланушының құпия сөзін өңдеу",
+    "user_profile": "Пайдаланушы профилі"
   },
   "home": {
     "home": "Басты бет",
@@ -28,6 +29,8 @@
   },
   "button": {
     "cancel": "Бас тарту",
-    "save": "Сақтау"
+    "save": "Сақтау",
+    "edit_profile": "Профильді өңдеу",
+    "change_password": "Құпия сөзді өзгерту"
   }
 }
