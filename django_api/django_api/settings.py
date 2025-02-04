@@ -46,6 +46,7 @@ REST_AUTH = {
     'JWT_AUTH_COOKIE': JWT_AUTH_COOKIE,
     'JWT_AUTH_REFRESH_COOKIE': JWT_AUTH_REFRESH_COOKIE,
     'JWT_AUTH_SAMESITE': JWT_AUTH_SAMESITE,
+    'JWT_AUTH_HTTPONLY': False,
     'USER_DETAILS_SERIALIZER': 'django_api.serializers.CurrentUserSerializer',
     "REGISTER_SERIALIZER": 'django_api.serializers.CustomRegisterSerializer'
 }

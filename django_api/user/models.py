@@ -12,6 +12,8 @@ class UserProfile(models.Model):
         defaults to False.
     """
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
     checked = models.BooleanField(default=False)
 
     class Meta:
