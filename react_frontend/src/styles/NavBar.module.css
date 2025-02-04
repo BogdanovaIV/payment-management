@@ -4,9 +4,25 @@
 }
 
 .NavLink {
-    padding: 5px;
-  }
+  padding: 5px;
+}
 
 .Active i {
-  color: #00A8CC;
+  color: #00a8cc;
+}
+
+.ToggleContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .ToggleContainer {
+    flex-direction: row-reverse;
+  }
+  .FlexStartToggle{
+    align-items:flex-start !important;
+  }
 }

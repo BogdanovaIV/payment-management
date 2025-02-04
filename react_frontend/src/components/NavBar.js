@@ -25,13 +25,15 @@ const NavBar = () => {
         activeClassName={styles.Active}
         to="/signout"
       >
-        <i className="fas fa-arrow-right-from-bracket"></i>{t("auth.sign_out")}
+        <i className="fas fa-arrow-right-from-bracket"></i>
+        {t("auth.sign_out")}
       </NavLink>
       <NavLink
         className={styles.NavLink}
         to={`/user-profiles/${currentUser?.profile_id}`}
       >
-        <i className="fa-solid fa-user-gear"></i>{UserProfileData?.full_name}
+        <i className="fa-solid fa-user-gear"></i>
+        {UserProfileData?.full_name}
       </NavLink>
     </>
   );
@@ -43,7 +45,8 @@ const NavBar = () => {
         activeClassName={styles.Active}
         to="/signin"
       >
-        <i className="fas fa-arrow-right-to-bracket"></i>{t("auth.sign_in")}
+        <i className="fas fa-arrow-right-to-bracket"></i>
+        {t("auth.sign_in")}
       </NavLink>
 
       <NavLink
@@ -51,7 +54,8 @@ const NavBar = () => {
         activeClassName={styles.Active}
         to="/signup"
       >
-        <i className="fas fa-user-plus"></i>{t("auth.sign_up")}
+        <i className="fas fa-user-plus"></i>
+        {t("auth.sign_up")}
       </NavLink>
     </>
   );
@@ -67,32 +71,34 @@ const NavBar = () => {
       expand="md"
       fixed="top"
     >
-      <Container>
+      <Container className={styles.FlexStartToggle}>
         <NavLink to="/">
           <Navbar.Brand>
             <img src={logo} alt="logo" height="45" />
           </Navbar.Brand>
         </NavLink>
-
-        <Navbar.Toggle
-          ref={ref}
-          onClick={() => setExpanded(!expanded)}
-          aria-controls="basic-navbar-nav"
-        />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="ml-auto text-left">
-            <NavLink
-              exact
-              className={styles.NavLink}
-              activeClassName={styles.Active}
-              to="/"
-            >
-              <i className="fas fa-home-user"></i>{t("home.home")}
-            </NavLink>
-            {currentUser ? loggedInIcons : loggedOutIcons}
-            <LanguageSelector />
-          </Nav>
-        </Navbar.Collapse>
+        <div className={`${styles.ToggleContainer} ${styles.FlexStartToggle}`}>
+          <Navbar.Toggle
+            ref={ref}
+            onClick={() => setExpanded(!expanded)}
+            aria-controls="basic-navbar-nav"
+          />
+          <Navbar.Collapse id="basic-navbar-nav">
+            <Nav className="ml-auto text-left">
+              <NavLink
+                exact
+                className={styles.NavLink}
+                activeClassName={styles.Active}
+                to="/"
+              >
+                <i className="fas fa-home-user"></i>
+                {t("home.home")}
+              </NavLink>
+              {currentUser ? loggedInIcons : loggedOutIcons}
+            </Nav>
+          </Navbar.Collapse>
+          <LanguageSelector />
+        </div>
       </Container>
     </Navbar>
   );
