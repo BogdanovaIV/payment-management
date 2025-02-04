@@ -15,7 +15,8 @@
     "password": "Құпия сөз",
     "confirm_new_password": "Жаңа құпия сөзді растаңыз",
     "confirm_password": "Құпия сөзді растау",
-    "edit_user_profile": "Пайдаланушы профилін өңдеу"
+    "edit_user_profile": "Пайдаланушы профилін өңдеу",
+    "edit_user_password": "Пайдаланушының құпия сөзін өңдеу"
   },
   "home": {
     "home": "Басты бет",

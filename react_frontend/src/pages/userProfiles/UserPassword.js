@@ -3,13 +3,11 @@ import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import axiosRes from "axios";
 
-import btnStyles from "../../styles/Button.module.css";
 import bgImageStyles from "../../styles/BgImage.module.css";
 import inputStyles from "../../styles/Input.module.css";
 import headerStyles from "../../styles/Header.module.css";
 
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
@@ -19,6 +17,7 @@ import backgroundImage from "../../assets/user-profile.jpg";
 
 import { useParams } from "react-router";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import SaveBar from "../../components/SaveBar";
 
 const UserPasswordForm = () => {
   const { t } = useTranslation();
@@ -71,6 +70,7 @@ const UserPasswordForm = () => {
       await axiosRes.post("/dj-rest-auth/password/change/", userData);
       history.goBack();
     } catch (err) {
+      console.log(err);
       setErrors(err.response?.data);
     }
   };
@@ -85,7 +85,7 @@ const UserPasswordForm = () => {
       <Container className="pt-2">
         <Row>
           <Container>
-            <h1 className={headerStyles.Header}>{t("auth.edit_user_profile")}</h1>
+            <h1 className={headerStyles.Header}>{t("auth.edit_user_password")}</h1>
           </Container>
         </Row>
         <Row>
@@ -110,23 +110,7 @@ const UserPasswordForm = () => {
                     ))}
                   </Form.Group>
                 ))}
-                <div className={btnStyles.ButtonGroup}>
-                  <Button
-                    className={`${btnStyles.ButtonTransparent} ${btnStyles.RedTransparent}`}
-                    onClick={() => history.goBack()}
-                  >
-                    <i class="fa-solid fa-circle-xmark"></i>
-                    {t("button.cancel")}
-                  </Button>
-
-                  <Button
-                    className={`${btnStyles.ButtonTransparent} ${btnStyles.GreenTransparent}`}
-                    type="submit"
-                  >
-                    <i class="fa-solid fa-floppy-disk"></i>
-                    {t("button.save")}
-                  </Button>
-                </div>
+                <SaveBar />
                 {errors.non_field_errors?.map((message, idx) => (
                   <Alert key={idx} variant="warning" className="mt-3">
                     {message}

@@ -2,13 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-import styles from "../../styles/UserProfilePage.module.css";
-import btnStyles from "../../styles/Button.module.css";
 import bgImageStyles from "../../styles/BgImage.module.css";
 import inputStyles from "../../styles/Input.module.css";
+import headerStyles from "../../styles/Header.module.css";
 
 import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
@@ -20,6 +18,7 @@ import axiosReq from "axios";
 import { useParams } from "react-router";
 import { useSetUserProfileData } from "../../contexts/ProfileDataContext";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import SaveBar from "../../components/SaveBar";
 
 const UserProfileEditForm = () => {
   const { t } = useTranslation();
@@ -131,7 +130,7 @@ const UserProfileEditForm = () => {
       <Container className="pt-2">
         <Row>
           <Container>
-            <h1 className={styles.Header}>Edit User Profile</h1>
+            <h1 className={headerStyles.Header}>{t("auth.edit_user_profile")}</h1>
           </Container>
         </Row>
         <Row>
@@ -160,12 +159,7 @@ const UserProfileEditForm = () => {
                   )
                 )}
 
-                <Button
-                  className={`${btnStyles.Button} ${btnStyles.Wide} ${btnStyles.Blue}`}
-                  type="submit"
-                >
-                  Save
-                </Button>
+                <SaveBar />
                 {errors.non_field_errors?.map((message, idx) => (
                   <Alert key={idx} variant="warning" className="mt-3">
                     {message}

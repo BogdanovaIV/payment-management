@@ -15,7 +15,8 @@
     "password": "Пароль",
     "confirm_new_password": "Подтвердите новый пароль",
     "confirm_password": "Подтвердите пароль",
-    "edit_user_profile": "Редактировать профиль пользователя"
+    "edit_user_profile": "Редактировать профиль пользователя",
+    "edit_user_password": "Редактировать пароль пользователя"
   },
   "home": {
     "home": "Главная",
