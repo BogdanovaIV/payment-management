@@ -18,3 +18,9 @@ p {
     background-color: rgba(var(--white-color-rgb), 0.7);
 }
   
+/* Media query: extra small devices*/
+@media screen and (max-width: 576px) {
+    .Header {
+        font-size: 30px;
+    }
+}

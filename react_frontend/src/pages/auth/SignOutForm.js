@@ -9,9 +9,10 @@ import Container from "react-bootstrap/Container";
 
 import { useHistory } from "react-router-dom";
 
-import styles from "../../styles/SignInUpForm.module.css";
+import styles from "../../styles/SignOutForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import bgImageStyles from "../../styles/BgImage.module.css";
+import headerStyles from "../../styles/Header.module.css";
 
 import backgroundImage from "../../assets/signout.jpg";
 
@@ -43,7 +44,7 @@ function SignOutForm() {
       <Container className="pt-2">
         <Row className="pb-5">
           <Container>
-            <h1 className={styles.Header}>{t("auth.sign_out")}</h1>
+            <h1 className={headerStyles.Header}>{t("auth.sign_out")}</h1>
             <p className={styles.QuestionParagraph}>{t("auth.sign_out_question")}</p>
           </Container>
         </Row>
