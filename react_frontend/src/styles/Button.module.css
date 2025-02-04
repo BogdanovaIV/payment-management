@@ -16,17 +16,46 @@
     cursor: pointer;
 }
 
-.Button:hover:active {
-    background-color: var(--blue-color) !important;
-}
-
+.Button:hover:active,
 .Button:active {
     background-color: var(--blue-color) !important;
 }
 
+
 .Button:focus {
     background-color: var(--blue-color);
 }
+
+.ButtonGroup {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+} 
+
+.ButtonTransparent {
+    font-weight: bold;
+    text-transform: uppercase;
+    align-self: center;
+    background-color: var(--white-transparent-color);
+    border: ridge;
+    border-radius: 5px;
+    padding: 0px 5px;
+    margin: 0 10px 10px 0;
+    min-width: 125px;
+}
+
+.ButtonTransparent:hover:active,
+.ButtonTransparent:active {
+    background-color: var(--grey-color) !important;
+}
+
+
+.ButtonTransparent:focus {
+    background-color: var(--grey-color);
+}
+
+
 
 .Wide {
     width: 100%;
@@ -51,4 +80,26 @@
 .Orange:hover {
     background-color:  var(--white-color);
     color: var(--orange-color);
+}
+
+.Green {
+    background-color: var(--green-color);
+    color: var(--white-color);
+}
+
+.Green:hover {
+    background-color:  var(--white-color);
+    color: var(--green-color);
+}
+
+.OrangeTransparent,
+.OrangeTransparent i {
+    color: var(--orange-color);
+    border-color: var(--orange-color);
+}
+
+.GreenTransparent,
+.GreenTransparent i {
+    color: var(--green-color);
+    border-color: var(--green-color);
 }

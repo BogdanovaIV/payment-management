@@ -10,6 +10,7 @@ import SignOutForm from "./pages/auth/SignOutForm";
 import Home from "./pages/home/Home";
 import UserProfilePage from "./pages/userProfiles/UserProfilePage";
 import UserProfileEditForm from "./pages/userProfiles/UserProfileEditForm";
+import UserPasswordForm from "./pages/userProfiles/UserPassword";
 
 function App() {
   return (
@@ -30,6 +31,11 @@ function App() {
             exact
             path="/user-profiles/:id/edit"
             render={() => <UserProfileEditForm />}
+          />
+          <Route
+            exact
+            path="/user-profiles/:id/edit/password"
+            render={() => <UserPasswordForm />}
           /> 
           <Route render={() => <p>Not found</p>} />
         </Switch>
