@@ -24,7 +24,7 @@ function SignOutForm() {
 
   const handleSignOut = async () => {
     try {
-      await axios.post("dj-rest-auth/logout/");
+      await axios.post("/dj-rest-auth/logout/");
       setCurrentUser(null);
       history.push("/");
     } catch (err) {
