@@ -7,9 +7,9 @@ class UserProfileSerializer(serializers.ModelSerializer):
     """
     Serializer for the UserProfile model.
 
-    This serializer includes additional fields related to the associated User model, 
-    allowing controlled access to user details. It also provides functionality to update 
-    related user attributes within a transaction.
+    This serializer includes additional fields related to the associated User
+    model, allowing controlled access to user details. It also provides
+    functionality to update related user attributes within a transaction.
 
     Fields:
         id (int): The primary key of the UserProfile instance.
@@ -19,7 +19,8 @@ class UserProfileSerializer(serializers.ModelSerializer):
         email (str): The email of the associated User (required).
         full_name (str): The full name of the associated User (read-only).
         checked (bool): Indicates whether the UserProfile has been checked.
-        is_owner (bool): Indicates whether the requesting user is the owner of the profile.
+        is_owner (bool): Indicates whether the requesting user is the owner of
+        the profile.
     """
 
     id = serializers.ReadOnlyField()
