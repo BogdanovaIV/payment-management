@@ -11,16 +11,6 @@ export const setTokenTimestamp = (data) => {
   } else {
     console.warn("Refresh token is missing.");
   }
-
-  // If access token is present, handle it as well
-  if (data?.access) {
-    try {
-      const accessTokenTimestamp = jwtDecode(data.access).exp;
-      localStorage.setItem("accessTokenTimestamp", accessTokenTimestamp);
-    } catch (error) {
-      console.error("Error decoding access token:", error);
-    }
-  }
 };
 
 export const shouldRefreshToken = () => {

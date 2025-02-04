@@ -12,15 +12,11 @@ class CurrentUserSerializer(UserDetailsSerializer):
 
     """
 
-    user_profile_id = serializers.ReadOnlyField(source='userprofile.id')
-    checked = serializers.ReadOnlyField(source='userprofile.checked')
-    full_name = serializers.ReadOnlyField(source='get_full_name')
+    profile_id = serializers.ReadOnlyField(source='userprofile.id')
 
     class Meta(UserDetailsSerializer.Meta):
         fields = UserDetailsSerializer.Meta.fields + (
-            'user_profile_id',
-            'full_name',
-            'checked',
+            'profile_id',
         )
 
 
