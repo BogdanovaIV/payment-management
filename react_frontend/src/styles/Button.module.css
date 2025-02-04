@@ -45,14 +45,23 @@
     min-width: 125px;
 }
 
-.ButtonTransparent:hover:active,
-.ButtonTransparent:active {
+.ButtonTransparent:hover,
+.ButtonTransparent:hover i,
+.ButtonTransparent:focus,
+.ButtonTransparent:focus i{
+    color: var(--white-color) !important;
     background-color: var(--grey-color) !important;
+    border-color: var(--grey-color);
+    outline: none !important;
 }
 
+.ButtonTransparent:active {
+    background-color: var(--grey-color) !important;
+    outline: none !important;
+}
 
 .ButtonTransparent:focus {
-    background-color: var(--grey-color);
+    background-color: var(--grey-color) !important;
 }
 
 
@@ -90,6 +99,12 @@
 .Green:hover {
     background-color:  var(--white-color);
     color: var(--green-color);
+}
+
+.RedTransparent,
+.RedTransparent i {
+    color: var(--red-color);
+    border-color: var(--red-color);
 }
 
 .OrangeTransparent,

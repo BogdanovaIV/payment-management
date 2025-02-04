@@ -112,7 +112,7 @@ const UserPasswordForm = () => {
                 ))}
                 <div className={btnStyles.ButtonGroup}>
                   <Button
-                    className={`${btnStyles.ButtonTransparent} ${btnStyles.OrangeTransparent}`}
+                    className={`${btnStyles.ButtonTransparent} ${btnStyles.RedTransparent}`}
                     onClick={() => history.goBack()}
                   >
                     <i class="fa-solid fa-circle-xmark"></i>
