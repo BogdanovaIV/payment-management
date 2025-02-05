@@ -14,7 +14,7 @@ import Alert from "react-bootstrap/Alert";
 
 import backgroundImage from "../../assets/user-profile.jpg";
 
-import axiosReq from "axios";
+import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import { useParams } from "react-router";
 import { useSetUserProfileData } from "../../contexts/ProfileDataContext";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
@@ -77,7 +77,7 @@ const UserProfileEditForm = () => {
     const handleMount = async () => {
       if (currentUser?.profile_id?.toString() === id) {
         try {
-          const { data } = await axiosReq.get(`/user-profiles/${id}/`);
+          const { data } = await axiosRes.get(`/user-profiles/${id}/`);
           setProfileData({
             username: data.username,
             firstName: data.first_name,
@@ -85,7 +85,9 @@ const UserProfileEditForm = () => {
             email: data.email,
           });
         } catch (err) {
-          console.log(err);
+          if (process.env.NODE_ENV === "development") {
+            console.log(err);
+          }
           history.goBack();
         }
       } else {
@@ -117,7 +119,6 @@ const UserProfileEditForm = () => {
       history.goBack();
     } catch (err) {
       setErrors(err.response?.data);
-      console.log(err.response?.data);
     }
   };
   const backgroundStyle = {
@@ -130,7 +131,9 @@ const UserProfileEditForm = () => {
       <Container className="pt-2">
         <Row>
           <Container>
-            <h1 className={headerStyles.Header}>{t("auth.edit_user_profile")}</h1>
+            <h1 className={headerStyles.Header}>
+              {t("auth.edit_user_profile")}
+            </h1>
           </Container>
         </Row>
         <Row>

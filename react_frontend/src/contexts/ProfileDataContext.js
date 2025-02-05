@@ -26,18 +26,18 @@ export const UserProfileDataProvider = ({ children }) => {
           setUserProfileData(null);
         }
       } catch (err) {
-        console.log(err);
+        if (process.env.NODE_ENV === "development") {
+          console.log(err);
+        }
       }
     };
-  
+
     handleMount();
   }, [currentUser]);
 
   return (
     <UserProfileDataContext.Provider value={userProfileData}>
-      <SetUserProfileDataContext.Provider
-        value={setUserProfileData}
-      >
+      <SetUserProfileDataContext.Provider value={setUserProfileData}>
         {children}
       </SetUserProfileDataContext.Provider>
     </UserProfileDataContext.Provider>

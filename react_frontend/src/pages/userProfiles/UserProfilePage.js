@@ -16,9 +16,9 @@ import backgroundImage from "../../assets/user-profile.jpg";
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { useParams } from "react-router";
-import axios from "axios";
 import SpinnerSecondary from "../../components/Spinners";
 import { Link } from "react-router-dom";
+import { axiosRes } from "../../api/axiosDefaults";
 
 function UserProfilePage() {
   const { t } = useTranslation();
@@ -31,11 +31,13 @@ function UserProfilePage() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axios.get(`/user-profiles/${id}/`);
+        const { data } = await axiosRes.get(`/user-profiles/${id}/`);
         setProfile(data);
         setHasLoaded(true);
       } catch (err) {
-        console.log(err);
+        if (process.env.NODE_ENV === "development") {
+          console.log(err);
+        }
       }
     };
     fetchData();

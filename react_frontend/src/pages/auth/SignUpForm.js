@@ -109,7 +109,6 @@ const SignUpForm = () => {
       history.push("/");
     } catch (err) {
       setErrors(err.response?.data);
-      console.log(err.response?.data);
     }
   };
   const backgroundStyle = {

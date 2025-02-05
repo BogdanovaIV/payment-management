@@ -29,7 +29,9 @@ function SignOutForm() {
       setCurrentUser(null);
       history.push("/");
     } catch (err) {
-      console.log(err);
+      if (process.env.NODE_ENV === "development") {
+        console.log(err);
+      }
     }
   };
 
@@ -45,7 +47,9 @@ function SignOutForm() {
         <Row className="pb-5">
           <Container>
             <h1 className={headerStyles.Header}>{t("auth.sign_out")}</h1>
-            <p className={styles.QuestionParagraph}>{t("auth.sign_out_question")}</p>
+            <p className={styles.QuestionParagraph}>
+              {t("auth.sign_out_question")}
+            </p>
           </Container>
         </Row>
         <Row className="justify-content-center">

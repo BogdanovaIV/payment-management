@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import axiosRes from "axios";
 
 import bgImageStyles from "../../styles/BgImage.module.css";
 import inputStyles from "../../styles/Input.module.css";
@@ -18,6 +17,7 @@ import backgroundImage from "../../assets/user-profile.jpg";
 import { useParams } from "react-router";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import SaveBar from "../../components/SaveBar";
+import { axiosReq } from "../../api/axiosDefaults";
 
 const UserPasswordForm = () => {
   const { t } = useTranslation();
@@ -67,10 +67,12 @@ const UserPasswordForm = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axiosRes.post("/dj-rest-auth/password/change/", userData);
+      await axiosReq.post("/dj-rest-auth/password/change/", userData);
       history.goBack();
     } catch (err) {
-      console.log(err);
+      if (process.env.NODE_ENV === "development") {
+        console.log(err);
+      }
       setErrors(err.response?.data);
     }
   };
@@ -85,7 +87,9 @@ const UserPasswordForm = () => {
       <Container className="pt-2">
         <Row>
           <Container>
-            <h1 className={headerStyles.Header}>{t("auth.edit_user_password")}</h1>
+            <h1 className={headerStyles.Header}>
+              {t("auth.edit_user_password")}
+            </h1>
           </Container>
         </Row>
         <Row>
