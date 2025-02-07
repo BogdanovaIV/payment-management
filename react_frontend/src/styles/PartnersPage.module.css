@@ -70,3 +70,12 @@
     top: auto;
   }
 }
+
+.ClickableRow {
+  cursor: pointer;
+  transition: ease 0.3s;
+}
+
+.ClickableRow:hover {
+  background: rgba(var(--orange-color-rgb), 0.10) !important
+}

@@ -39,6 +39,11 @@ function App() {
             render={() => <UserPasswordForm />}
           />
           <Route exact path="/partners" render={() => <PartnersPage />} />
+          <Route
+            exact
+            path="/partners/:id"
+            render={() => <p>Partner edit page</p>}
+          />
           <Route render={() => <p>Not found</p>} />
         </Switch>
       </div>

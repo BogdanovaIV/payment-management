@@ -1,5 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Form, Container, Row, Col, Button } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
+import Form from "react-bootstrap/Form";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
 import { useTable } from "react-table";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { getPartners, getPartnerTypes, getNextPage } from "../../api/axiosURL";
@@ -16,7 +21,14 @@ const PartnersPage = () => {
     is_own: "",
   });
   const [partnerTypes, setPartnerTypes] = useState([]);
-  const [showFilters, setShowFilters] = useState(true); // State to toggle filter visibility
+  const [showFilters, setShowFilters] = useState(true);
+
+  const history = useHistory();
+
+  const handleRowClick = (partner) => {
+    console.log(partner);
+    history.push(`/partners/${partner.id}`);
+  };
 
   useEffect(() => {
     fetchPartnerTypes();
@@ -101,7 +113,9 @@ const PartnersPage = () => {
   return (
     <Container className={styles.Main}>
       <div className={`${styles.HeaderContainer} mb-3`}>
-        <h1 className={`${headerStyles.Header} ${headerStyles.MarginTop5} text-center flex-grow-1`}>
+        <h1
+          className={`${headerStyles.Header} ${headerStyles.MarginTop5} text-center flex-grow-1`}
+        >
           Partners
         </h1>
         <Button
@@ -194,7 +208,11 @@ const PartnersPage = () => {
                 {rows.map((row) => {
                   prepareRow(row);
                   return (
-                    <tr {...row.getRowProps()}>
+                    <tr
+                      {...row.getRowProps()}
+                      onClick={() => handleRowClick(row.original)}
+                      className={styles.ClickableRow}
+                    >
                       {row.cells.map((cell) => (
                         <td
                           className={styles.TableHeaderTd}
