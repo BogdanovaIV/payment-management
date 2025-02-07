@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import "./utils/i18n";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
@@ -8,12 +9,16 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { CurrentUserProvider } from "./contexts/CurrentUserContext";
 import { UserProfileDataProvider } from "./contexts/ProfileDataContext";
 
+const queryClient = new QueryClient()
+
 ReactDOM.render(
   <React.StrictMode>
     <Router>
       <CurrentUserProvider>
         <UserProfileDataProvider>
-          <App />
+          <QueryClientProvider client={queryClient}>
+            <App />
+          </QueryClientProvider>
         </UserProfileDataProvider>
       </CurrentUserProvider>
     </Router>

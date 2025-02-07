@@ -119,6 +119,12 @@
     border-color: var(--green-color);
 }
 
+.BlueTransparent,
+.BlueTransparent i {
+    color: var(--blue-color);
+    border-color: var(--blue-color);
+}
+
 /* Media query: extra small devices*/
 @media screen and (max-width: 576px) {
     .ButtonGroup {

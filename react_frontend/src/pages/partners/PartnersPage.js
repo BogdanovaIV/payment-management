@@ -1,14 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { Form, Container, Row, Col } from "react-bootstrap";
+import React, { useState, useRef, useEffect } from "react";
+import { Form, Container, Row, Col, Button } from "react-bootstrap";
 import { useTable } from "react-table";
+import { useInfiniteQuery } from "@tanstack/react-query";
 import { getPartners, getPartnerTypes, getNextPage } from "../../api/axiosURL";
 import headerStyles from "../../styles/Header.module.css";
-import InfiniteScroll from "react-infinite-scroll-component";
+import btnStyles from "../../styles/Button.module.css";
+import styles from "../../styles/PartnersPage.module.css";
 import SpinnerSecondary from "../../components/Spinners";
 
 const PartnersPage = () => {
-  const [partners, setPartners] = useState([]);
-  const [hasLoaded, setHasLoaded] = useState(false);
   const [filters, setFilters] = useState({
     trade_name: "",
     bin: "",
@@ -16,7 +16,7 @@ const PartnersPage = () => {
     is_own: "",
   });
   const [partnerTypes, setPartnerTypes] = useState([]);
-  const [nextPage, setNextPage] = useState(null);
+  const [showFilters, setShowFilters] = useState(true); // State to toggle filter visibility
 
   useEffect(() => {
     fetchPartnerTypes();
@@ -25,69 +25,25 @@ const PartnersPage = () => {
   const fetchPartnerTypes = async () => {
     try {
       const response = await getPartnerTypes();
-      setPartnerTypes(
-        Array.isArray(response.data.results) ? response.data.results : []
-      );
+      setPartnerTypes(response.data.results || []);
     } catch (error) {
-      if (process.env.NODE_ENV === "development") {
-        console.error("Error fetching partner types:", error);
-      }
+      console.error("Error fetching partner types:", error);
     }
   };
 
-  useEffect(() => {
-    setHasLoaded(false);
-    const timer = setTimeout(() => {
-      fetchPartners(true);
-    }, 1000);
+  const { data, fetchNextPage, hasNextPage, isFetching, isLoading, refetch } =
+    useInfiniteQuery({
+      queryKey: ["partners", filters],
+      queryFn: async ({ pageParam = null }) => {
+        const response = pageParam
+          ? await getNextPage(pageParam)
+          : await getPartners(filters);
+        return response.data;
+      },
+      getNextPageParam: (lastPage) => lastPage.next || undefined,
+    });
 
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [filters]);
-
-  const fetchPartners = async (reset = false) => {
-    try {
-      const response = await getPartners(filters);
-      setPartners(
-        reset
-          ? Array.isArray(response.data.results)
-            ? response.data.results
-            : []
-          : [...partners, ...(response.data.results || [])]
-      );
-      setNextPage(response.data.next);
-      setHasLoaded(true);
-    } catch (error) {
-      if (process.env.NODE_ENV === "development") {
-        console.error("Error fetching partners:", error);
-      }
-    }
-  };
-
-  const loadMorePartners = async () => {
-    if (!nextPage) return;
-    try {
-      const response = await getNextPage(nextPage);
-      console.log(response.data);
-      setPartners((prevPartners) => {
-        const existingIds = new Set(prevPartners.map((p) => p.id));
-  
-        // Add only new partners that aren't already in prevPartners
-        const newPartners = response.data.results.filter(
-          (p) => !existingIds.has(p.id)
-        );
-  
-        return [...prevPartners, ...newPartners];
-      });
-  
-      setNextPage(response.data.next);
-    } catch (error) {
-      if (process.env.NODE_ENV === "development") {
-        console.error("Error loading more partners:", error);
-      }
-    }
-  };
+  const partners = data?.pages.flatMap((page) => page.results) || [];
 
   const columns = React.useMemo(
     () => [
@@ -106,112 +62,154 @@ const PartnersPage = () => {
     []
   );
 
-  const data = React.useMemo(() => partners, [partners]);
-
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data });
+    useTable({ columns, data: partners });
+
+  const tableBodyRef = useRef(null);
+
+  useEffect(() => {
+    if (!hasNextPage || isFetching) return;
+
+    const tableBody = tableBodyRef.current;
+    if (!tableBody) return;
+
+    const lastRow = tableBody.lastElementChild;
+    if (!lastRow) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const lastEntry = entries[0];
+        if (lastEntry.isIntersecting) {
+          fetchNextPage();
+        }
+      },
+      { root: null, rootMargin: "80px", threshold: 1.0 }
+    );
+
+    observer.observe(lastRow);
+
+    return () => {
+      if (lastRow) observer.unobserve(lastRow);
+    };
+  }, [hasNextPage, isFetching, fetchNextPage, data]);
 
   const handleFilterChange = (e) => {
     setFilters({ ...filters, [e.target.name]: e.target.value });
+    refetch();
   };
 
   return (
-    <Container>
-      <h1 className={headerStyles.Header}>Partners</h1>
-      <Form>
-        <Row>
-          <Col>
-            <Form.Control
-              type="text"
-              name="trade_name"
-              placeholder="Search by Trade Name"
-              value={filters.trade_name}
-              onChange={handleFilterChange}
-            />
-          </Col>
-          <Col>
-            <Form.Control
-              type="text"
-              name="bin"
-              placeholder="Search by BIN"
-              value={filters.bin}
-              onChange={handleFilterChange}
-            />
-          </Col>
-          <Col>
-            <Form.Control
-              as="select"
-              name="is_own"
-              value={filters.is_own}
-              onChange={(e) =>
-                setFilters({ ...filters, is_own: e.target.value })
-              }
-            >
-              <option value="">All Partners</option>
-              <option value="true">Own Partner</option>
-              <option value="false">Non-own Partner</option>
-            </Form.Control>
-          </Col>
-          <Col>
-            <Form.Control
-              as="select"
-              name="partner_type"
-              value={filters.partner_type}
-              onChange={handleFilterChange}
-            >
-              <option value="">All Types</option>
-              {partnerTypes.map((type) => (
-                <option key={type.label} value={type.value}>
-                  {type.label}
-                </option>
-              ))}
-            </Form.Control>
-          </Col>
-        </Row>
-      </Form>
-      {hasLoaded ? (
+    <Container className={styles.Main}>
+      <div className={`${styles.HeaderContainer} mb-3`}>
+        <h1 className={`${headerStyles.Header} ${headerStyles.MarginTop5} text-center flex-grow-1`}>
+          Partners
+        </h1>
+        <Button
+          className={`${btnStyles.ButtonTransparent} ${btnStyles.OrangeTransparent} ${styles.ButtonFilter}`}
+          onClick={() => setShowFilters(!showFilters)}
+        >
+          <i class="fa-solid fa-magnifying-glass"></i>
+          {showFilters ? "Hide Filters" : "Show Filters"}
+        </Button>
+      </div>
+
+      {/* Filters Section */}
+      {showFilters && (
+        <Form className="mb-3">
+          <Row>
+            <Col xs={12} md={3} className="mb-1">
+              <Form.Control
+                type="text"
+                name="trade_name"
+                className={styles.Input}
+                placeholder="Search by Trade Name"
+                value={filters.trade_name}
+                onChange={handleFilterChange}
+              />
+            </Col>
+            <Col xs={12} md={3} className="mb-1">
+              <Form.Control
+                type="text"
+                name="bin"
+                className={styles.Input}
+                placeholder="Search by BIN"
+                value={filters.bin}
+                onChange={handleFilterChange}
+              />
+            </Col>
+            <Col xs={12} md={3} className="mb-1">
+              <Form.Control
+                as="select"
+                name="is_own"
+                className={styles.Input}
+                value={filters.is_own}
+                onChange={handleFilterChange}
+              >
+                <option value="">All Partners</option>
+                <option value="true">Own Partner</option>
+                <option value="false">Non-own Partner</option>
+              </Form.Control>
+            </Col>
+            <Col xs={12} md={3} className="mb-1">
+              <Form.Control
+                as="select"
+                name="partner_type"
+                className={styles.Input}
+                value={filters.partner_type}
+                onChange={handleFilterChange}
+              >
+                <option value="">All Types</option>
+                {partnerTypes.map((type) => (
+                  <option key={type.label} value={type.value}>
+                    {type.label}
+                  </option>
+                ))}
+              </Form.Control>
+            </Col>
+          </Row>
+        </Form>
+      )}
+
+      {isLoading ? (
+        <SpinnerSecondary />
+      ) : (
         <>
-          <InfiniteScroll
-            dataLength={partners.length}
-            next={loadMorePartners}
-            hasMore={!!nextPage}
-            loader={<p>Loading more partners...</p>}
-          >
-            {" "}
-            <table {...getTableProps()} className="table table-striped mt-3">
-              <thead>
+          <div className={styles.TableDiv}>
+            <table {...getTableProps()} className={`${styles.Table} table`}>
+              <thead className={styles.TableHeader}>
                 {headerGroups.map((headerGroup) => (
                   <tr {...headerGroup.getHeaderGroupProps()}>
                     {headerGroup.headers.map((column) => (
-                      <th {...column.getHeaderProps()}>
+                      <th
+                        className={styles.TableHeaderTh}
+                        {...column.getHeaderProps()}
+                      >
                         {column.render("Header")}
                       </th>
                     ))}
                   </tr>
                 ))}
               </thead>
-              <tbody {...getTableBodyProps()}>
+              <tbody {...getTableBodyProps()} ref={tableBodyRef}>
                 {rows.map((row) => {
                   prepareRow(row);
                   return (
                     <tr {...row.getRowProps()}>
-                      {row.cells.map((cell) => {
-                        return (
-                          <td {...cell.getCellProps()}>
-                            {cell.render("Cell")}
-                          </td>
-                        );
-                      })}
+                      {row.cells.map((cell) => (
+                        <td
+                          className={styles.TableHeaderTd}
+                          {...cell.getCellProps()}
+                        >
+                          {cell.render("Cell")}
+                        </td>
+                      ))}
                     </tr>
                   );
                 })}
               </tbody>
             </table>
-          </InfiniteScroll>{" "}
-        </>
-      ) : (
-        <>
-          <SpinnerSecondary />
+          </div>
+          {isFetching && <SpinnerSecondary />}
         </>
       )}
     </Container>

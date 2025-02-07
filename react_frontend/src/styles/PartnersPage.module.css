@@ -1,0 +1,72 @@
+.Main {
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 90px);
+}
+
+.HeaderContainer {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  position: relative !important;
+}
+
+.TableDiv {
+  overflow-y: auto;
+  border: 2px solid var(--blue-color);
+  border-radius: 5px;
+  box-shadow: 0px 4px 8px var(--blue-color);
+  flex-grow: 1;
+}
+
+.Table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.TableHeader {
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 10;
+  border-radius: 5px 5px 0 0;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.TableHeaderTh {
+  vertical-align: text-top !important;
+  padding: 0.5rem !important;
+  background-color: rgba(var(--blue-color-rgb), 0.15);
+}
+
+.Table tbody tr:nth-of-type(odd) {
+  background-color: rgba(var(--blue-color-rgb), 0.05);
+}
+
+.TableHeaderTd {
+  vertical-align: text-top !important;
+  padding: 0.5rem !important;
+}
+
+.ButtonFilter {
+  position: absolute !important;
+  left: 0;
+  top: 5px;
+}
+
+.Input {
+  border: 1px solid var(--blue-color);
+  color: var(--blue-color);
+}
+
+@media screen and (max-width: 768px) {
+  .HeaderContainer {
+    flex-direction: column;
+  }
+
+  .ButtonFilter {
+    position: static !important;
+    left: auto;
+    top: auto;
+  }
+}
