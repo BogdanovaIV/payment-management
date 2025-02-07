@@ -28,7 +28,7 @@ REST_FRAMEWORK = {
     'DATETIME_FORMAT': '%d %b %Y',
 }
 
-if config('DEBUG', default=''):
+if config('DEBUG', default=False, cast=bool):
     REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
         'rest_framework.renderers.JSONRenderer',
     ]
@@ -97,7 +97,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'dj_rest_auth.registration',
     'corsheaders',
+    'django_filters',
     'user',
+    'partner'
 ]
 
 SITE_ID = 1
