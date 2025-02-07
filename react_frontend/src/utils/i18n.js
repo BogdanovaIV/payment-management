@@ -1,7 +1,7 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-import { getLanguage } from './utils';
+import { getLanguage } from './localStorage';
 
 import en from '../locales/en.json';
 import kk from '../locales/kk.json';

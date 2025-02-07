@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
-import { setLanguage } from "../utils/utils";
+import { setLanguage } from "../utils/localStorage";
 
 import flagEn from "../assets/flag-en.png";
 import flagKk from "../assets/flag-kk.png";

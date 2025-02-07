@@ -18,7 +18,7 @@ import backgroundImage from "../../assets/signup.jpg";
 
 import axios from "axios";
 import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
-import { setTokenTimestamp } from "../../utils/utils";
+import { setTokenTimestamp } from "../../utils/localStorage";
 
 const SignUpForm = () => {
   const { t } = useTranslation();

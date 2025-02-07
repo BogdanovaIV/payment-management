@@ -19,7 +19,7 @@ import inputStyles from "../../styles/Input.module.css"
 import backgroundImage from "../../assets/signin.jpg";
 
 import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
-import { setTokenTimestamp } from "../../utils/utils";
+import { setTokenTimestamp } from "../../utils/localStorage";
 
 function SignInForm() {
   const { t } = useTranslation();
