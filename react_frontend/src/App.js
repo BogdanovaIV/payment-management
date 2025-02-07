@@ -11,6 +11,7 @@ import Home from "./pages/home/Home";
 import UserProfilePage from "./pages/userProfiles/UserProfilePage";
 import UserProfileEditForm from "./pages/userProfiles/UserProfileEditForm";
 import UserPasswordForm from "./pages/userProfiles/UserPassword";
+import PartnersPage from "./pages/partners/PartnersPage";
 
 function App() {
   return (
@@ -36,7 +37,8 @@ function App() {
             exact
             path="/user-profiles/:id/edit/password"
             render={() => <UserPasswordForm />}
-          /> 
+          />
+          <Route exact path="/partners" render={() => <PartnersPage />} />
           <Route render={() => <p>Not found</p>} />
         </Switch>
       </div>
