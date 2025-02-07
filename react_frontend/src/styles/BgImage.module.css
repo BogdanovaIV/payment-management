@@ -1,6 +1,6 @@
 .BgImage {
   position: relative;
-  min-height: calc(100vh - 70px);
+  min-height: calc(100vh - 75px);
 }
 
 .BgImage::before {
@@ -17,4 +17,11 @@
 .BgImage > * {
   position: relative;
   z-index: 2;
+}
+
+@media screen and (max-width: 991px) {
+  .BgImage {
+    position: relative;
+    min-height: calc(100vh - 65px);
+  }  
 }

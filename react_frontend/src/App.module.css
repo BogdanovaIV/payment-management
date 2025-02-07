@@ -5,7 +5,7 @@
 }
 
 .Main {
-  padding-top: 65px;
+  padding-top: 75px;
 }
 
 * {
@@ -33,4 +33,11 @@ i:hover {
   cursor: pointer;
   transition: color ease-in-out 0.3s;
   color: var(--grey-color);
+}
+
+
+@media screen and (max-width: 991px) {
+  .Main {
+    padding-top: 65px;
+  }
 }

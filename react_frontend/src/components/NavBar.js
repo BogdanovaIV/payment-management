@@ -2,6 +2,7 @@ import React from "react";
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
+import NavDropdown from "react-bootstrap/NavDropdown";
 import { NavLink } from "react-router-dom";
 import logo from "../assets/logo.png";
 import styles from "../styles/NavBar.module.css";
@@ -20,6 +21,26 @@ const NavBar = () => {
 
   const loggedInIcons = (
     <>
+      <NavDropdown
+        className={styles.NavDropdown}
+        title={
+          <>
+            <i className="fas fa-book"></i> Dictionaries
+          </>
+        }
+        id="dictionaries-dropdown"
+      >
+        <NavDropdown.Item>
+          <NavLink
+            to="/partners"
+            className={styles.NavLink}
+            activeClassName={styles.Active}
+          >
+            <i className="fas fa-users"></i>
+            Partners
+          </NavLink>
+        </NavDropdown.Item>
+      </NavDropdown>
       <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
@@ -68,10 +89,12 @@ const NavBar = () => {
     <Navbar
       expanded={expanded}
       className={`pb-1 pt-1 ${styles.NavBar}`}
-      expand="md"
+      expand="lg"
       fixed="top"
     >
-      <Container className={styles.FlexStartToggle}>
+      <Container
+        className={`${styles.NavbarContainer} ${styles.FlexStartToggle}`}
+      >
         <NavLink to="/">
           <Navbar.Brand>
             <img src={logo} alt="logo" height="45" />
@@ -96,8 +119,8 @@ const NavBar = () => {
               </NavLink>
               {currentUser ? loggedInIcons : loggedOutIcons}
             </Nav>
+            <LanguageSelector />
           </Navbar.Collapse>
-          <LanguageSelector />
         </div>
       </Container>
     </Navbar>

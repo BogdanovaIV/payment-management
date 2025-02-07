@@ -5,12 +5,38 @@
 
 .NavLink {
   padding: 5px;
+  align-content: center !important;
+}
+
+.NavLink:hover {
+  color: var(--grey-color) !important;
 }
 
 .Active i {
   color: #00a8cc;
 }
 
+.NavDropdown {
+  background-color: transparent;
+  padding: 5px;
+  color: var(--blue-color);
+}
+
+.NavDropdown a {
+  color: var(--blue-color) !important;
+  background-color: #f8f8f8;
+}
+
+.NavDropdown div {
+  background-color: #f8f8f8;
+  border:ridge;
+  min-width:auto;
+}
+
+.NavbarContainer {
+  max-width: 100%;
+  margin: 0 !important;
+}
 .ToggleContainer {
   display: flex;
   flex-direction: row;
@@ -18,10 +44,7 @@
   align-items: center;
 }
 
-@media screen and (max-width: 768px) {
-  .ToggleContainer {
-    flex-direction: row-reverse;
-  }
+@media screen and (max-width: 991px) {
   .FlexStartToggle{
     align-items:flex-start !important;
   }
