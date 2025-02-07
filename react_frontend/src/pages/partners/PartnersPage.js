@@ -69,7 +69,18 @@ const PartnersPage = () => {
     if (!nextPage) return;
     try {
       const response = await getNextPage(nextPage);
-      setPartners([...partners, ...(response.data.results || [])]);
+      console.log(response.data);
+      setPartners((prevPartners) => {
+        const existingIds = new Set(prevPartners.map((p) => p.id));
+  
+        // Add only new partners that aren't already in prevPartners
+        const newPartners = response.data.results.filter(
+          (p) => !existingIds.has(p.id)
+        );
+  
+        return [...prevPartners, ...newPartners];
+      });
+  
       setNextPage(response.data.next);
     } catch (error) {
       if (process.env.NODE_ENV === "development") {
