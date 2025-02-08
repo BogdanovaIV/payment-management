@@ -31,6 +31,24 @@
     "cancel": "Бас тарту",
     "save": "Сақтау",
     "edit_profile": "Профильді өңдеу",
-    "change_password": "Құпия сөзді өзгерту"
+    "change_password": "Құпия сөзді өзгерту",
+    "hide_filters": "Сүзгілерді жасыру",
+    "show_filters": "Сүзгілерді көрсету"
+  },
+  "partner": {
+    "partners": "Kонтрагенттер",
+    "trade_name": "Аты",
+    "bin": "БСН",
+    "partner_type": "Контрагент түрі",
+    "is_own": "Меншікті заңды тұлға бет",
+    "contact_person": "Байланыс жасайтын тұлға",
+    "phone_number": "Телефон",
+    "created_at": "Құрылды",
+    "search_trade_Name": "Аты бойынша іздеу",
+    "search_bin": "BIN бойынша іздеу",
+    "all_types": "Барлық түрлері",
+    "all_partners": "Барлық серіктестер",
+    "own_partner": "Жеке серіктес",
+    "non_own_partner": "Меншікті емес серіктес"
   }
 }

@@ -31,6 +31,24 @@
     "cancel": "Отменить",
     "save": "Сохранить",
     "edit_profile": "Редактировать профиль",
-    "change_password": "Редактировать пароль"
+    "change_password": "Редактировать пароль",
+    "hide_filters": "Скрыть фильтры",
+    "show_filters": "Показать фильтры"
+  },
+  "partner": {
+    "partners": "Контрагенты",
+    "trade_name": "Наименование",
+    "bin": "БИН",
+    "partner_type": "Тип Контрагента",
+    "is_own": "Собстенное Юр. лицо",
+    "contact_person": "Контактное Лицо",
+    "phone_number": "Телефон",
+    "created_at": "Создано",
+    "search_trade_Name": "Поиск по Наименованию",
+    "search_bin": "Поиcк по БИН",
+    "all_types": "Все Типы",
+    "all_partners": "Все Контрагенты",
+    "own_partner": "Собственный Контрагент",
+    "non_own_partner": "Внешний Контрагент"
   }
 }

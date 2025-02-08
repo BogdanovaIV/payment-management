@@ -31,6 +31,24 @@
     "cancel": "Cancel",
     "save": "Save",
     "edit_profile": "Edit profile",
-    "change_password": "Change password"
+    "change_password": "Change password",
+    "hide_filters": "Hide Filters",
+    "show_filters": "Show Filters"
+  },
+  "partner": {
+    "partners": "Partners",
+    "trade_name": "Trade Name",
+    "bin": "BIN",
+    "partner_type": "Partner Type",
+    "is_own": "Is Own Partner",
+    "contact_person": "Contact Person",
+    "phone_number": "Phone Number",
+    "created_at": "Created At",
+    "search_trade_Name": "Search by Trade Name",
+    "search_bin": "Search by BIN",
+    "all_types": "All Types",
+    "all_partners": "All Partners",
+    "own_partner": "Own Partner",
+    "non_own_partner": "Non-own Partner"
   }
 }

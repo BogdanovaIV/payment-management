@@ -1,14 +1,21 @@
 import { axiosReq, axiosRes } from "./axiosDefaults";
 
-
 export const getNextPage = (url) => {
-    return axiosRes.get(url);
+  return axiosRes.get(url);
 };
 
-export const getPartners = (filters) => {
-    return axiosRes.get("partners/", { params: filters });
+export const getData = (url, filters) => {
+  if (filters) {
+    return axiosRes.get(url, { params: filters });
+  }
+
+  return axiosRes.get(url);
 };
 
-export const getPartnerTypes = () => {
-    return axiosRes.get("partner-types/");
+export const getPartnersUrl = () => {
+  return "/partners/";
+};
+
+export const getPartnerTypesUrl = () => {
+  return "/partner-types/";
 };
