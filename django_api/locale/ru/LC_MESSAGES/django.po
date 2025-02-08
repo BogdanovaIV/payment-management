@@ -571,7 +571,7 @@ msgid "This password is too common."
 msgstr "Этот пароль слишком распространен."
 
 msgid "Company"
-msgstr "Заңды тұлға"
+msgstr "Юридические лицо"
 
 msgid "Individual"
-msgstr "Жеке"
+msgstr "Физическое лицо"

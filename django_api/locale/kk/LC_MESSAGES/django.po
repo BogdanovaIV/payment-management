@@ -516,7 +516,7 @@ msgid "This password is too common."
 msgstr "Бұл құпия сөз тым жиі кездеседі."
 
 msgid "Company"
-msgstr "Юридические лицо"
+msgstr "Заңды тұлға"
 
 msgid "Individual"
-msgstr "Физическое лицо"
+msgstr "Жеке"
