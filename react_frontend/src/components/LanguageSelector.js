@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { axiosReq, axiosRes } from "../api/axiosDefaults";
 import { useTranslation } from "react-i18next";
 import { setLanguage } from "../utils/localStorage";
 
@@ -21,9 +22,11 @@ const LanguageSelector = () => {
   const currentLang = i18n.language || "en";
 
   const changeLanguage = (lng) => {
+    axios.defaults.headers['Accept-Language'] = lng;
+    axiosReq.defaults.headers['Accept-Language'] = lng;
+    axiosRes.defaults.headers['Accept-Language'] = lng;
     i18n.changeLanguage(lng);
     setLanguage(lng);
-    axios.defaults.headers['Accept-Language'] = lng;
     setDropdownOpen(false);
   };
 
