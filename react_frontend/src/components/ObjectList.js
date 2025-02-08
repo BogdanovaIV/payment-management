@@ -30,6 +30,10 @@ const ObjectList = ({
     history.push(`${url}/${object.id}`);
   };
 
+  const handleAddClick = () => {
+    history.push(`${url}/add`);
+  };
+
   const { data, fetchNextPage, hasNextPage, isFetching, isLoading, refetch } =
     useInfiniteQuery({
       queryKey: ["objects", filters],
@@ -82,21 +86,29 @@ const ObjectList = ({
 
   return (
     <Container className={styles.Main}>
-      <div className={`${styles.HeaderContainer} mb-3`}>
+      <div>
         <h1
-          className={`${headerStyles.Header} ${headerStyles.MarginTop5} text-center flex-grow-1`}
+          className={`${headerStyles.Header} text-center flex-grow-1`}
         >
           {ObjectsName}
         </h1>
+      </div>
+      <Container className={styles.HeaderButtons}>
         <Button
-          className={`${btnStyles.ButtonTransparent} ${btnStyles.OrangeTransparent} ${styles.ButtonFilter}`}
+          className={`${btnStyles.ButtonTransparent} ${btnStyles.GreenTransparent}`}
+          onClick={() => handleAddClick()}
+        >
+          <i class="fa-solid fa-magnifying-glass"></i>
+          {t("button.add")}
+        </Button>
+        <Button
+          className={`${btnStyles.ButtonTransparent} ${btnStyles.OrangeTransparent}`}
           onClick={() => setShowFilters(!showFilters)}
         >
           <i class="fa-solid fa-magnifying-glass"></i>
           {showFilters ? t("button.hide_filters") : t("button.show_filters")}
         </Button>
-      </div>
-
+      </Container>
       {/* Filters Section */}
       {showFilters && (
         <Form className="mb-3">

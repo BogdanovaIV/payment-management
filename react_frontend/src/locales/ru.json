@@ -33,7 +33,8 @@
     "edit_profile": "Редактировать профиль",
     "change_password": "Редактировать пароль",
     "hide_filters": "Скрыть фильтры",
-    "show_filters": "Показать фильтры"
+    "show_filters": "Показать фильтры",
+    "add": "Добавить"
   },
   "partner": {
     "partners": "Контрагенты",

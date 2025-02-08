@@ -4,11 +4,8 @@
   height: calc(100vh - 90px);
 }
 
-.HeaderContainer {
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  position: relative !important;
+.HeaderButtons {
+  padding: 0;
 }
 
 .TableDiv {
@@ -48,12 +45,6 @@
   padding: 0.5rem !important;
 }
 
-.ButtonFilter {
-  position: absolute !important;
-  left: 0;
-  top: 5px;
-}
-
 .Input {
   border: 1px solid var(--blue-color);
   color: var(--blue-color);
@@ -65,18 +56,5 @@
 }
 
 .ClickableRow:hover {
-  background: rgba(var(--orange-color-rgb), 0.10) !important
-}
-
-
-@media screen and (max-width: 992px) {
-  .HeaderContainer {
-    flex-direction: column;
-  }
-
-  .ButtonFilter {
-    position: static !important;
-    left: auto;
-    top: auto;
-  }
+  background: rgba(var(--orange-color-rgb), 0.1) !important;
 }
