@@ -15,6 +15,7 @@ import PartnersPage from "./pages/partners/PartnersPage";
 import AddPartnerPage from "./pages/partners/AddPartnerPage";
 import ViewPartnerPage from "./pages/partners/ViewPartnerPage";
 import EditPartnerPage from "./pages/partners/EditPartnerPage";
+import DeletePartnerPage from "./pages/partners/DeletePartnerPage";
 
 function App() {
   return (
@@ -47,6 +48,11 @@ function App() {
             exact
             path="/partners/:id/edit"
             render={() => <EditPartnerPage />}
+          />
+          <Route
+            exact
+            path="/partners/:id/delete"
+            render={() => <DeletePartnerPage />}
           />
           <Route
             exact

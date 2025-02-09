@@ -22,6 +22,11 @@ export const putData = (url, data) => {
   return request;
 };
 
+export const deleteData = (url) => {
+  const { response } = axiosRes.delete(url);
+  return response;
+};
+
 export const getPartnersUrl = () => {
   return "/partners/";
 };

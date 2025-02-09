@@ -74,7 +74,7 @@ const ObjectView = ({ data, setData, fields, url, objectName, typeView }) => {
   };
 
   return (
-    <section className={`${bgImageStyles.BgImage} ${styles.BgBlueGradient}`}>
+    <section className={`${bgImageStyles.BgImage} ${bgImageStyles.BgBlueGradient}`}>
       <Container className="pt-2">
         <Row className=" offset-lg-1 align-items-center justify-content-between text-center text-lg-start flex-column flex-lg-row">
           <Col className="text-center">
@@ -194,7 +194,7 @@ const ObjectView = ({ data, setData, fields, url, objectName, typeView }) => {
                   <>
                     <Button
                       className={`${btnStyles.ButtonTransparent} ${btnStyles.OrangeTransparent}`}
-                      onClick={() => history.push(`${url}${response.data.id}/delete`)}
+                      onClick={() => history.push(`${url}${id}/delete`)}
                     >
                       <i className="fa-solid fa-trash-can"></i>
                       {t("button.delete")}
