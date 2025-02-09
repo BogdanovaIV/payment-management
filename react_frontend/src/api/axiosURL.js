@@ -1,30 +1,52 @@
 import { axiosReq, axiosRes } from "./axiosDefaults";
 
-export const getNextPage = (url) => {
-  return axiosRes.get(url);
-};
-
-export const getData = (url, filters) => {
-  if (filters) {
-    const response = axiosRes.get(url, { params: filters });
+export const getNextPage = async (url) => {
+  try {
+    const response = await axiosRes.get(url);
     return response;
+  } catch (err) {
+    throw err;
   }
-  const response = axiosRes.get(url);
-  return response;
 };
 
-export const postData = (url, data) => {
-  return axiosReq.post(url, data);
+export const getData = async (url, filters) => {
+  try {
+    if (filters) {
+      const response = await axiosRes.get(url, { params: filters });
+      return response;
+    }
+    const response = axiosRes.get(url);
+    return response;
+  } catch (err) {
+    throw err;
+  }
 };
 
-export const putData = (url, data) => {
-  const { request } = axiosReq.put(url, data);
-  return request;
+export const postData = async (url, data) => {
+  try {
+    const response = await axiosReq.post(url, data);
+    return response;
+  } catch (err) {
+    throw err;
+  }
 };
 
-export const deleteData = (url) => {
-  const { response } = axiosRes.delete(url);
-  return response;
+export const putData = async (url, data) => {
+  try {
+    const { request } = await axiosReq.put(url, data);
+    return request;
+  } catch (err) {
+    throw err;
+  }
+};
+
+export const deleteData = async (url) => {
+  try {
+    const { response } = await axiosRes.delete(url);
+    return response;
+  } catch (err) {
+    throw err;
+  }
 };
 
 export const getPartnersUrl = () => {

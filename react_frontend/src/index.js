@@ -8,19 +8,22 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
 import { CurrentUserProvider } from "./contexts/CurrentUserContext";
 import { UserProfileDataProvider } from "./contexts/ProfileDataContext";
+import { ToastProvider } from "./contexts/ToastContext";
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient();
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
-      <CurrentUserProvider>
-        <UserProfileDataProvider>
-          <QueryClientProvider client={queryClient}>
-            <App />
-          </QueryClientProvider>
-        </UserProfileDataProvider>
-      </CurrentUserProvider>
+      <ToastProvider>
+        <CurrentUserProvider>
+          <UserProfileDataProvider>
+            <QueryClientProvider client={queryClient}>
+              <App />
+            </QueryClientProvider>
+          </UserProfileDataProvider>
+        </CurrentUserProvider>
+      </ToastProvider>
     </Router>
   </React.StrictMode>,
   document.getElementById("root")

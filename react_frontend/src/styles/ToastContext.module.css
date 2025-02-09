@@ -1,0 +1,9 @@
+.Success {
+  color: var(--green-color);
+  width: 100%;
+}
+
+.Error {
+  color: var(--red-color);
+  width: 100%;
+}
