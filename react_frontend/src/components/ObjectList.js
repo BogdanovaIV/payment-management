@@ -27,11 +27,11 @@ const ObjectList = ({
   const history = useHistory();
 
   const handleRowClick = (object) => {
-    history.push(`${url}/${object.id}`);
+    history.push(`${url}${object.id}`);
   };
 
   const handleAddClick = () => {
-    history.push(`${url}/add`);
+    history.push(`${url}add`);
   };
 
   const { data, fetchNextPage, hasNextPage, isFetching, isLoading, refetch } =
@@ -98,14 +98,14 @@ const ObjectList = ({
           className={`${btnStyles.ButtonTransparent} ${btnStyles.GreenTransparent}`}
           onClick={() => handleAddClick()}
         >
-          <i class="fa-solid fa-magnifying-glass"></i>
+          <i className="fa-solid fa-circle-plus"></i>
           {t("button.add")}
         </Button>
         <Button
           className={`${btnStyles.ButtonTransparent} ${btnStyles.OrangeTransparent}`}
           onClick={() => setShowFilters(!showFilters)}
         >
-          <i class="fa-solid fa-magnifying-glass"></i>
+          <i className="fa-solid fa-magnifying-glass"></i>
           {showFilters ? t("button.hide_filters") : t("button.show_filters")}
         </Button>
       </Container>
