@@ -11,18 +11,23 @@ import bgImageStyles from "../styles/BgImage.module.css";
 import btnStyles from "../styles/Button.module.css";
 import styles from "../styles/ObjectDelete.module.css";
 
+import { useToast } from "../contexts/ToastContext";
+import { handleRequestError } from "../utils/errorHandler";
+
 const ObjectDelete = ({ descriptionObject, url, urlBack }) => {
   const { t } = useTranslation();
   const history = useHistory();
+  const showToast = useToast();
   const handleDelete = async () => {
     try {
-      console.log(url);
       await deleteData(url);
       history.push(urlBack);
+      showToast(t("toast.success_delete"), "success");
     } catch (err) {
       if (process.env.NODE_ENV === "development") {
         console.log(err);
       }
+      handleRequestError(err, showToast);
     }
   };
   return (
@@ -36,7 +41,9 @@ const ObjectDelete = ({ descriptionObject, url, urlBack }) => {
           </h1>
         </Row>
         <Row className="align-items-center flex-column">
-          <h2 className={`text-center p-5 ${styles.Header2}`}>{descriptionObject}</h2>
+          <h2 className={`text-center p-5 ${styles.Header2}`}>
+            {descriptionObject}
+          </h2>
         </Row>
         <Row className="text-center align-items-center flex-row justify-content-center">
           <Col>

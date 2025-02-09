@@ -20,10 +20,14 @@ import { useSetUserProfileData } from "../../contexts/ProfileDataContext";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import SaveBar from "../../components/SaveBar";
 
+import { useToast } from "../../contexts/ToastContext";
+import { handleRequestError } from "../../utils/errorHandler";
+
 const UserProfileEditForm = () => {
   const { t } = useTranslation();
   const setUserProfileData = useSetUserProfileData();
   const currentUser = useCurrentUser();
+  const showToast = useToast();
 
   const { id } = useParams();
 
@@ -88,7 +92,7 @@ const UserProfileEditForm = () => {
           if (process.env.NODE_ENV === "development") {
             console.log(err);
           }
-          history.goBack();
+          handleRequestError(err, showToast);
         }
       } else {
         history.push("/");
@@ -117,8 +121,10 @@ const UserProfileEditForm = () => {
       const { data } = await axiosReq.put(`/user-profiles/${id}/`, mappedData);
       setUserProfileData(data);
       history.goBack();
+      showToast(t("toast.success_edit_profile"), "success");
     } catch (err) {
       setErrors(err.response?.data);
+      handleRequestError(err, showToast);
     }
   };
   const backgroundStyle = {

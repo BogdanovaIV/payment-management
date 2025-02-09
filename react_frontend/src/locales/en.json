@@ -61,5 +61,19 @@
     "id": "ID",
     "updated_at": "Updated At",
     "edit_partner": "Edit Partner"
+  },
+  "toast": {
+    "success_delete": "Successfully deleted!",
+    "success_add": "Successfully added!",
+    "success_update": "Successfully updated!",
+    "success_log_in": "Successfully loged in!",
+    "success_log_out": "Successfully loged out!",
+    "success_sign_up": "Successfully signed up!",
+    "success_change_password": "Successfully changed the password!",
+    "success_edit_profile": "Successfully edited the user's profile!",
+    "error_server_unavailable": "Server is unavailable. Please check your connection.",
+    "error_not_authorized": "You are not authorized. Please log in again.",
+    "error_server_occurred": "An internal server error occurred. Try again later.",
+    "error_occurred": "An error occurred. Please check your input."
   }
 }

@@ -19,12 +19,14 @@ import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import SaveBar from "../../components/SaveBar";
 import { axiosReq } from "../../api/axiosDefaults";
 
+import { useToast } from "../../contexts/ToastContext";
+import { handleRequestError } from "../../utils/errorHandler";
+
 const UserPasswordForm = () => {
   const { t } = useTranslation();
-
   const currentUser = useCurrentUser();
-
   const { id } = useParams();
+  const showToast = useToast();
 
   const [userData, setUserData] = useState({
     new_password1: "",
@@ -69,11 +71,13 @@ const UserPasswordForm = () => {
     try {
       await axiosReq.post("/dj-rest-auth/password/change/", userData);
       history.goBack();
+      showToast(t("toast.success_change_password"), "success");
     } catch (err) {
       if (process.env.NODE_ENV === "development") {
         console.log(err);
       }
       setErrors(err.response?.data);
+      handleRequestError(err, showToast);
     }
   };
 

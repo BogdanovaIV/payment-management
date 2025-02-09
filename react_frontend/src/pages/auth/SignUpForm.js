@@ -5,7 +5,7 @@ import { useTranslation, Trans } from "react-i18next";
 import styles from "../../styles/SignInUpForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import bgImageStyles from "../../styles/BgImage.module.css";
-import inputStyles from "../../styles/Input.module.css"
+import inputStyles from "../../styles/Input.module.css";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -20,9 +20,13 @@ import axios from "axios";
 import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 import { setTokenTimestamp } from "../../utils/localStorage";
 
+import { useToast } from "../../contexts/ToastContext";
+import { handleRequestError } from "../../utils/errorHandler";
+
 const SignUpForm = () => {
   const { t } = useTranslation();
   const setCurrentUser = useSetCurrentUser();
+  const showToast = useToast();
 
   const [signUpData, setSignUpData] = useState({
     username: "",
@@ -107,8 +111,10 @@ const SignUpForm = () => {
       setCurrentUser(data.user);
       setTokenTimestamp(data);
       history.push("/");
+      showToast(t("toast.success_sign_up"), "success");
     } catch (err) {
       setErrors(err.response?.data);
+      handleRequestError(err, showToast);
     }
   };
   const backgroundStyle = {

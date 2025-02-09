@@ -14,16 +14,20 @@ import { Link, useHistory } from "react-router-dom";
 import styles from "../../styles/SignInUpForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import bgImageStyles from "../../styles/BgImage.module.css";
-import inputStyles from "../../styles/Input.module.css"
+import inputStyles from "../../styles/Input.module.css";
 
 import backgroundImage from "../../assets/signin.jpg";
 
 import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 import { setTokenTimestamp } from "../../utils/localStorage";
 
+import { useToast } from "../../contexts/ToastContext";
+import { handleRequestError } from "../../utils/errorHandler";
+
 function SignInForm() {
   const { t } = useTranslation();
   const setCurrentUser = useSetCurrentUser();
+  const showToast = useToast();
 
   const [signInData, setSignInData] = useState({
     username: "",
@@ -56,8 +60,10 @@ function SignInForm() {
       setCurrentUser(data.user);
       setTokenTimestamp(data);
       history.push("/");
+      showToast(t("toast.success_log_in"), "success");
     } catch (err) {
       setErrors(err.response?.data);
+      handleRequestError(err, showToast);
     }
   };
 

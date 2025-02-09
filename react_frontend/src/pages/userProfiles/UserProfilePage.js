@@ -20,11 +20,15 @@ import SpinnerSecondary from "../../components/Spinners";
 import { Link } from "react-router-dom";
 import { axiosRes } from "../../api/axiosDefaults";
 
+import { useToast } from "../../contexts/ToastContext";
+import { handleRequestError } from "../../utils/errorHandler";
+
 function UserProfilePage() {
   const { t } = useTranslation();
   const currentUser = useCurrentUser();
   const [profile, setProfile] = useState(false);
   const [hasLoaded, setHasLoaded] = useState(false);
+  const showToast = useToast();
 
   const { id } = useParams();
 
@@ -38,6 +42,7 @@ function UserProfilePage() {
         if (process.env.NODE_ENV === "development") {
           console.log(err);
         }
+        handleRequestError(err, showToast);
       }
     };
     fetchData();

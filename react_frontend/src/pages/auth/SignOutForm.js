@@ -18,20 +18,26 @@ import backgroundImage from "../../assets/signout.jpg";
 
 import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 
+import { useToast } from "../../contexts/ToastContext";
+import { handleRequestError } from "../../utils/errorHandler";
+
 function SignOutForm() {
   const { t } = useTranslation();
   const setCurrentUser = useSetCurrentUser();
   const history = useHistory();
+  const showToast = useToast();
 
   const handleSignOut = async () => {
     try {
       await axios.post("/dj-rest-auth/logout/");
       setCurrentUser(null);
       history.push("/");
+      showToast(t("toast.success_log_out"), "success");
     } catch (err) {
       if (process.env.NODE_ENV === "development") {
         console.log(err);
       }
+      handleRequestError(err, showToast);
     }
   };
 

@@ -14,6 +14,9 @@ import btnStyles from "../styles/Button.module.css";
 import styles from "../styles/ObjectList.module.css";
 import SpinnerSecondary from "./Spinners";
 
+import { useToast } from "../contexts/ToastContext";
+import { handleRequestError } from "../utils/errorHandler";
+
 const ObjectList = ({
   filters,
   setFilters,
@@ -25,6 +28,7 @@ const ObjectList = ({
   const { t } = useTranslation();
   const [showFilters, setShowFilters] = useState(false);
   const history = useHistory();
+  const showToast = useToast();
 
   const handleRowClick = (object) => {
     history.push(`${url}${object.id}`);
@@ -38,10 +42,17 @@ const ObjectList = ({
     useInfiniteQuery({
       queryKey: ["objects", filters],
       queryFn: async ({ pageParam = null }) => {
-        const response = pageParam
-          ? await getNextPage(pageParam)
-          : await getData(url, filters);
-        return response.data;
+        try {
+          const response = pageParam
+            ? await getNextPage(pageParam)
+            : await getData(url, filters);
+          return response.data;
+        } catch (err) {
+          if (process.env.NODE_ENV === "development") {
+            console.log(err);
+          }
+          handleRequestError(err, showToast);
+        }
       },
       getNextPageParam: (lastPage) => lastPage.next || undefined,
     });
@@ -87,9 +98,7 @@ const ObjectList = ({
   return (
     <Container className={styles.Main}>
       <div>
-        <h1
-          className={`${headerStyles.Header} text-center flex-grow-1`}
-        >
+        <h1 className={`${headerStyles.Header} text-center flex-grow-1`}>
           {ObjectsName}
         </h1>
       </div>

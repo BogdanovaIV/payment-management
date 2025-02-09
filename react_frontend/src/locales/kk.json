@@ -36,7 +36,7 @@
     "show_filters": "Сүзгілерді көрсету",
     "add": "Қосу",
     "edit": "Өңдеу",
-     "delete": "Жою"
+    "delete": "Жою"
   },
   "partner": {
     "partners": "Kонтрагенттер",
@@ -60,6 +60,20 @@
     "add_partner": "Серіктес қосу",
     "id": "Код",
     "updated_at": "Жаңартылған",
-     "edit_partner": "Тіркелгіні өңдеу"
+    "edit_partner": "Тіркелгіні өңдеу"
+  },
+  "toast": {
+    "success_delete": "Сәтті жойылды!",
+    "success_add": "Сәтті қосылды!",
+    "success_update": "Сәтті жаңартылды!",
+    "success_log_in": "Жүйеге сәтті кірді!",
+    "success_log_out": "Жүйеден сәтті шықты!",
+    "success_sign_up": "Сәтті тіркелді!",
+    "success_change_password": "Құпия сөз сәтті өзгертілді!",
+    "success_edit_profile": "Пайдаланушының профилі сәтті өңделді!",
+    "error_server_unavailable": "Сервер қолжетімсіз. Байланысты тексеріңіз.",
+    "error_not_authorized": "Сізге рұқсат жоқ. Жүйеге қайта кіріңіз.",
+    "error_server_occurred": "Ішкі сервер қатесі орын алды. Әрекетті кейінірек қайталаңыз.",
+    "error_occurred": "Қате орын алды. Енгізуіңізді тексеріңіз."
   }
 }

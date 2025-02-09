@@ -16,6 +16,8 @@ import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 
 import { postData, getData, putData } from "../api/axiosURL";
+import { useToast } from "../contexts/ToastContext";
+import { handleRequestError } from "../utils/errorHandler";
 
 import SaveBar from "./SaveBar";
 
@@ -27,6 +29,8 @@ const ObjectView = ({ data, setData, fields, url, objectName, typeView }) => {
 
   const history = useHistory();
 
+  const showToast = useToast();
+
   const handleEditClick = () => {
     history.push(`${url}${id}/edit`);
   };
@@ -36,12 +40,12 @@ const ObjectView = ({ data, setData, fields, url, objectName, typeView }) => {
       if (typeView !== "add") {
         try {
           const response = await getData(`${url}${id}/`);
-          console.log(response.data);
           setData(response.data);
         } catch (err) {
           if (process.env.NODE_ENV === "development") {
             console.log(err);
           }
+          handleRequestError(err, showToast);
         }
       }
     };
@@ -62,19 +66,24 @@ const ObjectView = ({ data, setData, fields, url, objectName, typeView }) => {
       if (typeView === "add") {
         const response = await postData(url, data);
         history.push(`${url}${response.data.id}`);
+        showToast(t("toast.success_add"), "success");
       } else if (typeView === "edit") {
         await putData(`${url}${id}/`, data);
         history.goBack();
+        showToast(t("toast.success_update"), "success");
       }
     } catch (err) {
       if (err.response?.status !== 401) {
         setErrors(err.response?.data);
       }
+      handleRequestError(err, showToast);
     }
   };
 
   return (
-    <section className={`${bgImageStyles.BgImage} ${bgImageStyles.BgBlueGradient}`}>
+    <section
+      className={`${bgImageStyles.BgImage} ${bgImageStyles.BgBlueGradient}`}
+    >
       <Container className="pt-2">
         <Row className=" offset-lg-1 align-items-center justify-content-between text-center text-lg-start flex-column flex-lg-row">
           <Col className="text-center">

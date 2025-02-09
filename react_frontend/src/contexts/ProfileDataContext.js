@@ -1,6 +1,8 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { axiosReq } from "../api/axiosDefaults";
 import { useCurrentUser } from "../contexts/CurrentUserContext";
+import { useToast } from "../contexts/ToastContext";
+import { handleRequestError } from "../utils/errorHandler";
 
 const UserProfileDataContext = createContext();
 const SetUserProfileDataContext = createContext();
@@ -13,6 +15,8 @@ export const UserProfileDataProvider = ({ children }) => {
   const [userProfileData, setUserProfileData] = useState(null);
 
   const currentUser = useCurrentUser();
+
+  const showToast = useToast();
 
   useEffect(() => {
     const handleMount = async () => {
@@ -29,6 +33,7 @@ export const UserProfileDataProvider = ({ children }) => {
         if (process.env.NODE_ENV === "development") {
           console.log(err);
         }
+        handleRequestError(err, showToast);
       }
     };
 
