@@ -140,7 +140,7 @@ const ObjectView = ({ data, setData, fields, url, objectName, typeView }) => {
                                   <Form.Check
                                     label={placeholder}
                                     className={inputStyles.CheckBoxObject}
-                                    readOnly={typeView === "view" || readOnly}
+                                    disabled={typeView === "view" || readOnly}
                                     name={name}
                                     value={data[name]}
                                     onChange={handleChange}
