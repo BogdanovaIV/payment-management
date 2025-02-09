@@ -50,6 +50,10 @@
     "all_types": "All Types",
     "all_partners": "All Partners",
     "own_partner": "Own Partner",
-    "non_own_partner": "Non-own Partner"
+    "non_own_partner": "Non-own Partner",
+    "full_name": "Full Name",
+    "legal_address": "Legal Address",
+    "actual_address": "Actual Address",
+    "add_partner": "Add Partner"
   }
 }

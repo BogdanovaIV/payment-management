@@ -50,6 +50,10 @@
     "all_types": "Барлық түрлері",
     "all_partners": "Барлық серіктестер",
     "own_partner": "Жеке серіктес",
-    "non_own_partner": "Меншікті емес серіктес"
+    "non_own_partner": "Меншікті емес серіктес",
+    "full_name": "Толық аты-жөні",
+    "legal_address": "Заңды мекенжайы",
+    "actual_address": "Нақты мекенжай",
+    "add_partner": "Серіктес қосу"
   }
 }

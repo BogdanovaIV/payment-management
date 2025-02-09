@@ -1,0 +1,99 @@
+import React, { useState } from "react";
+import { useTranslation } from "react-i18next";
+
+import { getPartnersUrl } from "../../api/axiosURL";
+
+import useOptionsPartnerType from "../../hooks/useOptionsPartnerType";
+import ObjectView from "../../components/ObjectView";
+
+const AddPartnerPage = () => {
+  const { t } = useTranslation();
+
+  const [data, setData] = useState({
+    trade_name: "",
+    full_name: "",
+    bin: "",
+    partner_type: 0,
+    legal_address: "",
+    actual_address: "",
+    phone_number: "",
+    contact_person: "",
+    is_own: false,
+  });
+
+  const [optionPartnerTypes] = useOptionsPartnerType();
+
+  const fields = [
+    {
+      id: "trade_name",
+      name: "trade_name",
+      type: "text",
+      placeholder: t("partner.trade_name"),
+    },
+    {
+      id: "full_name",
+      name: "full_name",
+      type: "text",
+      placeholder: t("partner.full_name"),
+    },
+    {
+      id: "bin",
+      name: "bin",
+      nameBackend: "bin",
+      type: "text",
+      placeholder: t("partner.bin"),
+    },
+    {
+      id: "partner_type",
+      name: "partner_type",
+      type: "select",
+      placeholder: t("partner.partner_type"),
+      options: optionPartnerTypes,
+    },
+    {
+      id: "legal_address",
+      name: "legal_address",
+      type: "textarea",
+      placeholder: t("partner.legal_address"),
+      rows: 2,
+    },
+    {
+      id: "actual_address",
+      name: "actual_address",
+      type: "textarea",
+      placeholder: t("partner.actual_address"),
+      rows: 2,
+    },
+    {
+      id: "phone_number",
+      name: "phone_number",
+      type: "text",
+      placeholder: t("partner.phone_number"),
+    },
+    {
+      id: "contact_person",
+      name: "contact_person",
+      type: "text",
+      placeholder: t("partner.contact_person"),
+    },
+    {
+      id: "is_own",
+      name: "is_own",
+      type: "checkbox",
+      placeholder: t("partner.is_own"),
+    },
+  ];
+
+  const parameters = {
+    data,
+    setData,
+    fields,
+    url: getPartnersUrl(),
+    headerName: t("partner.add_partner"),
+    typeView: "add",
+  };
+
+  return <ObjectView {...parameters} />;
+};
+
+export default AddPartnerPage;

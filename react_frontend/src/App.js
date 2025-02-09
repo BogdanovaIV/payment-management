@@ -12,6 +12,7 @@ import UserProfilePage from "./pages/userProfiles/UserProfilePage";
 import UserProfileEditForm from "./pages/userProfiles/UserProfileEditForm";
 import UserPasswordForm from "./pages/userProfiles/UserPassword";
 import PartnersPage from "./pages/partners/PartnersPage";
+import AddPartnerPage from "./pages/partners/AddPartnerPage";
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
             render={() => <UserPasswordForm />}
           />
           <Route exact path="/partners" render={() => <PartnersPage />} />
+          <Route exact path="/partners/add" render={() => <AddPartnerPage />} />
           <Route
             exact
             path="/partners/:id"

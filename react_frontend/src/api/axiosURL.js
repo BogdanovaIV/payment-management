@@ -12,6 +12,10 @@ export const getData = (url, filters) => {
   return axiosRes.get(url);
 };
 
+export const postData = (url, data) => {
+    return axiosReq.post(url, data);
+  };
+
 export const getPartnersUrl = () => {
   return "/partners/";
 };
