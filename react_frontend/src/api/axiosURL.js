@@ -6,7 +6,7 @@ export const getNextPage = (url) => {
 
 export const getData = (url, filters) => {
   if (filters) {
-    const response = axiosRes.get(url, { params: filters })
+    const response = axiosRes.get(url, { params: filters });
     return response;
   }
   const response = axiosRes.get(url);
@@ -14,8 +14,13 @@ export const getData = (url, filters) => {
 };
 
 export const postData = (url, data) => {
-    return axiosReq.post(url, data);
-  };
+  return axiosReq.post(url, data);
+};
+
+export const putData = (url, data) => {
+  const { request } = axiosReq.put(url, data);
+  return request;
+};
 
 export const getPartnersUrl = () => {
   return "/partners/";

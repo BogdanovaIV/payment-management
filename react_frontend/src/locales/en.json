@@ -35,7 +35,8 @@
     "hide_filters": "Hide Filters",
     "show_filters": "Show Filters",
     "add": "Add",
-    "edit": "Edit"
+    "edit": "Edit",
+    "delete": "Delete"
   },
   "partner": {
     "partners": "Partners",
@@ -58,6 +59,7 @@
     "actual_address": "Actual Address",
     "add_partner": "Add Partner",
     "id": "ID",
-    "updated_at": "Updated At"
+    "updated_at": "Updated At",
+    "edit_partner": "Edit Partner"
   }
 }

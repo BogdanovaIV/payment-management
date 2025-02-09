@@ -14,6 +14,7 @@ import UserPasswordForm from "./pages/userProfiles/UserPassword";
 import PartnersPage from "./pages/partners/PartnersPage";
 import AddPartnerPage from "./pages/partners/AddPartnerPage";
 import ViewPartnerPage from "./pages/partners/ViewPartnerPage";
+import EditPartnerPage from "./pages/partners/EditPartnerPage";
 
 function App() {
   return (
@@ -42,6 +43,11 @@ function App() {
           />
           <Route exact path="/partners" render={() => <PartnersPage />} />
           <Route exact path="/partners/add" render={() => <AddPartnerPage />} />
+          <Route
+            exact
+            path="/partners/:id/edit"
+            render={() => <EditPartnerPage />}
+          />
           <Route
             exact
             path="/partners/:id"

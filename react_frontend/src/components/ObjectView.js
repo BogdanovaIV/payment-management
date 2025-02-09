@@ -15,7 +15,7 @@ import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 
-import { postData, getData } from "../api/axiosURL";
+import { postData, getData, putData } from "../api/axiosURL";
 
 import SaveBar from "./SaveBar";
 
@@ -28,7 +28,7 @@ const ObjectView = ({ data, setData, fields, url, objectName, typeView }) => {
   const history = useHistory();
 
   const handleEditClick = () => {
-    history.push(`${url}add`);
+    history.push(`${url}${id}/edit`);
   };
 
   useEffect(() => {
@@ -62,6 +62,9 @@ const ObjectView = ({ data, setData, fields, url, objectName, typeView }) => {
       if (typeView === "add") {
         const response = await postData(url, data);
         history.push(`${url}${response.data.id}`);
+      } else if (typeView === "edit") {
+        await putData(`${url}${id}/`, data);
+        history.goBack();
       }
     } catch (err) {
       if (err.response?.status !== 401) {
@@ -74,20 +77,32 @@ const ObjectView = ({ data, setData, fields, url, objectName, typeView }) => {
     <section className={`${bgImageStyles.BgImage} ${styles.BgBlueGradient}`}>
       <Container className="pt-2">
         <Row className=" offset-lg-1 align-items-center justify-content-between text-center text-lg-start flex-column flex-lg-row">
-          <Col xs={12} lg className="text-center">
+          <Col className="text-center">
             <h1 className={`${headerStyles.Header} m-0`}>{objectName}</h1>
           </Col>
-          <Col
-            xs={12}
-            lg={2}
-            className="text-lg-end mt-2 mt-lg-0"
-          >
-            <Button
-              className={`${btnStyles.ButtonTransparent} ${btnStyles.GreenTransparent}`}
-              onClick={() => handleEditClick()}
-            >
-              <i className="fa-solid fa-circle-plus"></i> {t("button.edit")}
-            </Button>
+        </Row>
+        <Row>
+          <Col className="px-4 py-1">
+            {typeView === "view" ? (
+              <>
+                <Button
+                  className={`${btnStyles.ButtonTransparent} ${btnStyles.RedTransparent}`}
+                  onClick={() => history.goBack()}
+                >
+                  <i className="fa-solid fa-circle-xmark"></i>
+                  {t("button.cancel")}
+                </Button>
+
+                <Button
+                  className={`${btnStyles.ButtonTransparent} ${btnStyles.BlueTransparent}`}
+                  onClick={() => handleEditClick()}
+                >
+                  <i className="fa-solid fa-circle-plus"></i> {t("button.edit")}
+                </Button>
+              </>
+            ) : (
+              <></>
+            )}
           </Col>
         </Row>
 
@@ -176,7 +191,15 @@ const ObjectView = ({ data, setData, fields, url, objectName, typeView }) => {
                   ))}
                 </Form.Group>
                 {typeView === "view" ? (
-                  <></>
+                  <>
+                    <Button
+                      className={`${btnStyles.ButtonTransparent} ${btnStyles.OrangeTransparent}`}
+                      onClick={() => history.push(`${url}${response.data.id}/delete`)}
+                    >
+                      <i className="fa-solid fa-trash-can"></i>
+                      {t("button.delete")}
+                    </Button>
+                  </>
                 ) : (
                   <>
                     <SaveBar />

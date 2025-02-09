@@ -6,8 +6,10 @@ import { getPartnersUrl } from "../../api/axiosURL";
 import useOptionsPartnerType from "../../hooks/useOptionsPartnerType";
 import ObjectView from "../../components/ObjectView";
 
-const ViewPartnerPage = () => {
+const ViewPartnerPage = ({ typeView = "view", objectName }) => {
   const { t } = useTranslation();
+
+  objectName = objectName ?? t("partner.partner");
 
   const [data, setData] = useState({
     trade_name: "",
@@ -120,8 +122,8 @@ const ViewPartnerPage = () => {
     setData,
     fields,
     url: getPartnersUrl(),
-    objectName: t("partner.partner"),
-    typeView: "view",
+    objectName,
+    typeView,
   };
 
   return <ObjectView {...parameters} />;

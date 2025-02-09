@@ -35,7 +35,8 @@
     "hide_filters": "Сүзгілерді жасыру",
     "show_filters": "Сүзгілерді көрсету",
     "add": "Қосу",
-    "edit": "Өңдеу"
+    "edit": "Өңдеу",
+     "delete": "Жою"
   },
   "partner": {
     "partners": "Kонтрагенттер",
@@ -58,6 +59,7 @@
     "actual_address": "Нақты мекенжай",
     "add_partner": "Серіктес қосу",
     "id": "Код",
-    "updated_at": "Жаңартылған"
+    "updated_at": "Жаңартылған",
+     "edit_partner": "Тіркелгіні өңдеу"
   }
 }
