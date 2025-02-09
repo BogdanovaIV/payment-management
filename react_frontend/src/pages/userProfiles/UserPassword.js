@@ -77,7 +77,7 @@ const UserPasswordForm = () => {
         console.log(err);
       }
       setErrors(err.response?.data);
-      handleRequestError(err, showToast);
+      handleRequestError(err, showToast, t);
     }
   };
 

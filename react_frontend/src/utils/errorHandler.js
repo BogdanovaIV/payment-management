@@ -1,7 +1,5 @@
-import { useTranslation } from "react-i18next";
 
-export const handleRequestError = (err, showToast) => {
-  const { t } = useTranslation();
+export const handleRequestError = (err, showToast, t) => {
   if (!err.response) {
     showToast(t("toast.error_server_unavailable"), "danger");
   } else if (err.response.status === 401) {

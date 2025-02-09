@@ -42,7 +42,7 @@ function UserProfilePage() {
         if (process.env.NODE_ENV === "development") {
           console.log(err);
         }
-        handleRequestError(err, showToast);
+        handleRequestError(err, showToast, t);
       }
     };
     fetchData();

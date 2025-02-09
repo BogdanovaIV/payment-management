@@ -63,7 +63,7 @@ function SignInForm() {
       showToast(t("toast.success_log_in"), "success");
     } catch (err) {
       setErrors(err.response?.data);
-      handleRequestError(err, showToast);
+      handleRequestError(err, showToast, t);
     }
   };
 

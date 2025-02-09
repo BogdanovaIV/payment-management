@@ -114,7 +114,7 @@ const SignUpForm = () => {
       showToast(t("toast.success_sign_up"), "success");
     } catch (err) {
       setErrors(err.response?.data);
-      handleRequestError(err, showToast);
+      handleRequestError(err, showToast, t);
     }
   };
   const backgroundStyle = {

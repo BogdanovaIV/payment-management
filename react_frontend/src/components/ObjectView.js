@@ -45,7 +45,7 @@ const ObjectView = ({ data, setData, fields, url, objectName, typeView }) => {
           if (process.env.NODE_ENV === "development") {
             console.log(err);
           }
-          handleRequestError(err, showToast);
+          handleRequestError(err, showToast, t);
         }
       }
     };
@@ -76,7 +76,7 @@ const ObjectView = ({ data, setData, fields, url, objectName, typeView }) => {
       if (err.response?.status !== 401) {
         setErrors(err.response?.data);
       }
-      handleRequestError(err, showToast);
+      handleRequestError(err, showToast, t);
     }
   };
 

@@ -92,7 +92,7 @@ const UserProfileEditForm = () => {
           if (process.env.NODE_ENV === "development") {
             console.log(err);
           }
-          handleRequestError(err, showToast);
+          handleRequestError(err, showToast, t);
         }
       } else {
         history.push("/");
@@ -124,7 +124,7 @@ const UserProfileEditForm = () => {
       showToast(t("toast.success_edit_profile"), "success");
     } catch (err) {
       setErrors(err.response?.data);
-      handleRequestError(err, showToast);
+      handleRequestError(err, showToast, t);
     }
   };
   const backgroundStyle = {

@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { axiosReq } from "../api/axiosDefaults";
 import { useCurrentUser } from "../contexts/CurrentUserContext";
 import { useToast } from "../contexts/ToastContext";
@@ -12,6 +13,7 @@ export const useSetUserProfileData = () =>
   useContext(SetUserProfileDataContext);
 
 export const UserProfileDataProvider = ({ children }) => {
+  const { t } = useTranslation();
   const [userProfileData, setUserProfileData] = useState(null);
 
   const currentUser = useCurrentUser();
@@ -33,7 +35,7 @@ export const UserProfileDataProvider = ({ children }) => {
         if (process.env.NODE_ENV === "development") {
           console.log(err);
         }
-        handleRequestError(err, showToast);
+        handleRequestError(err, showToast, t);
       }
     };
 
