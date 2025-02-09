@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  getPartnersUrl,
-  getPartnerTypesUrl,
-  getData,
-} from "../../api/axiosURL";
+import { getPartnersUrl } from "../../api/axiosURL";
 import ObjectList from "../../components/ObjectList";
+import useOptionsPartnerType from "../../hooks/useOptionsPartnerType";
 
 const PartnersPage = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   const [filters, setFilters] = useState({
     trade_name: "",
@@ -17,38 +14,9 @@ const PartnersPage = () => {
     is_own: "",
   });
 
-  const [optionPartnerTypes, setOptionPartnerTypes] = useState([
+  const [optionPartnerTypes] = useOptionsPartnerType([
     ["", t("partner.all_types")],
   ]);
-
-  const fetchPartnerTypes = async () => {
-    try {
-      const response = await getData(getPartnerTypesUrl());
-      const newOptions = response.data.results.map((type) => [
-        type.value,
-        type.label,
-      ]);
-      setOptionPartnerTypes([["", t("partner.all_types")], ...newOptions]);
-      console.log(newOptions);
-    } catch (error) {
-      console.error("Error fetching partner types:", error);
-    }
-  };
-
-  useEffect(() => {
-    fetchPartnerTypes();
-
-    // Listen for language changes
-    const handleLanguageChange = () => {
-      fetchPartnerTypes(); // Re-fetch options when language changes
-    };
-
-    i18n.on("languageChanged", handleLanguageChange);
-
-    return () => {
-      i18n.off("languageChanged", handleLanguageChange);
-    };
-  }, [i18n]);
 
   const columns = React.useMemo(
     () => [
