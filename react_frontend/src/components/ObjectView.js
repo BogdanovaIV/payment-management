@@ -87,7 +87,7 @@ const ObjectView = ({ data, setData, fields, url, objectName, typeView }) => {
               <>
                 <Button
                   className={`${btnStyles.ButtonTransparent} ${btnStyles.RedTransparent}`}
-                  onClick={() => history.goBack()}
+                  onClick={() => history.push(url)}
                 >
                   <i className="fa-solid fa-circle-xmark"></i>
                   {t("button.cancel")}
