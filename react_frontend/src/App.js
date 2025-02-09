@@ -13,6 +13,7 @@ import UserProfileEditForm from "./pages/userProfiles/UserProfileEditForm";
 import UserPasswordForm from "./pages/userProfiles/UserPassword";
 import PartnersPage from "./pages/partners/PartnersPage";
 import AddPartnerPage from "./pages/partners/AddPartnerPage";
+import ViewPartnerPage from "./pages/partners/ViewPartnerPage";
 
 function App() {
   return (
@@ -44,7 +45,7 @@ function App() {
           <Route
             exact
             path="/partners/:id"
-            render={() => <p>Partner edit page</p>}
+            render={() => <ViewPartnerPage />}
           />
           <Route render={() => <p>Not found</p>} />
         </Switch>

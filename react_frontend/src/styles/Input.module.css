@@ -14,8 +14,21 @@
 .InputObject {
   border: 1px solid var(--blue-color);
   color: var(--blue-color);
+  letter-spacing: 0.05em;
 }
 
-input[type="checkbox"].InputObject {
-  width: 2rem !important;
+.CheckBoxObject {
+  color: var(--blue-color);
+  letter-spacing: 0.05em;
+  font-size: larger;
+  padding-bottom: 5px;
+}
+
+
+.InputObject:disabled {
+  background-color: #e9ecef !important;
+}
+
+.InputObject::placeholder {
+  color: var(--grey-color);
 }

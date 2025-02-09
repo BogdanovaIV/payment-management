@@ -6,10 +6,11 @@ export const getNextPage = (url) => {
 
 export const getData = (url, filters) => {
   if (filters) {
-    return axiosRes.get(url, { params: filters });
+    const response = axiosRes.get(url, { params: filters })
+    return response;
   }
-
-  return axiosRes.get(url);
+  const response = axiosRes.get(url);
+  return response;
 };
 
 export const postData = (url, data) => {

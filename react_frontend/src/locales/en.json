@@ -34,10 +34,12 @@
     "change_password": "Change password",
     "hide_filters": "Hide Filters",
     "show_filters": "Show Filters",
-    "add": "Add"
+    "add": "Add",
+    "edit": "Edit"
   },
   "partner": {
     "partners": "Partners",
+    "partner": "Partner",
     "trade_name": "Trade Name",
     "bin": "BIN",
     "partner_type": "Partner Type",
@@ -54,6 +56,8 @@
     "full_name": "Full Name",
     "legal_address": "Legal Address",
     "actual_address": "Actual Address",
-    "add_partner": "Add Partner"
+    "add_partner": "Add Partner",
+    "id": "ID",
+    "updated_at": "Updated At"
   }
 }

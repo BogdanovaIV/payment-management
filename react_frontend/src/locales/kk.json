@@ -34,10 +34,12 @@
     "change_password": "Құпия сөзді өзгерту",
     "hide_filters": "Сүзгілерді жасыру",
     "show_filters": "Сүзгілерді көрсету",
-    "add": "Қосу"
+    "add": "Қосу",
+    "edit": "Өңдеу"
   },
   "partner": {
     "partners": "Kонтрагенттер",
+    "partner": "Kонтрагент",
     "trade_name": "Аты",
     "bin": "БСН",
     "partner_type": "Контрагент түрі",
@@ -54,6 +56,8 @@
     "full_name": "Толық аты-жөні",
     "legal_address": "Заңды мекенжайы",
     "actual_address": "Нақты мекенжай",
-    "add_partner": "Серіктес қосу"
+    "add_partner": "Серіктес қосу",
+    "id": "Код",
+    "updated_at": "Жаңартылған"
   }
 }
