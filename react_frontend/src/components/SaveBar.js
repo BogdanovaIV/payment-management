@@ -13,7 +13,7 @@ const SaveBar = () => {
         className={`${btnStyles.ButtonTransparent} ${btnStyles.RedTransparent}`}
         onClick={() => history.goBack()}
       >
-        <i class="fa-solid fa-circle-xmark"></i>
+        <i className="fa-solid fa-circle-xmark"></i>
         {t("button.cancel")}
       </Button>
 
@@ -21,7 +21,7 @@ const SaveBar = () => {
         className={`${btnStyles.ButtonTransparent} ${btnStyles.GreenTransparent}`}
         type="submit"
       >
-        <i class="fa-solid fa-floppy-disk"></i>
+        <i className="fa-solid fa-floppy-disk"></i>
         {t("button.save")}
       </Button>
     </div>
