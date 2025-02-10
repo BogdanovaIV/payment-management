@@ -17,6 +17,9 @@ import SpinnerSecondary from "./Spinners";
 import { useToast } from "../contexts/ToastContext";
 import { handleRequestError } from "../utils/errorHandler";
 
+import bgImageStyles from "../styles/BgImage.module.css";
+import backgroundImage from "../assets/main-background.jpg";
+
 const ObjectList = ({
   filters,
   setFilters,
@@ -95,7 +98,14 @@ const ObjectList = ({
     refetch();
   };
 
+const backgroundStyle = {
+    backgroundImage: `url(${backgroundImage})`,
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+  };
+
   return (
+    <section className={`${bgImageStyles.BgImage}`} style={backgroundStyle}>
     <Container className={styles.Main}>
       <div>
         <h1 className={`${headerStyles.Header} text-center flex-grow-1`}>
@@ -192,6 +202,7 @@ const ObjectList = ({
         </>
       )}
     </Container>
+    </section>
   );
 };
 

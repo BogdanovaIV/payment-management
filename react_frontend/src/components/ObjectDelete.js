@@ -10,6 +10,7 @@ import Col from "react-bootstrap/Col";
 import bgImageStyles from "../styles/BgImage.module.css";
 import btnStyles from "../styles/Button.module.css";
 import styles from "../styles/ObjectDelete.module.css";
+import backgroundImage from "../assets/main-background.jpg";
 
 import { useToast } from "../contexts/ToastContext";
 import { handleRequestError } from "../utils/errorHandler";
@@ -30,10 +31,15 @@ const ObjectDelete = ({ descriptionObject, url, urlBack }) => {
       handleRequestError(err, showToast, t);
     }
   };
+
+  const backgroundStyle = {
+    backgroundImage: `url(${backgroundImage})`,
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+  };
+
   return (
-    <section
-      className={`${bgImageStyles.BgImage} ${bgImageStyles.BgBlueGradient}`}
-    >
+    <section className={`${bgImageStyles.BgImage}`} style={backgroundStyle}>
       <Container>
         <Row className="align-items-center flex-column">
           <h1 className={`text-center p-5 ${styles.Header1}`}>

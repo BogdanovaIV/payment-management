@@ -19,6 +19,7 @@
 .Table {
   border-collapse: collapse;
   width: 100%;
+  background-color: var(--white-color);
 }
 
 .TableHeader {

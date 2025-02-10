@@ -19,6 +19,8 @@ import { postData, getData, putData } from "../api/axiosURL";
 import { useToast } from "../contexts/ToastContext";
 import { handleRequestError } from "../utils/errorHandler";
 
+import backgroundImage from "../assets/main-background.jpg";
+
 import SaveBar from "./SaveBar";
 
 const ObjectView = ({ data, setData, fields, url, objectName, typeView }) => {
@@ -80,9 +82,16 @@ const ObjectView = ({ data, setData, fields, url, objectName, typeView }) => {
     }
   };
 
+  const backgroundStyle = {
+    backgroundImage: `url(${backgroundImage})`,
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+  };
+
   return (
     <section
-      className={`${bgImageStyles.BgImage} ${bgImageStyles.BgBlueGradient}`}
+      className={`${bgImageStyles.BgImage}`}
+      style={backgroundStyle}
     >
       <Container className="pt-2">
         <Row className=" offset-lg-1 align-items-center justify-content-between text-center text-lg-start flex-column flex-lg-row">
