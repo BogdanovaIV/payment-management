@@ -8,9 +8,9 @@ const PaymentRequestsPage = () => {
   const { t } = useTranslation();
 
   const [filters, setFilters] = useState({
-    payer: "",
-    recipient: "",
-    user: "",
+    payer: {id:"", name: ""},
+    recipient: {id:"", name: ""},
+    user: {id:"", name: ""},
     invoice_date: "",
     invoice_number: "",
     start_deadline: "",
@@ -42,11 +42,23 @@ const PaymentRequestsPage = () => {
   const parametersPartner = useMemo(() => {
     return getParametersByName("partner", t);
   }, [t]);
+
+  const parametersUserProfile = useMemo(() => {
+    return getParametersByName("user_profile", t);
+  }, [t]);
+
   const modalForms = [
     {
       foreignKey: "partner",
       url: parametersPartner.url,
       columns: parametersPartner.columns,
+      queryKey:  "partnerQuery"
+    },
+    {
+      foreignKey: "user_profile",
+      url: parametersUserProfile.url,
+      columns: parametersUserProfile.columns,
+      queryKey:  "partnerUserProfile"
     },
   ];
   const filterFields = [
@@ -54,6 +66,7 @@ const PaymentRequestsPage = () => {
       name: "payer",
       type: "text",
       placeholder: t("payment_request.search_payer"),
+      label: t("payment_request.payer"),
       foreignKey: "partner",
       readOnly: true
     },
@@ -61,6 +74,7 @@ const PaymentRequestsPage = () => {
       name: "recipient",
       type: "text",
       placeholder: t("payment_request.search_recipient"),
+      label: t("payment_request.recipient"),
       foreignKey: "partner",
       readOnly: true
     },
@@ -68,12 +82,15 @@ const PaymentRequestsPage = () => {
       name: "user",
       type: "text",
       placeholder: t("payment_request.search_user"),
-      readOnly: true
+      label: t("payment_request.user"),
+      readOnly: true,
+      foreignKey: "user_profile"
     },
     {
       name: "invoice_number",
       type: "text",
       placeholder: t("payment_request.search_invoice_number"),
+      label: t("payment_request.invoice_number"),
     },
     {
       name: "invoice_date",

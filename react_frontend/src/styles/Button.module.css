@@ -125,6 +125,39 @@
     border-color: var(--blue-color);
 }
 
+
+.ButtonIcon {
+    font-weight: bold;
+    text-transform: uppercase;
+    align-self: center;
+    background-color: transparent;
+    border: none;
+    padding: 0px 5px;
+}
+
+.ButtonIcon:hover,
+.ButtonIcon:hover i,
+.ButtonIcon:focus,
+.ButtonIcon:focus i{
+    color: var(--white-color) !important;
+    background-color: var(--grey-color) !important;
+    outline: none !important;
+}
+
+.ButtonIcon:active {
+    background-color: var(--grey-color) !important;
+    outline: none !important;
+}
+
+.ButtonTransparent:focus {
+    background-color: var(--grey-color) !important;
+}
+
+.BlueIcon,
+.BlueIcon i {
+    color: var(--blue-color);
+}
+
 /* Media query: extra small devices*/
 @media screen and (max-width: 576px) {
     .ButtonGroup {

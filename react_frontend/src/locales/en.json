@@ -17,7 +17,8 @@
     "confirm_password": "Confirm password",
     "edit_user_profile": "Edit User's Profile",
     "edit_user_password": "Edit User's Password",
-    "user_profile": "User's Profile"
+    "user_profile": "User's Profile",
+    "full_name": "Full Name"
   },
   "home": {
     "home": "Home",

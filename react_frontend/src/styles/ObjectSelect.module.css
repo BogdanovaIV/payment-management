@@ -1,15 +1,18 @@
+.Modal {
+  width: 95%;
+  max-width: none !important;
+}
+
 .Main {
   display: flex;
   flex-direction: column;
-  height: calc(100vh - 90px);
-  width: 90% !important;
+  height: calc(100vh - 170px);
+  width: 100%;
   max-width: none !important;
 }
 
 .HeaderButtons {
   padding: 0;
-  width: 100% !important;
-  max-width: none !important;
 }
 
 .TableDiv {
@@ -68,4 +71,8 @@
   padding: 0 !important;
   font-weight: 600;
   color: var(--blue-color);
+}
+
+.SearchBar {
+  margin-bottom: 10px;
 }
