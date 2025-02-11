@@ -24,6 +24,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
     """
 
     id = serializers.ReadOnlyField()
+    user_id = serializers.ReadOnlyField(source='user.id')
     username = serializers.ReadOnlyField(source='user.username')
     first_name = serializers.CharField(source='user.first_name', required=True)
     last_name = serializers.CharField(source='user.last_name', required=True)
@@ -80,4 +81,5 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'last_name',
             'email',
             'full_name',
+            'user_id'
         ]

@@ -1,4 +1,4 @@
-from rest_framework import generics
+from rest_framework import generics, filters
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Partner
 from .serializers import PartnerTypeSerializer, PartnerSerializer
@@ -36,8 +36,12 @@ class PartnerListCreateView(generics.ListCreateAPIView):
     """
     queryset = Partner.objects.all().order_by('trade_name')
     serializer_class = PartnerSerializer
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, filters.SearchFilter]
     filterset_class = PartnerFilter
+    search_fields = [
+        'trade_name',
+        'bin',
+    ]
 
 
 class PartnerRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
