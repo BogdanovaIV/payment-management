@@ -75,5 +75,22 @@
     "error_not_authorized": "Вы не авторизованы. Пожалуйста, войдите снова.",
     "error_server_occurred": "Произошла внутренняя ошибка сервера. Повторите попытку позже.",
     "error_occurred": "Произошла ошибка. Пожалуйста, проверьте ваш ввод."
+  },
+  "payment_request": {
+    "payment_requests": "Платежные запросы",
+    "payer": "Плательщик",
+    "recipient": "Получатель",
+    "user": "Автор",
+    "invoice_date": "Дата Инвойса",
+    "invoice_number": "Номер Инвойса",
+    "payment_amount": "Сумма платежа",
+    "deadline": "Крайний срок",
+    "search_payer": "Поиск по плательщику",
+    "search_recipient": "Поиск по получателю",
+    "search_user": "Поиск по пользователю",
+    "search_deadline": "Поиск по карйнему сроку",
+    "search_invoice_number": "Поиск по номеру инвойса",
+    "start_deadline": "Крайний срок от",
+    "end_deadline": "Крайний срок до"
   }
 }

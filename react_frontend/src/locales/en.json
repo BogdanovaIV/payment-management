@@ -75,5 +75,22 @@
     "error_not_authorized": "You are not authorized. Please log in again.",
     "error_server_occurred": "An internal server error occurred. Try again later.",
     "error_occurred": "An error occurred. Please check your input."
+  },
+  "payment_request": {
+    "payment_requests": "Payment Requests",
+    "payer": "Payer",
+    "recipient": "Recipient",
+    "user": "Author",
+    "invoice_date": "Invoice Date",
+    "invoice_number": "Invoice Number",
+    "payment_amount": "Payment Amount",
+    "deadline": "Deadline",
+    "search_payer": "Search by Payer",
+    "search_recipient": "Search by Recipient",
+    "search_user": "Search by User",
+    "search_deadline": "Search by Deadline",
+    "search_invoice_number": "Search by Invoice Number",
+    "start_deadline": "Deadline From",
+    "end_deadline": "Deadline To"
   }
 }

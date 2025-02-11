@@ -56,3 +56,7 @@ export const getPartnersUrl = () => {
 export const getPartnerTypesUrl = () => {
   return "/partner-types/";
 };
+
+export const getPaymentRequestsUrl = () => {
+  return "/payment-request/";
+};

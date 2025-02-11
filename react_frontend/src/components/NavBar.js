@@ -41,6 +41,26 @@ const NavBar = () => {
           </NavLink>
         </NavDropdown.Item>
       </NavDropdown>
+      <NavDropdown
+        className={styles.NavDropdown}
+        title={
+          <>
+            <i className="fas fa-hand-holding-usd"></i> Transactions
+          </>
+        }
+        id="transactions-dropdown"
+      >
+        <NavDropdown.Item>
+          <NavLink
+            to="/payment-request"
+            className={styles.NavLink}
+            activeClassName={styles.Active}
+          >
+            <i className="fas fa-money-check-alt"></i>
+            Payment Requests
+          </NavLink>
+        </NavDropdown.Item>
+      </NavDropdown>
       <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}

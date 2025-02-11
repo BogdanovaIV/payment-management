@@ -75,5 +75,22 @@
     "error_not_authorized": "Сізге рұқсат жоқ. Жүйеге қайта кіріңіз.",
     "error_server_occurred": "Ішкі сервер қатесі орын алды. Әрекетті кейінірек қайталаңыз.",
     "error_occurred": "Қате орын алды. Енгізуіңізді тексеріңіз."
+  },
+  "payment_request": {
+    "payment_requests": "Төлем сұраулары",
+    "payer": "Төлеуші",
+    "recipient": "Алушы",
+    "user": "Автор",
+    "invoice_date": "Шот-фактура күні",
+    "invoice_number": "Шот-фактура нөмірі",
+    "payment_amount": "Төлем сомасы",
+    "deadline": "Мерзімі",
+    "search_payer": "Төлеуші ​​бойынша іздеу",
+    "search_recipient": "Алушы бойынша іздеу",
+    "search_user": "Пайдаланушы бойынша іздеу",
+    "search_deadline": "Мерзімі бойынша іздеу",
+    "search_invoice_number": "Шот-фактура нөмірі бойынша іздеу",
+    "start_deadline": "Мерзімі бастап",
+    "end_deadline": "Мерзімі дейін"
   }
 }
