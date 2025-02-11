@@ -22,6 +22,7 @@ import { axiosRes } from "../../api/axiosDefaults";
 
 import { useToast } from "../../contexts/ToastContext";
 import { handleRequestError } from "../../utils/errorHandler";
+import { getUserProfileUrl } from "../../api/axiosURL";
 
 function UserProfilePage() {
   const { t } = useTranslation();
@@ -29,13 +30,14 @@ function UserProfilePage() {
   const [profile, setProfile] = useState(false);
   const [hasLoaded, setHasLoaded] = useState(false);
   const showToast = useToast();
+  const url = getUserProfileUrl();
 
   const { id } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const { data } = await axiosRes.get(`/user-profiles/${id}/`);
+        const { data } = await axiosRes.get(`${url}${id}/`);
         setProfile(data);
         setHasLoaded(true);
       } catch (err) {
@@ -59,23 +61,20 @@ function UserProfilePage() {
       placeholder: t("auth.username"),
     },
     {
-      id: "firstName",
-      name: "firstName",
-      nameBackend: "first_name",
+      id: "first_name",
+      name: "first_name",
       type: "text",
       placeholder: t("auth.first_name"),
     },
     {
-      id: "lastName",
-      name: "lastName",
-      nameBackend: "last_name",
+      id: "last_name",
+      name: "last_name",
       type: "text",
       placeholder: t("auth.last_name"),
     },
     {
       id: "email",
       name: "email",
-      nameBackend: "email",
       type: "email",
       placeholder: t("auth.email"),
     },
@@ -128,7 +127,7 @@ function UserProfilePage() {
                 <Container>
                   <Form>
                     {fields.map(
-                      ({ id, name, type, nameBackend, placeholder }) => (
+                      ({ id, name, type, placeholder }) => (
                         <Form.Group controlId={id} key={id}>
                           <Form.Label className="d-none">
                             {placeholder}
@@ -138,7 +137,7 @@ function UserProfilePage() {
                             type={type}
                             placeholder={placeholder}
                             name={name}
-                            value={profile[nameBackend]}
+                            value={profile[name]}
                             readOnly
                           />
                         </Form.Group>

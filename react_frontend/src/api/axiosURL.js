@@ -60,3 +60,7 @@ export const getPartnerTypesUrl = () => {
 export const getPaymentRequestsUrl = () => {
   return "/payment-request/";
 };
+
+export const getUserProfileUrl = () => {
+  return "/user-profiles/";
+};

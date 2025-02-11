@@ -22,12 +22,14 @@ import SaveBar from "../../components/SaveBar";
 
 import { useToast } from "../../contexts/ToastContext";
 import { handleRequestError } from "../../utils/errorHandler";
+import { getUserProfileUrl } from "../../api/axiosURL";
 
 const UserProfileEditForm = () => {
   const { t } = useTranslation();
   const setUserProfileData = useSetUserProfileData();
   const currentUser = useCurrentUser();
   const showToast = useToast();
+  const url = getUserProfileUrl()
 
   const { id } = useParams();
 
@@ -48,17 +50,15 @@ const UserProfileEditForm = () => {
       readOnly: true,
     },
     {
-      id: "firstName",
-      name: "firstName",
-      nameBackend: "first_name",
+      id: "first_name",
+      name: "first_name",
       type: "text",
       placeholder: t("auth.first_name"),
       readOnly: false,
     },
     {
-      id: "lastName",
-      name: "lastName",
-      nameBackend: "last_name",
+      id: "last_name",
+      name: "last_name",
       type: "text",
       placeholder: t("auth.last_name"),
       readOnly: false,
@@ -81,13 +81,8 @@ const UserProfileEditForm = () => {
     const handleMount = async () => {
       if (currentUser?.profile_id?.toString() === id) {
         try {
-          const { data } = await axiosRes.get(`/user-profiles/${id}/`);
-          setProfileData({
-            username: data.username,
-            firstName: data.first_name,
-            lastName: data.last_name,
-            email: data.email,
-          });
+          const { data } = await axiosRes.get(`${url}${id}/`);
+          setProfileData(data);
         } catch (err) {
           if (process.env.NODE_ENV === "development") {
             console.log(err);
@@ -111,14 +106,8 @@ const UserProfileEditForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // Map the state to the field names expected by the API
-    const mappedData = {
-      ...profileData,
-      first_name: profileData.firstName,
-      last_name: profileData.lastName,
-    };
     try {
-      const { data } = await axiosReq.put(`/user-profiles/${id}/`, mappedData);
+      const { data } = await axiosReq.put(`${url}${id}/`, profileData);
       setUserProfileData(data);
       history.goBack();
       showToast(t("toast.success_edit_profile"), "success");
@@ -147,7 +136,7 @@ const UserProfileEditForm = () => {
             <Container className="p-4">
               <Form onSubmit={handleSubmit}>
                 {fields.map(
-                  ({ id, name, nameBackend, type, placeholder, readOnly }) => (
+                  ({ id, name, type, placeholder, readOnly }) => (
                     <Form.Group controlId={id} key={id}>
                       <Form.Label className="d-none">{placeholder}</Form.Label>
                       <Form.Control
@@ -159,7 +148,7 @@ const UserProfileEditForm = () => {
                         readOnly={readOnly}
                         onChange={handleChange}
                       />
-                      {errors[nameBackend]?.map((message, idx) => (
+                      {errors[name]?.map((message, idx) => (
                         <Alert variant="warning" key={idx}>
                           {message}
                         </Alert>
