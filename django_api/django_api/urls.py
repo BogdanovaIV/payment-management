@@ -27,5 +27,6 @@ urlpatterns = [
     ),
     path('', include('user.urls')),
     path('', include('partner.urls')),
+    path('', include('payment.urls')),
     path('', root_route),
 ]

@@ -99,7 +99,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'django_filters',
     'user',
-    'partner'
+    'partner',
+    'payment'
 ]
 
 SITE_ID = 1
