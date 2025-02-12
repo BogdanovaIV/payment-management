@@ -37,7 +37,9 @@
     "show_filters": "Show Filters",
     "add": "Add",
     "edit": "Edit",
-    "delete": "Delete"
+    "delete": "Delete",
+    "dictionaries": "Dictionaries",
+    "transactions": "Transactions"
   },
   "partner": {
     "partners": "Partners",

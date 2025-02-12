@@ -37,7 +37,9 @@
     "show_filters": "Показать фильтры",
     "add": "Добавить",
     "edit": "Редактировать",
-    "delete": "Удалить"
+    "delete": "Удалить",
+    "dictionaries": "Справочники",
+    "transactions": "Документы"
   },
   "partner": {
     "partners": "Контрагенты",

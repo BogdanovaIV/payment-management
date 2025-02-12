@@ -1,11 +1,14 @@
-import React from "react";
+import React, { useMemo } from "react";
+
 import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { NavLink } from "react-router-dom";
+
 import logo from "../assets/logo.png";
 import styles from "../styles/NavBar.module.css";
+
 import useClickOutsideToggle from "../hooks/useClickOutsideToggle";
 import { useCurrentUser } from "../contexts/CurrentUserContext";
 import SpinnerSecondary from "./Spinners";
@@ -19,86 +22,93 @@ const NavBar = () => {
   const UserProfileData = useUserProfileData();
   const { expanded, setExpanded, ref } = useClickOutsideToggle();
 
-  const loggedInIcons = (
-    <>
-      <NavDropdown
-        className={styles.NavDropdown}
-        title={
-          <>
-            <i className="fas fa-book"></i> Dictionaries
-          </>
-        }
-        id="dictionaries-dropdown"
-      >
-        <NavDropdown.Item>
-          <NavLink
-            to="/partners"
-            className={styles.NavLink}
-            activeClassName={styles.Active}
-          >
-            <i className="fas fa-users"></i>
-            Partners
-          </NavLink>
-        </NavDropdown.Item>
-      </NavDropdown>
-      <NavDropdown
-        className={styles.NavDropdown}
-        title={
-          <>
-            <i className="fas fa-hand-holding-usd"></i> Transactions
-          </>
-        }
-        id="transactions-dropdown"
-      >
-        <NavDropdown.Item>
-          <NavLink
-            to="/payment-request"
-            className={styles.NavLink}
-            activeClassName={styles.Active}
-          >
-            <i className="fas fa-money-check-alt"></i>
-            Payment Requests
-          </NavLink>
-        </NavDropdown.Item>
-      </NavDropdown>
-      <NavLink
-        className={styles.NavLink}
-        activeClassName={styles.Active}
-        to="/signout"
-      >
-        <i className="fas fa-arrow-right-from-bracket"></i>
-        {t("auth.sign_out")}
-      </NavLink>
-      <NavLink
-        className={styles.NavLink}
-        to={`/user-profiles/${currentUser?.profile_id}`}
-      >
-        <i className="fa-solid fa-user-gear"></i>
-        {UserProfileData?.full_name}
-      </NavLink>
-    </>
+  const loggedInIcons = useMemo(
+    () => (
+      <>
+        <NavDropdown
+          className={styles.NavDropdown}
+          title={
+            <>
+              <i className="fas fa-book"></i> {t("button.dictionaries")}
+            </>
+          }
+          id="dictionaries-dropdown"
+        >
+          <NavDropdown.Item>
+            <NavLink
+              to="/partners"
+              className={styles.NavLink}
+              activeClassName={styles.Active}
+            >
+              <i className="fas fa-users"></i>
+              {t("partner.partners")}
+            </NavLink>
+          </NavDropdown.Item>
+        </NavDropdown>
+        <NavDropdown
+          className={styles.NavDropdown}
+          title={
+            <>
+              <i className="fas fa-hand-holding-usd"></i>{" "}
+              {t("button.transactions")}
+            </>
+          }
+          id="transactions-dropdown"
+        >
+          <NavDropdown.Item>
+            <NavLink
+              to="/payment-request"
+              className={styles.NavLink}
+              activeClassName={styles.Active}
+            >
+              <i className="fas fa-money-check-alt"></i>
+              {t("payment_request.payment_requests")}
+            </NavLink>
+          </NavDropdown.Item>
+        </NavDropdown>
+        <NavLink
+          className={styles.NavLink}
+          activeClassName={styles.Active}
+          to="/signout"
+        >
+          <i className="fas fa-arrow-right-from-bracket"></i>
+          {t("auth.sign_out")}
+        </NavLink>
+        <NavLink
+          className={styles.NavLink}
+          to={`/user-profiles/${currentUser?.profile_id}`}
+        >
+          <i className="fa-solid fa-user-gear"></i>
+          {UserProfileData?.full_name || t("auth.user_profile")}
+        </NavLink>
+      </>
+    ),
+    [t, currentUser, UserProfileData]
   );
 
-  const loggedOutIcons = (
-    <>
-      <NavLink
-        className={styles.NavLink}
-        activeClassName={styles.Active}
-        to="/signin"
-      >
-        <i className="fas fa-arrow-right-to-bracket"></i>
-        {t("auth.sign_in")}
-      </NavLink>
+  const loggedOutIcons = useMemo(
+    () => (
+      <>
+        <NavLink
+          className={styles.NavLink}
+          activeClassName={styles.Active}
+          to="/signin"
+        >
+          <i className="fas fa-arrow-right-to-bracket"></i>
+          {t("auth.sign_in")}
+        </NavLink>
 
-      <NavLink
-        className={styles.NavLink}
-        activeClassName={styles.Active}
-        to="/signup"
-      >
-        <i className="fas fa-user-plus"></i>
-        {t("auth.sign_up")}
-      </NavLink>
-    </>
+        <NavLink
+          className={styles.NavLink}
+          activeClassName={styles.Active}
+          to="/signup"
+        >
+          <i className="fas fa-user-plus"></i>
+          {t("auth.sign_up")}
+        </NavLink>
+      </>
+    ),
+    [t]
   );
 
   if (currentUser === undefined) {
@@ -117,7 +127,7 @@ const NavBar = () => {
       >
         <NavLink to="/">
           <Navbar.Brand>
-            <img src={logo} alt="logo" height="45" />
+            <img src={logo} alt="logo" height="45" loading="lazy" />
           </Navbar.Brand>
         </NavLink>
         <div className={`${styles.ToggleContainer} ${styles.FlexStartToggle}`}>

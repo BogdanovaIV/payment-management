@@ -37,7 +37,9 @@
     "show_filters": "Сүзгілерді көрсету",
     "add": "Қосу",
     "edit": "Өңдеу",
-    "delete": "Жою"
+    "delete": "Жою",
+    "dictionaries": "Анықтамалар",
+    "transactions": "Құжаттар"
   },
   "partner": {
     "partners": "Kонтрагенттер",
