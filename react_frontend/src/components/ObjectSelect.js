@@ -33,12 +33,10 @@ const ObjectSelect = ({
       queryKey: [[queryKey], query],
       queryFn: async ({ pageParam = null }) => {
         try {
-          console.log(url);
           const filters = !!query ? { search: query } : undefined;
           const response = pageParam
             ? await getNextPage(pageParam)
             : await getData(url, filters);
-          console.log(response);
           return response.data;
         } catch (err) {
           if (process.env.NODE_ENV === "development") {
