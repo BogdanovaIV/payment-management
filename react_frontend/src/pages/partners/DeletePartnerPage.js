@@ -17,7 +17,7 @@ const DeletePartnerPage = () => {
       try {
         const response = await getData(`${url}${id}/`);
         setDescription(
-          `${t("partner.id")}: ${response.data.id},  ${t(
+          `${t("general.id")}: ${response.data.id},  ${t(
             "partner.trade_name"
           )}: ${response.data.trade_name},  ${t("partner.bin")}: ${
             response.data.bin

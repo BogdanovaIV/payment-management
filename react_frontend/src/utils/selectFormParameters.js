@@ -13,7 +13,7 @@ export const getParametersByName = (nameTable, t) => {
       },
       { Header: t("partner.contact_person"), accessor: "contact_person" },
       { Header: t("partner.phone_number"), accessor: "phone_number" },
-      { Header: t("partner.created_at"), accessor: "created_at" },
+      { Header: t("general.created_at"), accessor: "created_at" },
     ];
     return { url: getPartnersUrl(), columns };
   } 

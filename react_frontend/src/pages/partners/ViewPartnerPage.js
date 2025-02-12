@@ -32,7 +32,7 @@ const ViewPartnerPage = ({ typeView = "view", objectName }) => {
         type: "text",
         as: "input",
         readOnly: true,
-        placeholder: t("partner.id"),
+        placeholder: t("general.id"),
     }],
     [{
         id: "created_at",
@@ -40,7 +40,7 @@ const ViewPartnerPage = ({ typeView = "view", objectName }) => {
         type: "date",
         as: "input",
         readOnly: true,
-        placeholder: t("partner.created_at"),
+        placeholder: t("general.created_at"),
     },
     {
         id: "updated_at",
@@ -48,7 +48,7 @@ const ViewPartnerPage = ({ typeView = "view", objectName }) => {
         type: "date",
         as: "input",
         readOnly: true,
-        placeholder: t("partner.updated_at"),
+        placeholder: t("general.updated_at"),
     }],
     [{
       id: "trade_name",
