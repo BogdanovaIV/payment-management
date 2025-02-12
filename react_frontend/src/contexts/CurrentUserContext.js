@@ -1,8 +1,9 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import axios from "axios";
-import { useTranslation } from "react-i18next";
-import { axiosReq, axiosRes } from "../api/axiosDefaults";
 import { useHistory } from "react-router";
+import { useTranslation } from "react-i18next";
+import axios from "axios";
+
+import { axiosReq, axiosRes } from "../api/axiosDefaults";
 import {
   removeTokenTimestamp,
   shouldRefreshToken,
@@ -22,24 +23,23 @@ export const CurrentUserProvider = ({ children }) => {
   const history = useHistory();
   const showToast = useToast();
 
-  const handleMount = async () => {
-    try {
-      const { data } = await axiosRes.get("/dj-rest-auth/user/");
-      setCurrentUser(data);
-    } catch (err) {
-      if (process.env.NODE_ENV === "development") {
-        console.log(err);
-      }
-      handleRequestError(err, showToast, t);
-    }
-  };
-
   useEffect(() => {
+    const handleMount = async () => {
+      try {
+        const { data } = await axiosRes.get("/dj-rest-auth/user/");
+        setCurrentUser(data);
+      } catch (err) {
+        if (process.env.NODE_ENV === "development") {
+          console.log(err);
+        }
+        handleRequestError(err, showToast, t);
+      }
+    };
     handleMount();
-  }, []);
+  }, [showToast, t]);
 
   useMemo(() => {
-    axiosReq.interceptors.request.use(
+    const requestInterceptor = axiosReq.interceptors.request.use(
       async (config) => {
         if (shouldRefreshToken()) {
           try {
@@ -63,13 +63,16 @@ export const CurrentUserProvider = ({ children }) => {
       }
     );
 
-    axiosRes.interceptors.response.use(
+    let isRefreshing = false;
+    const responseInterceptor = axiosRes.interceptors.response.use(
       (response) => response,
       async (err) => {
-        if (err.response?.status === 401) {
+        if (err.response?.status === 401 && !isRefreshing) {
           try {
             await axios.post("/dj-rest-auth/token/refresh/");
+            isRefreshing = false;
           } catch (err) {
+            isRefreshing = false;
             setCurrentUser((prevCurrentUser) => {
               if (prevCurrentUser) {
                 history.push("/signin");
@@ -84,7 +87,11 @@ export const CurrentUserProvider = ({ children }) => {
         return Promise.reject(err);
       }
     );
-  }, [history]);
+    return () => {
+      axios.interceptors.request.eject(requestInterceptor);
+      axios.interceptors.response.eject(responseInterceptor);
+    };
+  }, [history, showToast, t]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
