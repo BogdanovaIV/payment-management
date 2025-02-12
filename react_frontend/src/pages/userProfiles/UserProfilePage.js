@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
+import React, { useEffect, useState, useMemo } from "react";
 
+import { useTranslation } from "react-i18next";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
@@ -19,7 +19,6 @@ import { useParams } from "react-router";
 import SpinnerSecondary from "../../components/Spinners";
 import { Link } from "react-router-dom";
 import { axiosRes } from "../../api/axiosDefaults";
-
 import { useToast } from "../../contexts/ToastContext";
 import { handleRequestError } from "../../utils/errorHandler";
 import { getUserProfileUrl } from "../../api/axiosURL";
@@ -35,11 +34,14 @@ function UserProfilePage() {
   const { id } = useParams();
 
   useEffect(() => {
-    const fetchData = async () => {
+    let isMounted = true;
+    const handleMount = async () => {
       try {
         const { data } = await axiosRes.get(`${url}${id}/`);
-        setProfile(data);
-        setHasLoaded(true);
+        if (isMounted) {
+          setProfile(data);
+          setHasLoaded(true);
+        }
       } catch (err) {
         if (process.env.NODE_ENV === "development") {
           console.log(err);
@@ -47,12 +49,18 @@ function UserProfilePage() {
         handleRequestError(err, showToast, t);
       }
     };
-    fetchData();
-  }, [id]);
+    handleMount();
+    return () => {
+      isMounted = false;
+    };
+  }, [id, url, showToast, t]);
 
-  const is_owner = currentUser?.username === profile?.username;
+  const is_owner = useMemo(
+    () => currentUser?.username === profile?.username,
+    [currentUser, profile]
+  );
 
-  const fields = [
+  const arrayFields = (t) => [
     {
       id: "username",
       name: "username",
@@ -80,6 +88,8 @@ function UserProfilePage() {
     },
   ];
 
+  const fields = useMemo(() => arrayFields(t), [t]);
+
   const backgroundStyle = {
     backgroundImage: `url(${backgroundImage})`,
     backgroundSize: "cover",
@@ -96,60 +106,48 @@ function UserProfilePage() {
         </Row>
         <Row>
           <Col className="my-auto offset-lg-2" lg={8}>
-            {is_owner ? (
-              <>
-                <Container>
-                  <div className={btnStyles.ButtonGroup}>
-                    <Link
-                      className={styles.Link}
-                      to={`/user-profiles/${id}/edit`}
-                      aria-label="edit-profile"
-                    >
-                      <i className="fa-solid fa-id-card" />
-                      {t("button.edit_profile")}
-                    </Link>
-                    <Link
-                      className={styles.Link}
-                      to={`/user-profiles/${id}/edit/password`}
-                      aria-label="edit-password"
-                    >
-                      <i className="fas fa-key" />
-                      {t("button.change_password")}
-                    </Link>
-                  </div>
-                </Container>
-              </>
-            ) : (
-              <></>
+            {is_owner && (
+              <Container>
+                <div className={btnStyles.ButtonGroup}>
+                  <Link
+                    className={styles.Link}
+                    to={`/user-profiles/${id}/edit`}
+                    aria-label="edit-profile"
+                  >
+                    <i className="fa-solid fa-id-card" />
+                    {t("button.edit_profile")}
+                  </Link>
+                  <Link
+                    className={styles.Link}
+                    to={`/user-profiles/${id}/edit/password`}
+                    aria-label="edit-password"
+                  >
+                    <i className="fas fa-key" />
+                    {t("button.change_password")}
+                  </Link>
+                </div>
+              </Container>
             )}
             {hasLoaded ? (
-              <>
-                <Container>
-                  <Form>
-                    {fields.map(
-                      ({ id, name, type, placeholder }) => (
-                        <Form.Group controlId={id} key={id}>
-                          <Form.Label className="d-none">
-                            {placeholder}
-                          </Form.Label>
-                          <Form.Control
-                            className={inputStyles.Input}
-                            type={type}
-                            placeholder={placeholder}
-                            name={name}
-                            value={profile[name]}
-                            readOnly
-                          />
-                        </Form.Group>
-                      )
-                    )}
-                  </Form>
-                </Container>
-              </>
+              <Container>
+                <Form>
+                  {fields.map(({ id, name, type, placeholder }) => (
+                    <Form.Group controlId={id} key={id}>
+                      <Form.Label className="d-none">{placeholder}</Form.Label>
+                      <Form.Control
+                        className={inputStyles.Input}
+                        type={type}
+                        placeholder={placeholder}
+                        name={name}
+                        value={profile[name] || ""}
+                        readOnly
+                      />
+                    </Form.Group>
+                  ))}
+                </Form>
+              </Container>
             ) : (
-              <>
-                <SpinnerSecondary />
-              </>
+              <SpinnerSecondary />
             )}
           </Col>
         </Row>
