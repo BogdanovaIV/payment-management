@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 import { useTranslation, Trans } from "react-i18next";
-
-import styles from "../../styles/SignInUpForm.module.css";
-import btnStyles from "../../styles/Button.module.css";
-import bgImageStyles from "../../styles/BgImage.module.css";
-import inputStyles from "../../styles/Input.module.css";
-
+import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
@@ -14,12 +9,15 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
 
+import styles from "../../styles/SignInUpForm.module.css";
+import btnStyles from "../../styles/Button.module.css";
+import bgImageStyles from "../../styles/BgImage.module.css";
+import inputStyles from "../../styles/Input.module.css";
+
 import backgroundImage from "../../assets/signup.jpg";
 
-import axios from "axios";
 import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 import { setTokenTimestamp } from "../../utils/localStorage";
-
 import { useToast } from "../../contexts/ToastContext";
 import { handleRequestError } from "../../utils/errorHandler";
 
@@ -32,8 +30,8 @@ const SignUpForm = () => {
     username: "",
     password1: "",
     password2: "",
-    firstName: "",
-    lastName: "",
+    first_name: "",
+    last_name: "",
     email: "",
   });
 
@@ -41,42 +39,36 @@ const SignUpForm = () => {
     {
       id: "username",
       name: "username",
-      nameBackend: "username",
       type: "text",
       placeholder: t("auth.username"),
     },
     {
-      id: "firstName",
-      name: "firstName",
-      nameBackend: "first_name",
+      id: "first_name",
+      name: "first_name",
       type: "text",
       placeholder: t("auth.first_name"),
     },
     {
-      id: "lastName",
-      name: "lastName",
-      nameBackend: "last_name",
+      id: "last_name",
+      name: "last_name",
       type: "text",
       placeholder: t("auth.last_name"),
     },
     {
       id: "email",
       name: "email",
-      nameBackend: "email",
       type: "email",
       placeholder: t("auth.email"),
     },
     {
       id: "password1",
       name: "password1",
-      nameBackend: "password1",
       type: "password",
       placeholder: t("auth.password"),
     },
     {
       id: "password2",
       name: "password2",
-      nameBackend: "password2",
       type: "password",
       placeholder: t("auth.confirm_password"),
     },
@@ -87,22 +79,16 @@ const SignUpForm = () => {
   const history = useHistory();
 
   const handleChange = (event) => {
-    setSignUpData({
-      ...signUpData,
+    setSignUpData((prevData) => ({
+      ...prevData,
       [event.target.name]: event.target.value,
-    });
+    }));
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
-    // Map the state to the field names expected by the API
-    const mappedData = {
-      ...signUpData,
-      first_name: signUpData.firstName,
-      last_name: signUpData.lastName,
-    };
+    event.preventDefault(); 
     try {
-      await axios.post("/dj-rest-auth/registration/", mappedData);
+      await axios.post("/dj-rest-auth/registration/", signUpData);
       const { data } = await axios.post("/dj-rest-auth/login/", {
         username: signUpData.username,
         password: signUpData.password1,
@@ -154,7 +140,7 @@ const SignUpForm = () => {
                       value={signUpData[name]}
                       onChange={handleChange}
                     />
-                    {errors[nameBackend]?.map((message, idx) => (
+                    {errors[name]?.map((message, idx) => (
                       <Alert variant="warning" key={idx}>
                         {message}
                       </Alert>

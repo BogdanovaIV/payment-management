@@ -1,13 +1,11 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import axios from "axios";
 import { useTranslation } from "react-i18next";
-
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
-
-import { useHistory } from "react-router-dom";
 
 import styles from "../../styles/SignOutForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
@@ -17,7 +15,6 @@ import headerStyles from "../../styles/Header.module.css";
 import backgroundImage from "../../assets/signout.jpg";
 
 import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
-
 import { useToast } from "../../contexts/ToastContext";
 import { handleRequestError } from "../../utils/errorHandler";
 

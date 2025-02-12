@@ -1,15 +1,13 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { useTranslation } from "react-i18next";
-
+import { Link, useHistory } from "react-router-dom";
+import axios from "axios";
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
-
-import { Link, useHistory } from "react-router-dom";
 
 import styles from "../../styles/SignInUpForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
@@ -20,7 +18,6 @@ import backgroundImage from "../../assets/signin.jpg";
 
 import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 import { setTokenTimestamp } from "../../utils/localStorage";
-
 import { useToast } from "../../contexts/ToastContext";
 import { handleRequestError } from "../../utils/errorHandler";
 
@@ -68,10 +65,10 @@ function SignInForm() {
   };
 
   const handleChange = (event) => {
-    setSignInData({
-      ...signInData,
+    setSignInData((prevData) => ({
+      ...prevData,
       [event.target.name]: event.target.value,
-    });
+    }));
   };
 
   const backgroundStyle = {
