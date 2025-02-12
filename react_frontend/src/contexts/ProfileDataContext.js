@@ -21,13 +21,21 @@ export const UserProfileDataProvider = ({ children }) => {
   const showToast = useToast();
 
   useEffect(() => {
+    let isMounted = true;
     const handleMount = async () => {
+      if (!currentUser?.profile_id) {
+        setUserProfileData(null);
+        return;
+      }
+
       try {
         if (currentUser) {
           const { data } = await axiosReq.get(
             `/user-profiles/${currentUser?.profile_id}/`
           );
-          setUserProfileData(data);
+          if (isMounted) {
+            setUserProfileData(data);
+          }
         } else {
           setUserProfileData(null);
         }
@@ -35,12 +43,18 @@ export const UserProfileDataProvider = ({ children }) => {
         if (process.env.NODE_ENV === "development") {
           console.log(err);
         }
-        handleRequestError(err, showToast, t);
+        if (isMounted) {
+          handleRequestError(err, showToast, t);
+        }
       }
     };
 
     handleMount();
-  }, [currentUser]);
+
+    return () => {
+      isMounted = false;
+    };
+  }, [currentUser, showToast, t]);
 
   return (
     <UserProfileDataContext.Provider value={userProfileData}>
