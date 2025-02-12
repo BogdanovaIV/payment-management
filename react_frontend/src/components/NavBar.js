@@ -34,15 +34,14 @@ const NavBar = () => {
           }
           id="dictionaries-dropdown"
         >
-          <NavDropdown.Item>
-            <NavLink
-              to="/partners"
-              className={styles.NavLink}
-              activeClassName={styles.Active}
-            >
-              <i className="fas fa-users"></i>
-              {t("partner.partners")}
-            </NavLink>
+          <NavDropdown.Item
+            as={NavLink}
+            to="/partners"
+            className={styles.NavLink}
+            activeClassName={styles.Active}
+          >
+            <i className="fas fa-users"></i>
+            {t("partner.partners")}
           </NavDropdown.Item>
         </NavDropdown>
         <NavDropdown
@@ -55,15 +54,14 @@ const NavBar = () => {
           }
           id="transactions-dropdown"
         >
-          <NavDropdown.Item>
-            <NavLink
-              to="/payment-request"
-              className={styles.NavLink}
-              activeClassName={styles.Active}
-            >
-              <i className="fas fa-money-check-alt"></i>
-              {t("payment_request.payment_requests")}
-            </NavLink>
+          <NavDropdown.Item
+            as={NavLink}
+            to="/payment-request"
+            className={styles.NavLink}
+            activeClassName={styles.Active}
+          >
+            <i className="fas fa-money-check-alt"></i>
+            {t("payment_request.payment_requests")}
           </NavDropdown.Item>
         </NavDropdown>
         <NavLink
