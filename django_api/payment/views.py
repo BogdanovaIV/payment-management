@@ -55,7 +55,7 @@ class PaymentRequestListCreateView(generics.ListCreateAPIView):
 
     def perform_create(self, serializer):
         """Saves the payment request with the requesting user as the owner."""
-        serializer.save(owner=self.request.user)
+        serializer.save(user=self.request.user)
 
 
 class PaymentRequestRetrieveUpdateDestroyView(
