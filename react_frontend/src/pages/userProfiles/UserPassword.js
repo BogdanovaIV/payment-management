@@ -1,24 +1,22 @@
-import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useEffect, useState, useMemo } from "react";
+
+import { useHistory, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-
-import bgImageStyles from "../../styles/BgImage.module.css";
-import inputStyles from "../../styles/Input.module.css";
-import headerStyles from "../../styles/Header.module.css";
-
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
 
+import bgImageStyles from "../../styles/BgImage.module.css";
+import inputStyles from "../../styles/Input.module.css";
+import headerStyles from "../../styles/Header.module.css";
+
 import backgroundImage from "../../assets/user-profile.jpg";
 
-import { useParams } from "react-router";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import SaveBar from "../../components/SaveBar";
 import { axiosReq } from "../../api/axiosDefaults";
-
 import { useToast } from "../../contexts/ToastContext";
 import { handleRequestError } from "../../utils/errorHandler";
 
@@ -33,7 +31,7 @@ const UserPasswordForm = () => {
     new_password2: "",
   });
 
-  const fields = [
+  const arrayFields = (t) => [
     {
       id: "new_password1",
       name: "new_password1",
@@ -48,15 +46,17 @@ const UserPasswordForm = () => {
     },
   ];
 
+  const fields = useMemo(() => arrayFields(t), [t]);
+
   const [errors, setErrors] = useState({});
 
   const history = useHistory();
 
   const handleChange = (event) => {
-    setUserData({
-      ...userData,
+    setUserData((prevData) => ({
+      ...prevData,
       [event.target.name]: event.target.value,
-    });
+    }));
   };
 
   useEffect(() => {
@@ -81,11 +81,14 @@ const UserPasswordForm = () => {
     }
   };
 
-  const backgroundStyle = {
-    backgroundImage: `url(${backgroundImage})`,
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-  };
+  const backgroundStyle = useMemo(
+    () => ({
+      backgroundImage: `url(${backgroundImage})`,
+      backgroundSize: "cover",
+      backgroundRepeat: "no-repeat",
+    }),
+    []
+  );
   return (
     <section className={bgImageStyles.BgImage} style={backgroundStyle}>
       <Container className="pt-2">
