@@ -94,7 +94,8 @@
     "comment": "Comment",
     "add_payment_request": "Add Payment Request",
     "invoice_amount": "Invoice Amount",
-    "payment_priority": "Payment Priority"
+    "payment_priority": "Payment Priority",
+    "edit_payment_requests": "Edit Payment Requests"
   },
   "general": {
     "id": "ID",

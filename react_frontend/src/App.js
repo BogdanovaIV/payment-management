@@ -19,6 +19,7 @@ import DeletePartnerPage from "./pages/partners/DeletePartnerPage";
 import PaymentRequestsPage from "./pages/paymentRequest/PaymentRequestsPage";
 import AddPaymentRequestPage from "./pages/paymentRequest/AddPaymentRequestPage";
 import ViewPaymentRequestPage from "./pages/paymentRequest/ViewPaymentRequestPage";
+import EditPaymentRequestPage from "./pages/paymentRequest/EditPaymentRequestPage";
 
 function App() {
   return (
@@ -71,6 +72,11 @@ function App() {
             exact
             path="/payment-request/add"
             render={() => <AddPaymentRequestPage />}
+          />
+          <Route
+            exact
+            path="/payment-request/:id/edit"
+            render={() => <EditPaymentRequestPage/>}
           />
           <Route
             exact

@@ -94,7 +94,8 @@
     "comment": "Комментарий",
     "add_payment_request": "Добавить запрос на оплату",
     "invoice_amount": "Сумма Инвойса",
-    "payment_priority": "Приоритет Оплаты"
+    "payment_priority": "Приоритет Оплаты",
+    "edit_payment_requests": "Редактировать запросы на оплату"
   },
   "general": {
     "id": "Код",

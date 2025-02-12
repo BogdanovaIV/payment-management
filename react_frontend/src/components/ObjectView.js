@@ -284,7 +284,8 @@ const ObjectView = ({
                                       ))}
                                     </Form.Control>
                                     {foreignKey !== undefined &&
-                                    typeView !== "view" ? (
+                                    typeView !== "view" &&
+                                    !disabled ? (
                                       <>
                                         <Button
                                           className={`${btnStyles.ButtonIcon} ${btnStyles.BlueIcon}`}
