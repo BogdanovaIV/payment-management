@@ -26,20 +26,20 @@ export const getParametersByName = (nameTable, t) => {
   return { url: "", columns: "" };
 };
 
-export const getNameFromItem = (nameTable, value) => {
-  if (nameTable === "partner") {
-    return value.trade_name;
-  } else if (nameTable === "user_profile") {
-    return value.full_name;
-  }
-  return "";
-};
-
 export const getIDFromItem = (nameTable, value) => {
   if (nameTable === "partner") {
     return value.id;
   } else if (nameTable === "user_profile") {
     return value.user_id;
+  }
+  return "";
+};
+
+export const getNameByNameTable = (nameTable) => {
+  if (nameTable === "partner") {
+    return 'trade_name';
+  } else if (nameTable === "user_profile") {
+    return 'full_name';
   }
   return "";
 };

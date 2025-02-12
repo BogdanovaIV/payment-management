@@ -20,7 +20,10 @@ import { handleRequestError } from "../utils/errorHandler";
 import bgImageStyles from "../styles/BgImage.module.css";
 import backgroundImage from "../assets/main-background.jpg";
 import ObjectSelect from "./ObjectSelect";
-import { getNameFromItem, getIDFromItem } from "../utils/selectFormParameters";
+import {
+  getNameByNameTable,
+  getIDFromItem,
+} from "../utils/selectFormParameters";
 
 const ObjectList = ({
   filters,
@@ -146,7 +149,8 @@ const ObjectList = ({
         ...filters,
         [selectedField.field]: {
           id: getIDFromItem(selectedField.foreignKey, selectedItem),
-          name: getNameFromItem(selectedField.foreignKey, selectedItem),
+          name:
+            selectedItem[getNameByNameTable(selectedField.foreignKey)] || "",
         },
       });
       setShowModal({ ...showModal, [selectedField.foreignKey]: false });
@@ -202,11 +206,11 @@ const ObjectList = ({
                   options,
                   foreignKey,
                   readOnly,
-                  label
+                  label,
                 }) => (
                   <Col xs={12} md={4} lg={3} className="mb-1">
                     <Form.Label className={styles.Label}>
-                      {label === undefined ? placeholder: label}
+                      {label === undefined ? placeholder : label}
                     </Form.Label>
                     <Col className="p-0 d-flex">
                       <Form.Control
