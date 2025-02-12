@@ -1,5 +1,5 @@
-import { createContext, useContext, useState } from "react";
-import { Toast } from "react-bootstrap";
+import { createContext, useContext, useState, useRef, useEffect } from "react";
+import Toast from "react-bootstrap/Toast";
 
 import styles from "../styles/ToastContext.module.css";
 
@@ -13,13 +13,27 @@ export const ToastProvider = ({ children }) => {
     show: false,
   });
 
-  const showToast = (message, type = "danger") => {
-    setToast({ message, type, show: true });
+  const timeoutRef = useRef(null);
 
-    setTimeout(() => {
-      setToast((prev) => ({ ...prev, show: false }));
-    }, 10000);
+  const showToast = (message, type = "danger", duration = 5000) => {
+    setToast((prevToast) => ({ ...prevToast, message, type, show: true }));
+
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+    }
+
+    timeoutRef.current = setTimeout(() => {
+      setToast((prevToast) => ({ ...prevToast, show: false }));
+    }, duration);
   };
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+      }
+    };
+  }, []);
 
   return (
     <ToastContext.Provider value={showToast}>
@@ -27,17 +41,12 @@ export const ToastProvider = ({ children }) => {
       <div
         aria-live="polite"
         aria-atomic="true"
-        style={{
-          position: "fixed",
-          top: "20px",
-          right: "20px",
-          zIndex: 1050,
-        }}
+        className={styles.ToastContainer} 
       >
         <Toast
           show={toast.show}
           onClose={() => setToast({ ...toast, show: false })}
-          style={{ minWidth: "250px" }}
+          className={styles.Toast} 
         >
           <Toast.Header>
             <strong
