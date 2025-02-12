@@ -20,6 +20,7 @@ import PaymentRequestsPage from "./pages/paymentRequest/PaymentRequestsPage";
 import AddPaymentRequestPage from "./pages/paymentRequest/AddPaymentRequestPage";
 import ViewPaymentRequestPage from "./pages/paymentRequest/ViewPaymentRequestPage";
 import EditPaymentRequestPage from "./pages/paymentRequest/EditPaymentRequestPage";
+import DeletePaymentRequestPage from "./pages/paymentRequest/DeletePaymentRequestPage";
 
 function App() {
   return (
@@ -77,6 +78,11 @@ function App() {
             exact
             path="/payment-request/:id/edit"
             render={() => <EditPaymentRequestPage/>}
+          />
+          <Route
+            exact
+            path="/payment-request/:id/delete"
+            render={() => <DeletePaymentRequestPage />}
           />
           <Route
             exact
