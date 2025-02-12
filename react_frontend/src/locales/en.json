@@ -48,7 +48,6 @@
     "is_own": "Is Own Partner",
     "contact_person": "Contact Person",
     "phone_number": "Phone Number",
-    "created_at": "Created At",
     "search_trade_Name": "Search by Trade Name",
     "search_bin": "Search by BIN",
     "all_types": "All Types",
@@ -59,8 +58,6 @@
     "legal_address": "Legal Address",
     "actual_address": "Actual Address",
     "add_partner": "Add Partner",
-    "id": "ID",
-    "updated_at": "Updated At",
     "edit_partner": "Edit Partner"
   },
   "toast": {
@@ -98,5 +95,10 @@
     "add_payment_request": "Add Payment Request",
     "invoice_amount": "Invoice Amount",
     "payment_priority": "Payment Priority"
+  },
+  "general": {
+    "id": "ID",
+    "created_at": "Created At",
+    "updated_at": "Updated At"
   }
 }

@@ -48,7 +48,6 @@
     "is_own": "Собстенное Юр. лицо",
     "contact_person": "Контактное Лицо",
     "phone_number": "Телефон",
-    "created_at": "Создано",
     "search_trade_Name": "Поиск по Наименованию",
     "search_bin": "Поиcк по БИН",
     "all_types": "Все Типы",
@@ -59,8 +58,6 @@
     "legal_address": "Юридический адрес",
     "actual_address": "Фактический адрес",
     "add_partner": "Добавить Контрагента",
-    "id": "Код",
-    "updated_at": "Обновлено",
     "edit_partner": "Редактирование Контрагента"
   },
   "toast": {
@@ -98,5 +95,10 @@
     "add_payment_request": "Добавить запрос на оплату",
     "invoice_amount": "Сумма Инвойса",
     "payment_priority": "Приоритет Оплаты"
+  },
+  "general": {
+    "id": "Код",
+    "created_at": "Создано",
+    "updated_at": "Обновлено"
   }
 }

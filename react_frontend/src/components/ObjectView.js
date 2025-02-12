@@ -19,7 +19,10 @@ import { postData, getData, putData } from "../api/axiosURL";
 import { useToast } from "../contexts/ToastContext";
 import { handleRequestError } from "../utils/errorHandler";
 import ObjectSelect from "./ObjectSelect";
-import { getNameFromItem, getIDFromItem } from "../utils/selectFormParameters";
+import {
+  getNameByNameTable,
+  getIDFromItem,
+} from "../utils/selectFormParameters";
 
 import backgroundImage from "../assets/main-background.jpg";
 
@@ -58,7 +61,28 @@ const ObjectView = ({
       if (typeView !== "add") {
         try {
           const response = await getData(`${url}${id}/`);
-          setData(response.data);
+          const responseData = response.data;
+          let newData = { ...data };
+
+          for (const [key, value] of Object.entries(responseData)) {
+            if (
+              Object.hasOwn(newData, key) &&
+              typeof newData[key] === "object"
+            ) {
+              const foreignKey = newData[key]?.foreignKey;
+
+              newData[key] = {
+                id: value,
+                name:
+                  responseData[`${key}_${getNameByNameTable(foreignKey)}`] ||
+                  "",
+                foreignKey: foreignKey,
+              };
+            } else {
+              newData[key] = value;
+            }
+          }
+          setData(newData);
         } catch (err) {
           if (process.env.NODE_ENV === "development") {
             console.log(err);
@@ -122,7 +146,8 @@ const ObjectView = ({
         ...data,
         [selectedField.field]: {
           id: getIDFromItem(selectedField.foreignKey, selectedItem),
-          name: getNameFromItem(selectedField.foreignKey, selectedItem),
+          name:
+            selectedItem[getNameByNameTable(selectedField.foreignKey)] || "",
         },
       });
       setShowModal({ ...showModal, [selectedField.foreignKey]: false });
@@ -193,6 +218,7 @@ const ObjectView = ({
                           readOnly,
                           as,
                           foreignKey,
+                          disabled,
                         }) => (
                           <Col key={id} md={item.length === 1 ? 12 : 6}>
                             <Form.Group controlId={id}>
@@ -239,7 +265,7 @@ const ObjectView = ({
                                       }
                                       onChange={handleChange}
                                       onClick={
-                                        foreignKey !== undefined
+                                        foreignKey !== undefined && !disabled
                                           ? (e) =>
                                               handleForeignKeyClick(
                                                 e,
@@ -257,7 +283,8 @@ const ObjectView = ({
                                         </option>
                                       ))}
                                     </Form.Control>
-                                    {foreignKey !== undefined ? (
+                                    {foreignKey !== undefined &&
+                                    typeView !== "view" ? (
                                       <>
                                         <Button
                                           className={`${btnStyles.ButtonIcon} ${btnStyles.BlueIcon}`}

@@ -48,7 +48,6 @@
     "is_own": "Меншікті заңды тұлға бет",
     "contact_person": "Байланыс жасайтын тұлға",
     "phone_number": "Телефон",
-    "created_at": "Құрылды",
     "search_trade_Name": "Аты бойынша іздеу",
     "search_bin": "BIN бойынша іздеу",
     "all_types": "Барлық түрлері",
@@ -59,8 +58,6 @@
     "legal_address": "Заңды мекенжайы",
     "actual_address": "Нақты мекенжай",
     "add_partner": "Серіктес қосу",
-    "id": "Код",
-    "updated_at": "Жаңартылған",
     "edit_partner": "Тіркелгіні өңдеу"
   },
   "toast": {
@@ -98,5 +95,10 @@
     "add_payment_request": "Төлем сұрауын қосыңыз",
     "invoice_amount": "Шот-фактура сомасы",
     "payment_priority": "Төлем басымдығы"
+  },
+  "general": {
+    "id": "Код",
+    "created_at": "Құрылды",
+    "updated_at": "Тіркелгіні өңдеу"
   }
 }
