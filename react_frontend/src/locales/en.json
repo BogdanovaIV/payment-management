@@ -92,6 +92,11 @@
     "search_deadline": "Search by Deadline",
     "search_invoice_number": "Search by Invoice Number",
     "start_deadline": "Deadline From",
-    "end_deadline": "Deadline To"
+    "end_deadline": "Deadline To",
+    "payment_request": "Payment Request",
+    "comment": "Comment",
+    "add_payment_request": "Add Payment Request",
+    "invoice_amount": "Invoice Amount",
+    "payment_priority": "Payment Priority"
   }
 }

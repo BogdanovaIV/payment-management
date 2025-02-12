@@ -17,6 +17,7 @@ import ViewPartnerPage from "./pages/partners/ViewPartnerPage";
 import EditPartnerPage from "./pages/partners/EditPartnerPage";
 import DeletePartnerPage from "./pages/partners/DeletePartnerPage";
 import PaymentRequestsPage from "./pages/paymentRequest/PaymentRequestsPage";
+import AddPaymentRequestPage from "./pages/paymentRequest/AddPaymentRequestPage";
 
 function App() {
   return (
@@ -61,6 +62,7 @@ function App() {
             render={() => <ViewPartnerPage />}
           />
           <Route exact path="/payment-request" render={() => <PaymentRequestsPage />} />
+          <Route exact path="/payment-request/add" render={() => <AddPaymentRequestPage />} />
           <Route render={() => <p>Not found</p>} />
         </Switch>
       </div>

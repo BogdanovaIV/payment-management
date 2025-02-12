@@ -92,6 +92,11 @@
     "search_deadline": "Мерзімі бойынша іздеу",
     "search_invoice_number": "Шот-фактура нөмірі бойынша іздеу",
     "start_deadline": "Мерзімі бастап",
-    "end_deadline": "Мерзімі дейін"
+    "end_deadline": "Мерзімі дейін",
+    "payment_request": "Төлем сұрауы",
+    "comment": "Түсініктеме",
+    "add_payment_request": "Төлем сұрауын қосыңыз",
+    "invoice_amount": "Шот-фактура сомасы",
+    "payment_priority": "Төлем басымдығы"
   }
 }

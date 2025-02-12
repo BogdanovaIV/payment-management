@@ -18,14 +18,30 @@ import Button from "react-bootstrap/Button";
 import { postData, getData, putData } from "../api/axiosURL";
 import { useToast } from "../contexts/ToastContext";
 import { handleRequestError } from "../utils/errorHandler";
+import ObjectSelect from "./ObjectSelect";
+import { getNameFromItem, getIDFromItem } from "../utils/selectFormParameters";
 
 import backgroundImage from "../assets/main-background.jpg";
 
 import SaveBar from "./SaveBar";
 
-const ObjectView = ({ data, setData, fields, url, objectName, typeView }) => {
+const ObjectView = ({
+  data,
+  setData,
+  fields,
+  url,
+  objectName,
+  typeView,
+  modalForms = [],
+}) => {
   const { t } = useTranslation();
   const [errors, setErrors] = useState({});
+  const [showModal, setShowModal] = useState({});
+  const [selectedItem, setSelectedItem] = useState(null);
+  const [selectedField, setSelectedFiled] = useState({
+    field: "",
+    foreignKey: "",
+  });
 
   const { id } = useParams();
 
@@ -65,12 +81,18 @@ const ObjectView = ({ data, setData, fields, url, objectName, typeView }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
+      const newData = Object.fromEntries(
+        Object.entries(data).map(([key, value]) => [
+          key,
+          typeof value === "object" && value !== null ? value.id : value,
+        ])
+      );
       if (typeView === "add") {
-        const response = await postData(url, data);
+        const response = await postData(url, newData);
         history.push(`${url}${response.data.id}`);
         showToast(t("toast.success_add"), "success");
       } else if (typeView === "edit") {
-        await putData(`${url}${id}/`, data);
+        await putData(`${url}${id}/`, newData);
         history.goBack();
         showToast(t("toast.success_update"), "success");
       }
@@ -82,6 +104,38 @@ const ObjectView = ({ data, setData, fields, url, objectName, typeView }) => {
     }
   };
 
+  const handleForeignKeyClick = (e, foreignKey) => {
+    setSelectedFiled((prevSelected) => ({
+      ...prevSelected,
+      field: e.target.name,
+      foreignKey,
+    }));
+    setShowModal((prevShowModal) => ({
+      ...prevShowModal,
+      [foreignKey]: true,
+    }));
+  };
+
+  useEffect(() => {
+    if (selectedField.field) {
+      setData({
+        ...data,
+        [selectedField.field]: {
+          id: getIDFromItem(selectedField.foreignKey, selectedItem),
+          name: getNameFromItem(selectedField.foreignKey, selectedItem),
+        },
+      });
+      setShowModal({ ...showModal, [selectedField.foreignKey]: false });
+    }
+  }, [selectedItem]);
+
+  const handleClearFilterClick = (field) => {
+    setData((prevData) => ({
+      ...prevData,
+      [field]: { id: "", name: "" },
+    }));
+  };
+
   const backgroundStyle = {
     backgroundImage: `url(${backgroundImage})`,
     backgroundSize: "cover",
@@ -89,10 +143,7 @@ const ObjectView = ({ data, setData, fields, url, objectName, typeView }) => {
   };
 
   return (
-    <section
-      className={`${bgImageStyles.BgImage}`}
-      style={backgroundStyle}
-    >
+    <section className={`${bgImageStyles.BgImage}`} style={backgroundStyle}>
       <Container className="pt-2">
         <Row className=" offset-lg-1 align-items-center justify-content-between text-center text-lg-start flex-column flex-lg-row">
           <Col className="text-center">
@@ -141,6 +192,7 @@ const ObjectView = ({ data, setData, fields, url, objectName, typeView }) => {
                           options,
                           readOnly,
                           as,
+                          foreignKey,
                         }) => (
                           <Col key={id} md={item.length === 1 ? 12 : 6}>
                             <Form.Group controlId={id}>
@@ -169,26 +221,57 @@ const ObjectView = ({ data, setData, fields, url, objectName, typeView }) => {
                                   <Form.Label className={styles.Label}>
                                     {placeholder}
                                   </Form.Label>
-                                  <Form.Control
-                                    className={inputStyles.InputObject}
-                                    as={as}
-                                    type={type !== "select" ? type : undefined}
-                                    rows={rows || 1}
-                                    readOnly={typeView === "view" || readOnly}
-                                    placeholder={placeholder}
-                                    name={name}
-                                    value={data[name]}
-                                    onChange={handleChange}
-                                  >
-                                    {options?.map((option, index) => (
-                                      <option
-                                        key={`${name}${index}`}
-                                        value={option[0]}
-                                      >
-                                        {option[1]}
-                                      </option>
-                                    ))}
-                                  </Form.Control>
+                                  <Col className="p-0 d-flex">
+                                    <Form.Control
+                                      className={inputStyles.InputObject}
+                                      as={as}
+                                      type={
+                                        type !== "select" ? type : undefined
+                                      }
+                                      rows={rows || 1}
+                                      readOnly={typeView === "view" || readOnly}
+                                      placeholder={placeholder}
+                                      name={name}
+                                      value={
+                                        foreignKey !== undefined
+                                          ? data[name].name
+                                          : data[name]
+                                      }
+                                      onChange={handleChange}
+                                      onClick={
+                                        foreignKey !== undefined
+                                          ? (e) =>
+                                              handleForeignKeyClick(
+                                                e,
+                                                foreignKey
+                                              )
+                                          : undefined
+                                      }
+                                    >
+                                      {options?.map((option, index) => (
+                                        <option
+                                          key={`${name}${index}`}
+                                          value={option[0]}
+                                        >
+                                          {option[1]}
+                                        </option>
+                                      ))}
+                                    </Form.Control>
+                                    {foreignKey !== undefined ? (
+                                      <>
+                                        <Button
+                                          className={`${btnStyles.ButtonIcon} ${btnStyles.BlueIcon}`}
+                                          onClick={() =>
+                                            handleClearFilterClick(name)
+                                          }
+                                        >
+                                          <i className="fa-regular fa-trash-can"></i>
+                                        </Button>
+                                      </>
+                                    ) : (
+                                      <></>
+                                    )}
+                                  </Col>
                                 </>
                               )}
 
@@ -233,6 +316,23 @@ const ObjectView = ({ data, setData, fields, url, objectName, typeView }) => {
           </Col>
         </Row>
       </Container>
+      {modalForms ? (
+        modalForms.map(({ url, columns, foreignKey, queryKey }) => (
+          <ObjectSelect
+            key={foreignKey}
+            show={showModal[foreignKey]}
+            handleClose={() =>
+              setShowModal({ ...showModal, [foreignKey]: false })
+            }
+            setSelectedItem={setSelectedItem}
+            url={url}
+            columns={columns}
+            queryKey={queryKey}
+          />
+        ))
+      ) : (
+        <></>
+      )}
     </section>
   );
 };

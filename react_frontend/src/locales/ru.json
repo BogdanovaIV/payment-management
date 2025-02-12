@@ -92,6 +92,11 @@
     "search_deadline": "Поиск по карйнему сроку",
     "search_invoice_number": "Поиск по номеру инвойса",
     "start_deadline": "Крайний срок от",
-    "end_deadline": "Крайний срок до"
+    "end_deadline": "Крайний срок до",
+    "payment_request": "Запрос платежа",
+    "comment": "Комментарий",
+    "add_payment_request": "Добавить запрос на оплату",
+    "invoice_amount": "Сумма Инвойса",
+    "payment_priority": "Приоритет Оплаты"
   }
 }
