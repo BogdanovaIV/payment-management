@@ -11,6 +11,9 @@ import SpinnerSecondary from "./Spinners";
 
 import { useToast } from "../contexts/ToastContext";
 import { handleRequestError } from "../utils/errorHandler";
+import useIsSmallScreen from "../hooks/useIsSmallScreen";
+import CardCollection from "./CardCollection";
+import DataTable from "./DataTable";
 
 const ObjectSelect = ({
   show,
@@ -23,6 +26,7 @@ const ObjectSelect = ({
   const { t } = useTranslation();
   const showToast = useToast();
   const [query, setQuery] = useState("");
+  const [isSmallScreen] = useIsSmallScreen();
 
   const handleRowClick = (object) => {
     setSelectedItem(object);
@@ -53,13 +57,15 @@ const ObjectSelect = ({
     useTable({ columns, data: objects });
 
   const tableBodyRef = useRef(null);
+  const cardsRef = useRef(null);
 
   useEffect(() => {
     if (!hasNextPage || isFetching) return;
 
-    const tableBody = tableBodyRef.current;
-    if (!tableBody) return;
-    const lastRow = tableBody.lastElementChild;
+    const container = isSmallScreen ? cardsRef.current : tableBodyRef.current;
+    if (!container) return;
+
+    const lastRow = container.lastElementChild;
     if (!lastRow) return;
 
     const observer = new IntersectionObserver(
@@ -69,7 +75,7 @@ const ObjectSelect = ({
           fetchNextPage();
         }
       },
-      { root: null, rootMargin: "100px", threshold: 1.0 }
+      { root: null, rootMargin: "100px", threshold: 0.8 }
     );
 
     observer.observe(lastRow);
@@ -104,49 +110,24 @@ const ObjectSelect = ({
           </Form>
           {isLoading ? (
             <SpinnerSecondary />
+          ) : isSmallScreen ? (
+            <CardCollection
+              columns={columns}
+              cardsRef={cardsRef}
+              objects={objects}
+              handleRowClick={handleRowClick}
+            />
           ) : (
-            <>
-              <div className={styles.TableDiv}>
-                <table {...getTableProps()} className={`${styles.Table} table`}>
-                  <thead className={styles.TableHeader}>
-                    {headerGroups.map((headerGroup) => (
-                      <tr {...headerGroup.getHeaderGroupProps()}>
-                        {headerGroup.headers.map((column) => (
-                          <th
-                            className={styles.TableHeaderTh}
-                            {...column.getHeaderProps()}
-                          >
-                            {column.render("Header")}
-                          </th>
-                        ))}
-                      </tr>
-                    ))}
-                  </thead>
-                  <tbody {...getTableBodyProps()} ref={tableBodyRef}>
-                    {rows.map((row) => {
-                      prepareRow(row);
-                      return (
-                        <tr
-                          {...row.getRowProps()}
-                          onClick={() => handleRowClick(row.original)}
-                          className={styles.ClickableRow}
-                        >
-                          {row.cells.map((cell) => (
-                            <td
-                              className={styles.TableHeaderTd}
-                              {...cell.getCellProps()}
-                            >
-                              {cell.render("Cell")}
-                            </td>
-                          ))}
-                        </tr>
-                      );
-                    })}
-                  </tbody>
-                </table>
-              </div>
-              {isFetching && <SpinnerSecondary />}
-            </>
+            <DataTable
+              getTableProps={getTableProps}
+              getTableBodyProps={getTableBodyProps}
+              headerGroups={headerGroups}
+              rows={rows}
+              prepareRow={prepareRow}
+              tableBodyRef={tableBodyRef}
+              handleRowClick={handleRowClick}
+              isFetching={isFetching}
+            />
           )}
         </Container>
       </Modal.Body>

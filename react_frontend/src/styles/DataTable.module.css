@@ -1,20 +1,3 @@
-.Modal {
-  width: 95%;
-  max-width: none !important;
-}
-
-.Main {
-  display: flex;
-  flex-direction: column;
-  height: calc(100vh - 170px);
-  width: 100%;
-  max-width: none !important;
-}
-
-.HeaderButtons {
-  padding: 0;
-}
-
 .TableDiv {
   overflow-y: auto;
   border: 2px solid var(--blue-color);
@@ -53,11 +36,6 @@
   padding: 0.5rem !important;
 }
 
-.Input {
-  border: 1px solid var(--blue-color);
-  color: var(--blue-color);
-}
-
 .ClickableRow {
   cursor: pointer;
   transition: ease 0.3s;
@@ -65,14 +43,4 @@
 
 .ClickableRow:hover {
   background: rgba(var(--orange-color-rgb), 0.1) !important;
-}
-
-.Label {
-  padding: 0 !important;
-  font-weight: 600;
-  color: var(--blue-color);
-}
-
-.SearchBar {
-  margin-bottom: 10px;
 }

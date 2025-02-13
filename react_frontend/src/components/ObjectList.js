@@ -24,6 +24,9 @@ import {
   getNameByNameTable,
   getIDFromItem,
 } from "../utils/selectFormParameters";
+import useIsSmallScreen from "../hooks/useIsSmallScreen";
+import CardCollection from "./CardCollection";
+import DataTable from "./DataTable";
 
 const ObjectList = ({
   filters,
@@ -33,6 +36,7 @@ const ObjectList = ({
   ObjectsName,
   filterFields,
   modalForms = [],
+  queryKeyObjects = "Objects",
 }) => {
   const { t } = useTranslation();
   const [showFilters, setShowFilters] = useState(false);
@@ -54,9 +58,11 @@ const ObjectList = ({
     history.push(`${url}add`);
   };
 
+  const [isSmallScreen] = useIsSmallScreen();
+
   const { data, fetchNextPage, hasNextPage, isFetching, isLoading, refetch } =
     useInfiniteQuery({
-      queryKey: ["objects", filters],
+      queryKey: [[queryKeyObjects], filters],
       queryFn: async ({ pageParam = null }) => {
         try {
           const newFilters = Object.fromEntries(
@@ -85,14 +91,15 @@ const ObjectList = ({
     useTable({ columns, data: objects });
 
   const tableBodyRef = useRef(null);
+  const cardsRef = useRef(null);
 
   useEffect(() => {
     if (!hasNextPage || isFetching) return;
 
-    const tableBody = tableBodyRef.current;
-    if (!tableBody) return;
+    const container = isSmallScreen ? cardsRef.current : tableBodyRef.current;
+    if (!container) return;
 
-    const lastRow = tableBody.lastElementChild;
+    const lastRow = container.lastElementChild;
     if (!lastRow) return;
 
     const observer = new IntersectionObserver(
@@ -102,7 +109,7 @@ const ObjectList = ({
           fetchNextPage();
         }
       },
-      { root: null, rootMargin: "80px", threshold: 1.0 }
+      { root: null, rootMargin: "80px", threshold: 0.8 }
     );
 
     observer.observe(lastRow);
@@ -110,7 +117,7 @@ const ObjectList = ({
     return () => {
       if (lastRow) observer.unobserve(lastRow);
     };
-  }, [hasNextPage, isFetching, fetchNextPage, data]);
+  }, [hasNextPage, isFetching, fetchNextPage, data, isSmallScreen]);
 
   const handleFilterChange = (e) => {
     let newValue = { [e.target.name]: e.target.value };
@@ -144,7 +151,7 @@ const ObjectList = ({
   };
 
   useEffect(() => {
-    if (selectedField.field) {
+    if (selectedField.field && selectedItem) {
       setFilters({
         ...filters,
         [selectedField.field]: {
@@ -208,7 +215,7 @@ const ObjectList = ({
                   readOnly,
                   label,
                 }) => (
-                  <Col xs={12} md={4} lg={3} className="mb-1">
+                  <Col key={name} xs={12} md={4} lg={3} className="mb-1">
                     <Form.Label className={styles.Label}>
                       {label === undefined ? placeholder : label}
                     </Form.Label>
@@ -261,49 +268,24 @@ const ObjectList = ({
 
         {isLoading ? (
           <SpinnerSecondary />
+        ) : isSmallScreen ? (
+          <CardCollection
+            columns={columns}
+            cardsRef={cardsRef}
+            objects={objects}
+            handleRowClick={handleRowClick}
+          />
         ) : (
-          <>
-            <div className={styles.TableDiv}>
-              <table {...getTableProps()} className={`${styles.Table} table`}>
-                <thead className={styles.TableHeader}>
-                  {headerGroups.map((headerGroup) => (
-                    <tr {...headerGroup.getHeaderGroupProps()}>
-                      {headerGroup.headers.map((column) => (
-                        <th
-                          className={styles.TableHeaderTh}
-                          {...column.getHeaderProps()}
-                        >
-                          {column.render("Header")}
-                        </th>
-                      ))}
-                    </tr>
-                  ))}
-                </thead>
-                <tbody {...getTableBodyProps()} ref={tableBodyRef}>
-                  {rows.map((row) => {
-                    prepareRow(row);
-                    return (
-                      <tr
-                        {...row.getRowProps()}
-                        onClick={() => handleRowClick(row.original)}
-                        className={styles.ClickableRow}
-                      >
-                        {row.cells.map((cell) => (
-                          <td
-                            className={styles.TableHeaderTd}
-                            {...cell.getCellProps()}
-                          >
-                            {cell.render("Cell")}
-                          </td>
-                        ))}
-                      </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-            {isFetching && <SpinnerSecondary />}
-          </>
+          <DataTable
+            getTableProps={getTableProps}
+            getTableBodyProps={getTableBodyProps}
+            headerGroups={headerGroups}
+            rows={rows}
+            prepareRow={prepareRow}
+            tableBodyRef={tableBodyRef}
+            handleRowClick={handleRowClick}
+            isFetching={isFetching}
+          />
         )}
       </Container>
 
