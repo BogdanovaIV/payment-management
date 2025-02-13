@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 import Form from "react-bootstrap/Form";
@@ -7,15 +7,10 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import { useTable } from "react-table";
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { getData, getNextPage } from "../api/axiosURL";
 import headerStyles from "../styles/Header.module.css";
 import btnStyles from "../styles/Button.module.css";
 import styles from "../styles/ObjectList.module.css";
 import SpinnerSecondary from "./Spinners";
-
-import { useToast } from "../contexts/ToastContext";
-import { handleRequestError } from "../utils/errorHandler";
 
 import bgImageStyles from "../styles/BgImage.module.css";
 import backgroundImage from "../assets/main-background.jpg";
@@ -27,6 +22,8 @@ import {
 import useIsSmallScreen from "../hooks/useIsSmallScreen";
 import CardCollection from "./CardCollection";
 import DataTable from "./DataTable";
+import useInfiniteData from "../hooks/useInfiniteData";
+import useInfiniteScroll from "../hooks/useInfiniteScroll";
 
 const ObjectList = ({
   filters,
@@ -36,12 +33,11 @@ const ObjectList = ({
   ObjectsName,
   filterFields,
   modalForms = [],
-  queryKeyObjects = "Objects",
+  queryKey = "Objects",
 }) => {
   const { t } = useTranslation();
   const [showFilters, setShowFilters] = useState(false);
   const history = useHistory();
-  const showToast = useToast();
   const [showModal, setShowModal] = useState({});
   const [selectedItem, setSelectedItem] = useState(null);
 
@@ -59,65 +55,26 @@ const ObjectList = ({
   };
 
   const [isSmallScreen] = useIsSmallScreen();
-
-  const { data, fetchNextPage, hasNextPage, isFetching, isLoading, refetch } =
-    useInfiniteQuery({
-      queryKey: [[queryKeyObjects], filters],
-      queryFn: async ({ pageParam = null }) => {
-        try {
-          const newFilters = Object.fromEntries(
-            Object.entries(filters).map(([key, value]) => [
-              key,
-              typeof value === "object" && value !== null ? value.id : value,
-            ])
-          );
-          const response = pageParam
-            ? await getNextPage(pageParam)
-            : await getData(url, newFilters);
-          return response.data;
-        } catch (err) {
-          if (process.env.NODE_ENV === "development") {
-            console.log(err);
-          }
-          handleRequestError(err, showToast, t);
-        }
-      },
-      getNextPageParam: (lastPage) => lastPage.next || undefined,
-    });
-
-  const objects = data?.pages.flatMap((page) => page.results) || [];
+  const {
+    data,
+    objects,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isLoading,
+    refetch,
+  } = useInfiniteData({ queryKey, filters, url });
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data: objects });
 
-  const tableBodyRef = useRef(null);
-  const cardsRef = useRef(null);
-
-  useEffect(() => {
-    if (!hasNextPage || isFetching) return;
-
-    const container = isSmallScreen ? cardsRef.current : tableBodyRef.current;
-    if (!container) return;
-
-    const lastRow = container.lastElementChild;
-    if (!lastRow) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const lastEntry = entries[0];
-        if (lastEntry.isIntersecting) {
-          fetchNextPage();
-        }
-      },
-      { root: null, rootMargin: "80px", threshold: 0.8 }
-    );
-
-    observer.observe(lastRow);
-
-    return () => {
-      if (lastRow) observer.unobserve(lastRow);
-    };
-  }, [hasNextPage, isFetching, fetchNextPage, data, isSmallScreen]);
+  const { tableBodyRef, cardsRef } = useInfiniteScroll({
+    hasNextPage,
+    isFetching,
+    fetchNextPage,
+    data,
+    isSmallScreen,
+  });
 
   const handleFilterChange = (e) => {
     let newValue = { [e.target.name]: e.target.value };

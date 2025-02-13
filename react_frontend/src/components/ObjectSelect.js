@@ -1,19 +1,17 @@
-import React, { useState, useRef, useEffect } from "react";
-import { useTranslation } from "react-i18next";
+import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Modal from "react-bootstrap/Modal";
 import { useTable } from "react-table";
-import { useInfiniteQuery } from "@tanstack/react-query";
-import { getData, getNextPage } from "../api/axiosURL";
+
 import styles from "../styles/ObjectSelect.module.css";
 import SpinnerSecondary from "./Spinners";
 
-import { useToast } from "../contexts/ToastContext";
-import { handleRequestError } from "../utils/errorHandler";
 import useIsSmallScreen from "../hooks/useIsSmallScreen";
 import CardCollection from "./CardCollection";
 import DataTable from "./DataTable";
+import useInfiniteData from "../hooks/useInfiniteData";
+import useInfiniteScroll from "../hooks/useInfiniteScroll";
 
 const ObjectSelect = ({
   show,
@@ -23,8 +21,6 @@ const ObjectSelect = ({
   columns,
   queryKey,
 }) => {
-  const { t } = useTranslation();
-  const showToast = useToast();
   const [query, setQuery] = useState("");
   const [isSmallScreen] = useIsSmallScreen();
 
@@ -32,58 +28,27 @@ const ObjectSelect = ({
     setSelectedItem(object);
     handleClose();
   };
-  const { data, fetchNextPage, hasNextPage, isFetching, isLoading, refetch } =
-    useInfiniteQuery({
-      queryKey: [[queryKey], query],
-      queryFn: async ({ pageParam = null }) => {
-        try {
-          const filters = !!query ? { search: query } : undefined;
-          const response = pageParam
-            ? await getNextPage(pageParam)
-            : await getData(url, filters);
-          return response.data;
-        } catch (err) {
-          if (process.env.NODE_ENV === "development") {
-            console.log(err);
-          }
-          handleRequestError(err, showToast, t);
-        }
-      },
-      getNextPageParam: (lastPage) => lastPage.next || undefined,
-    });
-  const objects = data?.pages.flatMap((page) => page.results) || [];
+  const {
+    data,
+    objects,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isLoading,
+    refetch,
+  } = useInfiniteData({ queryKey, searchQuery: query, url });
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data: objects });
 
-  const tableBodyRef = useRef(null);
-  const cardsRef = useRef(null);
-
-  useEffect(() => {
-    if (!hasNextPage || isFetching) return;
-
-    const container = isSmallScreen ? cardsRef.current : tableBodyRef.current;
-    if (!container) return;
-
-    const lastRow = container.lastElementChild;
-    if (!lastRow) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const lastEntry = entries[0];
-        if (lastEntry.isIntersecting) {
-          fetchNextPage();
-        }
-      },
-      { root: null, rootMargin: "100px", threshold: 0.8 }
-    );
-
-    observer.observe(lastRow);
-
-    return () => {
-      if (lastRow) observer.unobserve(lastRow);
-    };
-  }, [hasNextPage, isFetching, fetchNextPage, data, show]);
+  const { tableBodyRef, cardsRef } = useInfiniteScroll({
+    hasNextPage,
+    isFetching,
+    fetchNextPage,
+    data,
+    isSmallScreen,
+    show,
+  });
 
   const handleQueryChange = (e) => {
     setQuery(e.target.value);
