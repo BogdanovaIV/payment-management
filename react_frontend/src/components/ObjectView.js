@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Alert from "react-bootstrap/Alert";
+import Button from "react-bootstrap/Button";
 
 import bgImageStyles from "../styles/BgImage.module.css";
 import inputStyles from "../styles/Input.module.css";
@@ -8,12 +14,7 @@ import btnStyles from "../styles/Button.module.css";
 import headerStyles from "../styles/Header.module.css";
 import styles from "../styles/ObjectView.module.css";
 
-import Form from "react-bootstrap/Form";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Container from "react-bootstrap/Container";
-import Alert from "react-bootstrap/Alert";
-import Button from "react-bootstrap/Button";
+import backgroundImage from "../assets/main-background.jpg";
 
 import { postData, getData, putData } from "../api/axiosURL";
 import { useToast } from "../contexts/ToastContext";
@@ -23,10 +24,8 @@ import {
   getNameByNameTable,
   getIDFromItem,
 } from "../utils/selectFormParameters";
-
-import backgroundImage from "../assets/main-background.jpg";
-
 import SaveBar from "./SaveBar";
+import SpinnerSecondary from "./Spinners";
 
 const ObjectView = ({
   data,
@@ -45,6 +44,7 @@ const ObjectView = ({
     field: "",
     foreignKey: "",
   });
+  const [hasLoaded, setHasLoaded] = useState(false);
 
   const { id } = useParams();
 
@@ -57,6 +57,7 @@ const ObjectView = ({
   };
 
   useEffect(() => {
+    let isMounted = true;
     const handleMount = async () => {
       if (typeView !== "add") {
         try {
@@ -82,7 +83,10 @@ const ObjectView = ({
               newData[key] = value;
             }
           }
-          setData(newData);
+          if (isMounted) {
+            setData(newData);
+            setHasLoaded(true);
+          }
         } catch (err) {
           if (process.env.NODE_ENV === "development") {
             console.log(err);
@@ -93,13 +97,16 @@ const ObjectView = ({
     };
 
     handleMount();
-  }, [history, id]);
+    return () => {
+      isMounted = false;
+    };
+  }, [id, t, typeView, url]);
 
   const handleChange = (event) => {
-    setData({
-      ...data,
+    setData((prevData) => ({
+      ...prevData,
       [event.target.name]: event.target.value,
-    });
+    }));
   };
 
   const handleSubmit = async (event) => {
@@ -142,15 +149,18 @@ const ObjectView = ({
 
   useEffect(() => {
     if (selectedField.field) {
-      setData({
-        ...data,
+      setData((prevData) => ({
+        ...prevData,
         [selectedField.field]: {
           id: getIDFromItem(selectedField.foreignKey, selectedItem),
           name:
             selectedItem[getNameByNameTable(selectedField.foreignKey)] || "",
         },
-      });
-      setShowModal({ ...showModal, [selectedField.foreignKey]: false });
+      }));
+      setShowModal((prevShowModal) => ({
+        ...prevShowModal,
+        [selectedField.foreignKey]: false,
+      }));
     }
   }, [selectedItem]);
 
@@ -177,7 +187,7 @@ const ObjectView = ({
         </Row>
         <Row>
           <Col className="px-4 py-1">
-            {typeView === "view" ? (
+            {typeView === "view" && (
               <>
                 <Button
                   className={`${btnStyles.ButtonTransparent} ${btnStyles.RedTransparent}`}
@@ -194,14 +204,12 @@ const ObjectView = ({
                   <i className="fa-solid fa-circle-plus"></i> {t("button.edit")}
                 </Button>
               </>
-            ) : (
-              <></>
             )}
           </Col>
         </Row>
 
         <Row>
-          <Col>
+          {hasLoaded ? (
             <Container>
               <Form onSubmit={handleSubmit}>
                 <Form.Group>
@@ -229,7 +237,7 @@ const ObjectView = ({
                                     className={inputStyles.CheckBoxObject}
                                     disabled={typeView === "view" || readOnly}
                                     name={name}
-                                    value={data[name]}
+                                    value={data[name] ?? ""}
                                     onChange={handleChange}
                                   >
                                     {options?.map((option, index) => (
@@ -247,7 +255,7 @@ const ObjectView = ({
                                   <Form.Label className={styles.Label}>
                                     {placeholder}
                                   </Form.Label>
-                                  <Col className="p-0 d-flex">
+                                  <Col key={id} className="p-0 d-flex">
                                     <Form.Control
                                       className={inputStyles.InputObject}
                                       as={as}
@@ -260,8 +268,8 @@ const ObjectView = ({
                                       name={name}
                                       value={
                                         foreignKey !== undefined
-                                          ? data[name].name
-                                          : data[name]
+                                          ? data[name]?.name ?? ""
+                                          : data[name] ?? ""
                                       }
                                       onChange={handleChange}
                                       onClick={
@@ -341,7 +349,9 @@ const ObjectView = ({
                 )}
               </Form>
             </Container>
-          </Col>
+          ) : (
+            <SpinnerSecondary />
+          )}
         </Row>
       </Container>
       {modalForms ? (
@@ -350,7 +360,10 @@ const ObjectView = ({
             key={foreignKey}
             show={showModal[foreignKey]}
             handleClose={() =>
-              setShowModal({ ...showModal, [foreignKey]: false })
+              setShowModal((prevShowModal) => ({
+                ...prevShowModal,
+                [foreignKey]: false,
+              }))
             }
             setSelectedItem={setSelectedItem}
             url={url}

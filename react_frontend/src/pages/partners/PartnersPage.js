@@ -62,6 +62,7 @@ const PartnersPage = () => {
     url: parametersPartner.url,
     ObjectsName: t("partner.partners"),
     filterFields,
+    queryKey : "PartnersList"
   };
 
   return <ObjectList {...parameters} />;

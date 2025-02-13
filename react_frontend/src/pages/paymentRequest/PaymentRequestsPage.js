@@ -8,9 +8,9 @@ const PaymentRequestsPage = () => {
   const { t } = useTranslation();
 
   const [filters, setFilters] = useState({
-    payer: {id:"", name: ""},
-    recipient: {id:"", name: ""},
-    user: {id:"", name: ""},
+    payer: { id: "", name: "" },
+    recipient: { id: "", name: "" },
+    user: { id: "", name: "" },
     invoice_date: "",
     invoice_number: "",
     start_deadline: "",
@@ -52,13 +52,13 @@ const PaymentRequestsPage = () => {
       foreignKey: "partner",
       url: parametersPartner.url,
       columns: parametersPartner.columns,
-      queryKey:  "partnerQuery"
+      queryKey: "partnerQuery",
     },
     {
       foreignKey: "user_profile",
       url: parametersUserProfile.url,
       columns: parametersUserProfile.columns,
-      queryKey:  "partnerUserProfile"
+      queryKey: "partnerUserProfile",
     },
   ];
   const filterFields = [
@@ -68,7 +68,7 @@ const PaymentRequestsPage = () => {
       placeholder: t("payment_request.search_payer"),
       label: t("payment_request.payer"),
       foreignKey: "partner",
-      readOnly: true
+      readOnly: true,
     },
     {
       name: "recipient",
@@ -76,7 +76,7 @@ const PaymentRequestsPage = () => {
       placeholder: t("payment_request.search_recipient"),
       label: t("payment_request.recipient"),
       foreignKey: "partner",
-      readOnly: true
+      readOnly: true,
     },
     {
       name: "user",
@@ -84,7 +84,7 @@ const PaymentRequestsPage = () => {
       placeholder: t("payment_request.search_user"),
       label: t("payment_request.user"),
       readOnly: true,
-      foreignKey: "user_profile"
+      foreignKey: "user_profile",
     },
     {
       name: "invoice_number",
@@ -116,7 +116,8 @@ const PaymentRequestsPage = () => {
     url: getPaymentRequestsUrl(),
     ObjectsName: t("payment_request.payment_requests"),
     filterFields,
-    modalForms
+    modalForms,
+    queryKey: "PaymentRequestsList",
   };
 
   return <ObjectList {...parameters} />;

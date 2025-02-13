@@ -10,9 +10,9 @@ const ViewPaymentRequestPage = ({ typeView = "view", objectName }) => {
   const { t } = useTranslation();
   objectName = objectName ?? t("payment_request.add_payment_request");
   const [data, setData] = useState({
-    payer: { id: "", name: "", foreignKey: "partner"},
-    recipient: { id: "", name: "" , foreignKey: "partner"},
-    user: { id: "", name: "" , foreignKey: "user_profile"},
+    payer: { id: "", name: "", foreignKey: "partner" },
+    recipient: { id: "", name: "", foreignKey: "partner" },
+    user: { id: "", name: "", foreignKey: "user_profile" },
     invoice_number: "",
     invoice_date: "",
     payment_priority: 1,
@@ -31,19 +31,20 @@ const ViewPaymentRequestPage = ({ typeView = "view", objectName }) => {
       foreignKey: "partner",
       url: parametersPartner.url,
       columns: parametersPartner.columns,
-      queryKey:  "partnerQuery"
+      queryKey: "partnerQuery",
     },
   ];
   const fields = [
-    [{
+    [
+      {
         id: "id",
         name: "id",
         type: "text",
         as: "input",
         readOnly: true,
         placeholder: t("general.id"),
-    },
-    {
+      },
+      {
         id: "user",
         name: "user",
         type: "text",
@@ -52,25 +53,29 @@ const ViewPaymentRequestPage = ({ typeView = "view", objectName }) => {
         readOnly: true,
         disabled: true,
         placeholder: t("payment_request.user"),
-    }],
-    [{
+      },
+    ],
+    [
+      {
         id: "created_at",
         name: "created_at",
         type: "date",
         as: "input",
         readOnly: true,
         placeholder: t("general.created_at"),
-    },
-    {
+      },
+      {
         id: "updated_at",
         name: "updated_at",
         type: "date",
         as: "input",
         readOnly: true,
         placeholder: t("general.updated_at"),
-    }],
+      },
+    ],
     [
       {
+        id: "payer",
         name: "payer",
         type: "text",
         placeholder: t("payment_request.search_payer"),
@@ -79,6 +84,7 @@ const ViewPaymentRequestPage = ({ typeView = "view", objectName }) => {
         readOnly: true,
       },
       {
+        id: "recipient",
         name: "recipient",
         type: "text",
         placeholder: t("payment_request.search_recipient"),
@@ -156,7 +162,7 @@ const ViewPaymentRequestPage = ({ typeView = "view", objectName }) => {
     url: getPaymentRequestsUrl(),
     objectName: objectName,
     typeView,
-    modalForms
+    modalForms,
   };
 
   return <ObjectView {...parameters} />;

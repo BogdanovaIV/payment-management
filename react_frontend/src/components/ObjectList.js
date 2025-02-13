@@ -91,7 +91,7 @@ const ObjectList = ({
         newValue[nameField] = e.target.value;
       }
     }
-    setFilters({ ...filters, ...newValue });
+    setFilters((prevFilters) => ({ ...prevFilters, ...newValue }));
     refetch();
   };
 
@@ -109,14 +109,14 @@ const ObjectList = ({
 
   useEffect(() => {
     if (selectedField.field && selectedItem) {
-      setFilters({
-        ...filters,
+      setFilters((prevFilters) => ({
+        ...prevFilters,
         [selectedField.field]: {
           id: getIDFromItem(selectedField.foreignKey, selectedItem),
           name:
             selectedItem[getNameByNameTable(selectedField.foreignKey)] || "",
         },
-      });
+      }));
       setShowModal({ ...showModal, [selectedField.foreignKey]: false });
     }
   }, [selectedItem]);

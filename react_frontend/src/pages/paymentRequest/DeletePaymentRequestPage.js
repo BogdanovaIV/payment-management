@@ -13,18 +13,21 @@ const DeletePaymentRequestPage = () => {
   const [description, setDescription] = useState("");
 
   useEffect(() => {
+    let isMounted = true;
     const handleMount = async () => {
       try {
         const response = await getData(`${url}${id}/`);
-        setDescription(
-          `${t("general.id")}: ${response.data.id}, ${t(
-            "payment_request.payer"
-          )}: ${response.data.payer_trade_name}, ${t(
-            "payment_request.recipient"
-          )}: ${response.data.recipient_trade_name}, ${t(
-            "payment_request.payment_amount"
-          )}: ${response.data.payment_amount}`
-        );
+        if (isMounted) {
+          setDescription(
+            `${t("general.id")}: ${response.data.id}, ${t(
+              "payment_request.payer"
+            )}: ${response.data.payer_trade_name}, ${t(
+              "payment_request.recipient"
+            )}: ${response.data.recipient_trade_name}, ${t(
+              "payment_request.payment_amount"
+            )}: ${response.data.payment_amount}`
+          );
+        }
       } catch (err) {
         if (process.env.NODE_ENV === "development") {
           console.log(err);
@@ -33,7 +36,10 @@ const DeletePaymentRequestPage = () => {
     };
 
     handleMount();
-  }, [history, id]);
+    return () => {
+      isMounted = false;
+    };
+  }, [history, id, t, url]);
 
   return (
     <ObjectDelete
