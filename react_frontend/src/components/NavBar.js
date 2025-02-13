@@ -19,7 +19,7 @@ import { useUserProfileData } from "../contexts/ProfileDataContext";
 const NavBar = () => {
   const { t } = useTranslation();
   const currentUser = useCurrentUser();
-  const UserProfileData = useUserProfileData();
+  const userProfileData = useUserProfileData();
   const { expanded, setExpanded, ref } = useClickOutsideToggle();
 
   const loggedInIcons = useMemo(
@@ -77,11 +77,11 @@ const NavBar = () => {
           to={`/user-profiles/${currentUser?.profile_id}`}
         >
           <i className="fa-solid fa-user-gear"></i>
-          {UserProfileData?.full_name || t("auth.user_profile")}
+          {userProfileData?.full_name || t("auth.user_profile")}
         </NavLink>
       </>
     ),
-    [t, currentUser, UserProfileData]
+    [t, currentUser, userProfileData]
   );
 
   const loggedOutIcons = useMemo(

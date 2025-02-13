@@ -1,20 +1,21 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
-
-import Container from "react-bootstrap/Container";
 import { Link } from "react-router-dom";
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import SpinnerSecondary from "../../components/Spinners";
+import Container from "react-bootstrap/Container";
 
 import styles from "../../styles/Home.module.css";
 import bgImageStyles from "../../styles/BgImage.module.css";
+
 import backgroundImage from "../../assets/home.jpg";
+
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import SpinnerSecondary from "../../components/Spinners";
 import { useUserProfileData } from "../../contexts/ProfileDataContext";
 
 const Home = () => {
   const { t } = useTranslation();
   const currentUser = useCurrentUser();
-  const UserProfileData = useUserProfileData();
+  const userProfileData = useUserProfileData();
 
   const backgroundStyle = {
     backgroundImage: `url(${backgroundImage})`,
@@ -22,7 +23,7 @@ const Home = () => {
     backgroundRepeat: "no-repeat",
   };
 
-  if (currentUser === undefined) {
+  if (currentUser === undefined || userProfileData === undefined) {
     return <SpinnerSecondary />;
   }
 
@@ -45,7 +46,7 @@ const Home = () => {
               {t("home.to_create_account")}
             </p>{" "}
           </>
-        ) : !UserProfileData?.checked ? (
+        ) : !userProfileData?.checked ? (
           <>
             <p>{t("home.profile_pending_verification")}</p>
           </>

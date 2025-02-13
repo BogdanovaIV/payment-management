@@ -6,20 +6,21 @@ const useOptionsPartnerType = (extraItems = []) => {
   const { i18n } = useTranslation();
   const [optionPartnerTypes, setOptionPartnerTypes] = useState([]);
 
-  const fetchPartnerTypes = async () => {
-    try {
-      const response = await getData(getPartnerTypesUrl());
-      const newOptions = response.data.results.map((type) => [
-        type.value,
-        type.label,
-      ]);
-      setOptionPartnerTypes([...extraItems, ...newOptions]);
-    } catch (error) {
-      console.error("Error fetching partner types:", error);
-    }
-  };
-
   useEffect(() => {
+    const fetchPartnerTypes = async () => {
+      try {
+        const response = await getData(getPartnerTypesUrl());
+        const newOptions = response.data.results.map((type) => [
+          type.value,
+          type.label,
+        ]);
+
+        setOptionPartnerTypes((prev) => [...extraItems, ...newOptions]);
+      } catch (error) {
+        console.error("Error fetching partner types:", error);
+      }
+    };
+
     fetchPartnerTypes();
 
     // Listen for language changes
