@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from django.utils.translation import gettext_lazy as _ 
 from .models import PaymentRequest
 
 
@@ -31,3 +32,19 @@ class PaymentRequestSerializer(serializers.ModelSerializer):
             'user', "payer_trade_name", "recipient_trade_name",
             "user_full_name"
         ]
+
+    def validate_invoice_amount(self, value):
+        """Ensure invoice amount is positive."""
+        if value is not None and value < 0:
+            raise serializers.ValidationError(
+                _("Invoice amount must be a positive number.")
+            )
+        return value
+
+    def validate_payment_amount(self, value):
+        """Ensure payment amount is positive."""
+        if value < 0:
+            raise serializers.ValidationError(
+                _("Payment amount must be a positive number.")
+            )
+        return value

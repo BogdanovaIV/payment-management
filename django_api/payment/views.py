@@ -27,7 +27,7 @@ class PaymentRequestListCreateView(generics.ListCreateAPIView):
     def get_queryset(self):
         """
         Retrieves the filtered queryset based on deadline parameters.
-        
+
         Query Parameters:
         - start_deadline (str, optional): Filters payments with a deadline on
         or after this date (YYYY-MM-DD).

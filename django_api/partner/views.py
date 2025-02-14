@@ -1,4 +1,7 @@
-from rest_framework import generics, filters
+from django.db.models.deletion import ProtectedError
+from rest_framework import generics, filters, status
+from rest_framework.response import Response
+from django.utils.translation import gettext_lazy as _ 
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Partner
 from .serializers import PartnerTypeSerializer, PartnerSerializer
@@ -56,3 +59,24 @@ class PartnerRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     """
     queryset = Partner.objects.all()
     serializer_class = PartnerSerializer
+
+    def destroy(self, request, *args, **kwargs):
+        instance = self.get_object()
+        try:
+            self.perform_destroy(instance)
+            return Response(
+                {"message": "Partner deleted successfully."},
+                status=status.HTTP_204_NO_CONTENT
+            )
+        except ProtectedError as e:
+            print(e)
+            return Response(
+                {
+                    "error": _(
+                        "Cannot delete this partner because it is referenced"
+                        " in another record."
+                    ),
+                    "details": str(e)
+                },
+                status=status.HTTP_400_BAD_REQUEST
+            )

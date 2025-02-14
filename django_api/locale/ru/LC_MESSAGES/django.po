@@ -575,3 +575,12 @@ msgstr "Юридические лицо"
 
 msgid "Individual"
 msgstr "Физическое лицо"
+
+msgid "Cannot delete this partner because it is referenced in another record."
+msgstr "Невозможно удалить этого контрагента, поскольку на него есть ссылка в другой записи."
+
+msgid "Invoice amount must be a positive number."
+msgstr "Сумма Инвойса должна быть положительным числом."
+
+msgid "Payment amount must be a positive number."
+msgstr "Сумма платежа должна быть положительным числом."
