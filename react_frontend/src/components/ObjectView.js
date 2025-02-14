@@ -44,7 +44,7 @@ const ObjectView = ({
     field: "",
     foreignKey: "",
   });
-  const [hasLoaded, setHasLoaded] = useState(false);
+  const [hasLoaded, setHasLoaded] = useState(typeView === "add" ? true : false);
 
   const { id } = useParams();
 
