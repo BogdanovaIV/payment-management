@@ -10,6 +10,7 @@
   border-collapse: collapse;
   width: 100%;
   background-color: var(--white-color);
+  table-layout: fixed;
 }
 
 .TableHeader {
@@ -25,6 +26,8 @@
   vertical-align: text-top !important;
   padding: 0.5rem !important;
   background-color: rgba(var(--blue-color-rgb), 0.15);
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .Table tbody tr:nth-of-type(odd) {
@@ -34,6 +37,8 @@
 .TableHeaderTd {
   vertical-align: text-top !important;
   padding: 0.5rem !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .ClickableRow {

@@ -17,27 +17,9 @@ const PaymentRequestsPage = () => {
     end_deadline: "",
   });
 
-  const columns = useMemo(
-    () => [
-      { Header: t("payment_request.payer"), accessor: "payer_trade_name" },
-      {
-        Header: t("payment_request.recipient"),
-        accessor: "recipient_trade_name",
-      },
-      { Header: t("payment_request.deadline"), accessor: "deadline" },
-      {
-        Header: t("payment_request.payment_amount"),
-        accessor: "payment_amount",
-      },
-      { Header: t("payment_request.invoice_date"), accessor: "invoice_date" },
-      {
-        Header: t("payment_request.invoice_number"),
-        accessor: "invoice_number",
-      },
-      { Header: t("payment_request.user"), accessor: "user_full_name" },
-    ],
-    [t]
-  );
+  const parametersPaymentRequest = useMemo(() => {
+    return getParametersByName("payment_request", t);
+  }, [t]);
 
   const parametersPartner = useMemo(() => {
     return getParametersByName("partner", t);
@@ -112,8 +94,8 @@ const PaymentRequestsPage = () => {
   const parameters = {
     filters,
     setFilters,
-    columns,
-    url: getPaymentRequestsUrl(),
+    columns: parametersPaymentRequest.columns,
+    url: parametersPaymentRequest.url,
     ObjectsName: t("payment_request.payment_requests"),
     filterFields,
     modalForms,

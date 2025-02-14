@@ -24,7 +24,14 @@ const DataTable = ({
                 {headerGroup.headers.map((column) => (
                   <th
                     className={styles.TableHeaderTh}
-                    {...column.getHeaderProps()}
+                    {...column.getHeaderProps({
+                      style: {
+                        width: column.width,
+                        minWidth: column.minWidth || "auto",
+                        maxWidth: column.maxWidth || "auto",
+                        flexGrow: 1,
+                      },
+                    })}
                   >
                     {column.render("Header")}
                   </th>
@@ -44,7 +51,14 @@ const DataTable = ({
                   {row.cells.map((cell) => (
                     <td
                       className={styles.TableHeaderTd}
-                      {...cell.getCellProps()}
+                      {...cell.getCellProps({
+                        style: {
+                          width: cell.column.width,
+                          minWidth: cell.column.minWidth || "auto",
+                          maxWidth: cell.column.maxWidth || "auto",
+                          flexGrow: 1,
+                        },
+                      })}
                     >
                       {cell.render("Cell")}
                     </td>
