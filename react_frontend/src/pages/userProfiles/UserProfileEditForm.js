@@ -101,7 +101,7 @@ const UserProfileEditForm = () => {
     return () => {
       isMounted = false;
     };
-  }, [currentUser, id, showToast, t, url]);
+  }, [currentUser, id, url]);
 
   const handleChange = (event) => {
     setProfileData((prevData) => ({

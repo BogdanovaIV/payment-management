@@ -36,7 +36,7 @@ export const CurrentUserProvider = ({ children }) => {
       }
     };
     handleMount();
-  }, [showToast, t]);
+  }, []);
 
   useMemo(() => {
     const requestInterceptor = axiosReq.interceptors.request.use(
@@ -91,7 +91,7 @@ export const CurrentUserProvider = ({ children }) => {
       axios.interceptors.request.eject(requestInterceptor);
       axios.interceptors.response.eject(responseInterceptor);
     };
-  }, [history, showToast, t]);
+  }, [history]);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

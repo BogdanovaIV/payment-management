@@ -54,7 +54,7 @@ export const UserProfileDataProvider = ({ children }) => {
     return () => {
       isMounted = false;
     };
-  }, [currentUser, showToast, t]);
+  }, [currentUser]);
 
   return (
     <UserProfileDataContext.Provider value={userProfileData}>
