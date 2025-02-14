@@ -43,7 +43,7 @@ const ObjectDelete = ({ descriptionObject, url, urlBack }) => {
       <Container>
         <Row className="align-items-center flex-column">
           <h1 className={`text-center p-5 ${styles.Header1}`}>
-            Are you sure you want to delete this object?
+            {t("delete.delete_question")}
           </h1>
         </Row>
         <Row className="align-items-center flex-column">

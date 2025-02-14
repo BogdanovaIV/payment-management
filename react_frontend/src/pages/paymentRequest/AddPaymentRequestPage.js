@@ -38,7 +38,7 @@ const AddPaymentRequestPage = () => {
       {
         name: "payer",
         type: "text",
-        placeholder: t("payment_request.search_payer"),
+        placeholder: t("payment_request.payer"),
         as: "input",
         foreignKey: "partner",
         readOnly: true,
@@ -46,7 +46,7 @@ const AddPaymentRequestPage = () => {
       {
         name: "recipient",
         type: "text",
-        placeholder: t("payment_request.search_recipient"),
+        placeholder: t("payment_request.recipient"),
         as: "input",
         foreignKey: "partner",
         readOnly: true,
