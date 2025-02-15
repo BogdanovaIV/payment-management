@@ -584,3 +584,30 @@ msgstr "Сумма Инвойса должна быть положительны
 
 msgid "Payment amount must be a positive number."
 msgstr "Сумма платежа должна быть положительным числом."
+
+msgid "Item locked successfully."
+msgstr "Элемент успешно заблокирован."
+
+msgid "Item unlocked successfully."
+msgstr "Элемент успешно разблокирован."
+
+msgid "You cannot unlock this item."
+msgstr "Вы не можете разблокировать этот предмет."
+
+msgid "This item is locked by"
+msgstr "Этот элемент заблокирован"
+
+msgid "Time remaining"
+msgstr "Оставшееся время"
+
+msgid "Version is required to update the record."
+msgstr "Версия необходима для обновления записи."
+
+msgid "The record has been updated by another user. Please refresh the page and try again."
+msgstr "Запись была обновлена ​​другим пользователем. Пожалуйста, обновите страницу и повторите попытку."
+
+msgid "The item deleted successfully."
+msgstr "Элемент успешно удален."
+
+msgid "Cannot delete this item because it is referenced in another record."
+msgstr "Невозможно удалить этот элемент, поскольку на него есть ссылка в другой записи."

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from django.utils.translation import gettext_lazy as _ 
+from django.utils.translation import gettext_lazy as _
 from .models import PaymentRequest
 
 
@@ -30,7 +30,7 @@ class PaymentRequestSerializer(serializers.ModelSerializer):
             'payment_priority', 'invoice_number', 'invoice_date',
             'invoice_amount', 'deadline', 'payment_amount', 'comment',
             'user', "payer_trade_name", "recipient_trade_name",
-            "user_full_name"
+            "user_full_name", 'version'
         ]
 
     def validate_invoice_amount(self, value):

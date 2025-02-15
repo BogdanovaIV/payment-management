@@ -1,11 +1,14 @@
-from django.db.models.deletion import ProtectedError
-from rest_framework import generics, filters, status
-from rest_framework.response import Response
-from django.utils.translation import gettext_lazy as _ 
+from rest_framework import generics, filters
+from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
+from django.shortcuts import get_object_or_404
 from .models import Partner
 from .serializers import PartnerTypeSerializer, PartnerSerializer
 from .filters import PartnerFilter
+from common.mixins import (
+    PessimisticLockMixin,
+    PessimisticLockUpdateDestroyMixin
+)
 
 
 class PartnerTypeChoicesView(generics.ListAPIView):
@@ -37,6 +40,7 @@ class PartnerListCreateView(generics.ListCreateAPIView):
         filterset_class (PartnerFilter): The filter class applied to filter
         the partner data based on the given query parameters.
     """
+    permission_classes = [IsAuthenticated]
     queryset = Partner.objects.all().order_by('trade_name')
     serializer_class = PartnerSerializer
     filter_backends = [DjangoFilterBackend, filters.SearchFilter]
@@ -47,7 +51,9 @@ class PartnerListCreateView(generics.ListCreateAPIView):
     ]
 
 
-class PartnerRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+class PartnerRetrieveUpdateDestroyView(PessimisticLockMixin,
+                                       PessimisticLockUpdateDestroyMixin,
+                                       generics.RetrieveUpdateDestroyAPIView):
     """
     A view that allows retrieving, updating, or deleting a specific Partner
     instance.
@@ -57,26 +63,41 @@ class PartnerRetrieveUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
         serializer_class (PartnerSerializer): The serializer used to serialize
         and validate Partner instances for retrieval, update, and deletion.
     """
+    permission_classes = [IsAuthenticated]
     queryset = Partner.objects.all()
     serializer_class = PartnerSerializer
 
-    def destroy(self, request, *args, **kwargs):
-        instance = self.get_object()
-        try:
-            self.perform_destroy(instance)
-            return Response(
-                {"message": "Partner deleted successfully."},
-                status=status.HTTP_204_NO_CONTENT
-            )
-        except ProtectedError as e:
-            print(e)
-            return Response(
-                {
-                    "error": _(
-                        "Cannot delete this partner because it is referenced"
-                        " in another record."
-                    ),
-                    "details": str(e)
-                },
-                status=status.HTTP_400_BAD_REQUEST
-            )
+
+class PartnerLockView(generics.GenericAPIView, PessimisticLockMixin):
+    """
+    A view to manually lock a Partner instance.
+    Ensures only authenticated users can lock a Partner instance.
+    """
+
+    permission_classes = [IsAuthenticated]
+    queryset = Partner.objects.all()
+
+    def post(self, request, pk):
+        """Locks the specified Partner instance."""
+        partner = get_object_or_404(Partner, pk=pk)
+        return self.lock_item(request, partner)
+
+
+class PartnerUnlockView(generics.GenericAPIView, PessimisticLockMixin):
+    """
+    A view to manually unlock a Partner instance.
+
+    Ensures only authenticated users can unlock a Partner instance.
+
+    Methods:
+        post(request, pk):
+            Unlocks the specified Partner instance if the requesting user
+            holds the lock.
+    """
+    permission_classes = [IsAuthenticated]
+    queryset = Partner.objects.all()
+
+    def post(self, request, pk):
+        """Unlocks the specified Partner instance."""
+        partner = get_object_or_404(Partner, pk=pk)
+        return self.unlock_item(request, partner)

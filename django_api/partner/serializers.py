@@ -53,5 +53,5 @@ class PartnerSerializer(serializers.ModelSerializer):
             'id', 'trade_name', 'full_name', 'bin', 'partner_type',
             'partner_type_display', 'legal_address', 'actual_address',
             'phone_number', 'contact_person', 'is_own', 'created_at',
-            'updated_at'
+            'updated_at', 'version'
         ]

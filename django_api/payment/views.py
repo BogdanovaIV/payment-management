@@ -1,6 +1,12 @@
 from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
+from django.shortcuts import get_object_or_404
 from django.utils.dateparse import parse_date
+from common.mixins import (
+    PessimisticLockMixin,
+    PessimisticLockUpdateDestroyMixin
+)
 from .models import PaymentRequest
 from .serializers import PaymentRequestSerializer
 from .filters import PaymentRequestFilter
@@ -19,6 +25,7 @@ class PaymentRequestListCreateView(generics.ListCreateAPIView):
         - Creates a new PaymentRequest instance, automatically assigning
         the requesting user as the owner.
     """
+    permission_classes = [IsAuthenticated]
     queryset = PaymentRequest.objects.all().order_by('deadline')
     serializer_class = PaymentRequestSerializer
     filter_backends = [DjangoFilterBackend]
@@ -59,8 +66,45 @@ class PaymentRequestListCreateView(generics.ListCreateAPIView):
 
 
 class PaymentRequestRetrieveUpdateDestroyView(
+    PessimisticLockMixin,
+    PessimisticLockUpdateDestroyMixin,
     generics.RetrieveUpdateDestroyAPIView
 ):
-
+    permission_classes = [IsAuthenticated]
     queryset = PaymentRequest.objects.all()
     serializer_class = PaymentRequestSerializer
+
+
+class PaymentRequestLockView(generics.GenericAPIView, PessimisticLockMixin):
+    """
+    A view to manually lock a PaymentRequest instance.
+    Ensures only authenticated users can lock a PaymentRequest instance.
+    """
+
+    permission_classes = [IsAuthenticated]
+    queryset = PaymentRequest.objects.all()
+
+    def post(self, request, pk):
+        """Locks the specified PaymentRequest instance."""
+        payment_request = get_object_or_404(PaymentRequest, pk=pk)
+        return self.lock_item(request, payment_request)
+
+
+class PaymentRequestUnlockView(generics.GenericAPIView, PessimisticLockMixin):
+    """
+    A view to manually unlock a PaymentRequest instance.
+
+    Ensures only authenticated users can unlock a PaymentRequest instance.
+
+    Methods:
+        post(request, pk):
+            Unlocks the specified PaymentRequest instance if the requesting
+            user holds the lock.
+    """
+    permission_classes = [IsAuthenticated]
+    queryset = PaymentRequest.objects.all()
+
+    def post(self, request, pk):
+        """Unlocks the specified PaymentRequest instance."""
+        payment_request = get_object_or_404(PaymentRequest, pk=pk)
+        return self.unlock_item(request, payment_request)

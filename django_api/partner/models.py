@@ -1,5 +1,6 @@
 from django.db import models
-from django.utils.translation import gettext_lazy as _ 
+from django.utils.translation import gettext_lazy as _
+from common.models import LockableModel
 
 
 class PartnerTypes(models.IntegerChoices):
@@ -14,11 +15,11 @@ class PartnerTypes(models.IntegerChoices):
     INDIVIDUAL = 1, _('Individual')
 
 
-class Partner(models.Model):
+class Partner(LockableModel):
     """
     Model representing a business partner.
 
-    This model stores information about business partners, including 
+    This model stores information about business partners, including
     own companies.
 
     Attributes:

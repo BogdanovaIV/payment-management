@@ -2,9 +2,10 @@ from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import User
 from partner.models import Partner
+from common.models import LockableModel
 
 
-class PaymentRequest(models.Model):
+class PaymentRequest(LockableModel):
     """
     Represents a payment request between a payer and a recipient, including
     details such as invoice information, payment amount, priority, and
@@ -42,7 +43,7 @@ class PaymentRequest(models.Model):
         Partner,
         on_delete=models.PROTECT,
         null=False,
-        related_name="payment_requests_as_recipient" 
+        related_name="payment_requests_as_recipient"
     )
     payment_priority = models.PositiveIntegerField(
         validators=[
@@ -62,7 +63,8 @@ class PaymentRequest(models.Model):
         User,
         on_delete=models.PROTECT,
         null=True,
-        blank=True
+        blank=True,
+        related_name="author"
     )
 
     class Meta:

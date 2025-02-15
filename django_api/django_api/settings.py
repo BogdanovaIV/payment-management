@@ -100,7 +100,8 @@ INSTALLED_APPS = [
     'django_filters',
     'user',
     'partner',
-    'payment'
+    'payment',
+    'common'
 ]
 
 SITE_ID = 1
