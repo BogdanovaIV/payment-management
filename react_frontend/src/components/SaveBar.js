@@ -4,14 +4,18 @@ import btnStyles from "../styles/Button.module.css";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
 
-const SaveBar = () => {
+const SaveBar = ({handleCancelClick}) => {
   const { t } = useTranslation();
   const history = useHistory();
+  if (handleCancelClick === undefined){
+    handleCancelClick = () => history.goBack();
+  }
+  
   return (
     <div className={btnStyles.ButtonGroup}>
       <Button
         className={`${btnStyles.ButtonTransparent} ${btnStyles.RedTransparent}`}
-        onClick={() => history.goBack()}
+        onClick={handleCancelClick}
       >
         <i className="fa-solid fa-circle-xmark"></i>
         {t("button.cancel")}

@@ -74,7 +74,9 @@
     "error_server_unavailable": "Server is unavailable. Please check your connection.",
     "error_not_authorized": "You are not authorized. Please log in again.",
     "error_server_occurred": "An internal server error occurred. Try again later.",
-    "error_occurred": "An error occurred. Please check your input."
+    "error_occurred": "An error occurred. Please check your input.",
+    "permission_denied": "Permission denied.",
+    "data_not_save": "The data didn't save!!!"
   },
   "payment_request": {
     "payment_requests": "Payment Requests",

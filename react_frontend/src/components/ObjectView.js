@@ -52,8 +52,25 @@ const ObjectView = ({
 
   const showToast = useToast();
 
-  const handleEditClick = () => {
-    history.push(`${url}${id}/edit`);
+  const handleEditClick = async () => {
+    try {
+      history.push(`${url}${id}/edit`);
+    } catch (err) {
+      if (process.env.NODE_ENV === "development") {
+        console.log(err);
+      }
+      handleRequestError(err, showToast, t);
+    }
+  };
+  const handleCancelClick = async () => {
+    try {
+      history.push(url);
+    } catch (err) {
+      if (process.env.NODE_ENV === "development") {
+        console.log(err);
+      }
+      handleRequestError(err, showToast, t);
+    }
   };
 
   useEffect(() => {
@@ -61,6 +78,10 @@ const ObjectView = ({
     const handleMount = async () => {
       if (typeView !== "add") {
         try {
+          if (typeView === "edit") {
+            await postData(`${url}${id}/lock/`);
+          }
+
           const response = await getData(`${url}${id}/`);
           const responseData = response.data;
           let newData = { ...data };
@@ -92,6 +113,9 @@ const ObjectView = ({
             console.log(err);
           }
           handleRequestError(err, showToast, t);
+          if (typeView === "edit") {
+            history.push(`${url}${id}`);
+          }
         }
       }
     };
@@ -101,6 +125,22 @@ const ObjectView = ({
       isMounted = false;
     };
   }, [id, t, typeView, url]);
+
+  useEffect(() => {
+    return async () => {
+      try {
+        if (typeView === "edit") {
+          console.log(`Unlocking ID on unmount: ${id}`);
+          await postData(`${url}${id}/unlock/`);
+        }
+      } catch (err) {
+        if (process.env.NODE_ENV === "development") {
+          console.log(err);
+        }
+        handleRequestError(err, showToast, t);
+      }
+    };
+  }, []);
 
   const handleChange = (event) => {
     setData((prevData) => ({
@@ -131,7 +171,14 @@ const ObjectView = ({
       if (err.response?.status !== 401) {
         setErrors(err.response?.data);
       }
-      handleRequestError(err, showToast, t);
+      let extraMessage = "";
+      if (err.response?.status === 423) {
+        if (typeView === "edit") {
+          extraMessage = t("toast.data_not_save");
+          history.push(`${url}${id}`);
+        }
+      }
+      handleRequestError(err, showToast, t, extraMessage);
     }
   };
 
@@ -339,7 +386,7 @@ const ObjectView = ({
                   </>
                 ) : (
                   <>
-                    <SaveBar />
+                    <SaveBar handleCancelClick={handleCancelClick} />
                     {errors.non_field_errors?.map((message, idx) => (
                       <Alert key={idx} variant="warning" className="mt-3">
                         {message}
