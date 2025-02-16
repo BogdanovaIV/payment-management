@@ -20,7 +20,7 @@ const CardCollection = ({columns, cardsRef, objects, handleRowClick}) => {
               <Card.Title className={styles.CardTitle}>
                 {object[columns[0].accessor] || `Object ${object.id}`}
               </Card.Title>
-              <Card.Text className={styles.CardText}>
+              <Card.Text as="div" className={styles.CardText}>
                 <ListGroup className="list-group-flush">
                   {columns.slice(1).map(({ Header, accessor, Cell }) => (
                     <ListGroupItem

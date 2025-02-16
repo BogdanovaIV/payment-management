@@ -5,7 +5,7 @@ import ViewPaymentRequestPage from './ViewPaymentRequestPage';
 const EditPaymentRequestPage = () => {
     const { t } = useTranslation();
     return (
-        <ViewPaymentRequestPage typeView="edit" objectName={t("payment_request.edit_partner")} />
+        <ViewPaymentRequestPage typeView="edit" objectName={t("payment_request.edit_payment_request")} />
       );
 }
 

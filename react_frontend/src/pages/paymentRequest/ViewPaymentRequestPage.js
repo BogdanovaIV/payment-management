@@ -8,7 +8,7 @@ import ObjectView from "../../components/ObjectView";
 
 const ViewPaymentRequestPage = ({ typeView = "view", objectName }) => {
   const { t } = useTranslation();
-  objectName = objectName ?? t("payment_request.add_payment_request");
+  objectName = objectName ?? t("payment_request.payment_request");
   const [data, setData] = useState({
     payer: { id: "", name: "", foreignKey: "partner" },
     recipient: { id: "", name: "", foreignKey: "partner" },
