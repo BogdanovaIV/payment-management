@@ -8,14 +8,6 @@ from .settings import (
 )
 
 
-@api_view()
-def root_route(request):
-    """A simple API endpoint that returns a welcome message."""
-    return Response({
-        "message": "Welcome to CBC API!"
-    })
-
-
 @api_view(['POST'])
 def logout_route(request):
     """
