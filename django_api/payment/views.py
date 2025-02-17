@@ -8,8 +8,26 @@ from common.mixins import (
     PessimisticLockUpdateDestroyMixin
 )
 from .models import PaymentRequest
-from .serializers import PaymentRequestSerializer
+from .serializers import (
+    PaymentRequestSerializer,
+    PaymentRequestStatusSerializer
+)
 from .filters import PaymentRequestFilter
+
+
+class PaymentRequestStatusChoicesView(generics.ListAPIView):
+    """
+    A view that returns a list of payment request status choices with their
+    values and labels.
+
+    Attributes:
+        queryset (list): A list of  payment request status choices retrieved
+        from the `PaymentRequestStatusSerializer`.
+        serializer_class (PaymentRequestStatusSerializer): The serializer used
+        to serialize the  payment request status choices.
+    """
+    queryset = PaymentRequestStatusSerializer.get_choices()
+    serializer_class = PaymentRequestStatusSerializer
 
 
 class PaymentRequestListCreateView(generics.ListCreateAPIView):
@@ -45,9 +63,11 @@ class PaymentRequestListCreateView(generics.ListCreateAPIView):
 
         start_deadline = self.request.GET.get("start_deadline")
         end_deadline = self.request.GET.get("end_deadline")
+        invoice_date = self.request.GET.get("invoice_date")
 
         start_deadline = parse_date(start_deadline) if start_deadline else None
         end_deadline = parse_date(end_deadline) if end_deadline else None
+        invoice_date = parse_date(invoice_date) if invoice_date else None
 
         if start_deadline and end_deadline:
             queryset = queryset.filter(
@@ -57,6 +77,9 @@ class PaymentRequestListCreateView(generics.ListCreateAPIView):
             queryset = queryset.filter(deadline__gte=start_deadline)
         elif end_deadline:
             queryset = queryset.filter(deadline__lte=end_deadline)
+
+        if invoice_date:
+            queryset = queryset.filter(invoice_date=invoice_date)
 
         return queryset
 

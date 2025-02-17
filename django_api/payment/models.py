@@ -1,8 +1,25 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import User
+from django.utils.translation import gettext_lazy as _
 from partner.models import Partner
 from common.models import LockableModel
+
+
+class PaymentRequestStatus(models.IntegerChoices):
+    """
+    Enumeration for different statuses of payment requests.
+
+    Attributes:
+        DRAFT (int): Represents a draft status (0).
+        PANDING_APPROVAL (int): Represents a panding approval status (1).
+        APPROVED (int): Represents an approved status (2).
+        PAID (int): Represents a paid status (3).
+    """
+    DRAFT = 0, _('Draft')
+    PANDING_APPROVAL = 1, _('Panding Approval')
+    APPROVED = 2, _('Approved')
+    PAID = 3, _("Paid")
 
 
 class PaymentRequest(LockableModel):
@@ -30,6 +47,7 @@ class PaymentRequest(LockableModel):
         payment_amount (PositiveIntegerField): Amount to be paid (default: 0).
         comment (TextField): Optional comments regarding the payment request.
         user (ForeignKey): The user associated with the request (nullable).
+        status (IntegerField): The ststus of payment request
     """
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -65,6 +83,10 @@ class PaymentRequest(LockableModel):
         null=True,
         blank=True,
         related_name="author"
+    )
+    status = models.IntegerField(
+        choices=PaymentRequestStatus.choices,
+        default=0,
     )
 
     class Meta:

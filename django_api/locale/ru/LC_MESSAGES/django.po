@@ -611,3 +611,15 @@ msgstr "Элемент успешно удален."
 
 msgid "Cannot delete this item because it is referenced in another record."
 msgstr "Невозможно удалить этот элемент, поскольку на него есть ссылка в другой записи."
+
+msgid "Draft"
+msgstr "Черновик"
+
+msgid "Panding Approval"
+msgstr "Ожидание одобрения"
+
+msgid "Approved"
+msgstr "Одобренный"
+
+msgid "Paid"
+msgstr "Оплаченный"

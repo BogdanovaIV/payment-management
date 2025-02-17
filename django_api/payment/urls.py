@@ -3,10 +3,16 @@ from .views import (
     PaymentRequestListCreateView,
     PaymentRequestRetrieveUpdateDestroyView,
     PaymentRequestLockView,
-    PaymentRequestUnlockView
+    PaymentRequestUnlockView,
+    PaymentRequestStatusChoicesView
     )
 
 urlpatterns = [
+    path(
+        'payment-request-statuses/',
+        PaymentRequestStatusChoicesView.as_view(),
+        name='payment-request-status-list'
+    ),
     path(
         'payment-request/',
         PaymentRequestListCreateView.as_view(),

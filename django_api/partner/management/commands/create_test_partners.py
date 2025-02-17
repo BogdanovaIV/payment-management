@@ -10,16 +10,17 @@ class Command(BaseCommand):
     help = "Create 1000 test partners"
 
     def handle(self, *args, **kwargs):
+        Partner.objects.all().delete()
         partners = []
-        for _ in range(20):
+        for _ in range(1000):
             trade_name = fake.company()
             partners.append(
                 Partner(
-                    trade_name=fake.company(),
+                    trade_name=trade_name,
                     full_name=fake.company_suffix() + trade_name,
                     bin=str(fake.random_int(min=100000000, max=999999999)),
                     partner_type=random.choice([0, 1]),
-                    is_own=random.choice([True, False]),
+                    is_own=False,
                     contact_person=fake.name(),
                     legal_address=fake.address(),
                     actual_address=fake.address(),

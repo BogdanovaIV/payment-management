@@ -553,3 +553,15 @@ msgstr "Элемент сәтті жойылды."
 
 msgid "Cannot delete this item because it is referenced in another record."
 msgstr "Бұл элементті жою мүмкін емес, себебі ол басқа жазбада сілтеме жасалған."
+
+msgid "Draft"
+msgstr "Жоба"
+
+msgid "Panding Approval"
+msgstr "Бекіту"
+
+msgid "Approved"
+msgstr "Бекітілді"
+
+msgid "Paid"
+msgstr "Ақылы"

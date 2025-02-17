@@ -53,6 +53,11 @@ class PaymentRequestFilter(django_filters.FilterSet):
         required=False
     )
 
+    status = django_filters.CharFilter(
+        lookup_expr='exact',
+        required=False
+    )
+
     class Meta:
         model = PaymentRequest
         fields = ['payer',
