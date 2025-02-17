@@ -121,10 +121,10 @@ const ObjectList = ({
     }
   }, [selectedItem]);
 
-  const handleClearFilterClick = (field) => {
+  const handleClearFilterClick = (field, foreignKey) => {
     setFilters((prevSelected) => ({
       ...prevSelected,
-      [field]: { id: "", name: "" },
+      [field]: foreignKey !== undefined ? { id: "", name: "" } : "",
     }));
   };
 
@@ -203,11 +203,11 @@ const ObjectList = ({
                           </option>
                         ))}
                       </Form.Control>
-                      {foreignKey !== undefined ? (
+                      {type !== "select" ? (
                         <>
                           <Button
                             className={`${btnStyles.ButtonIcon} ${btnStyles.BlueIcon}`}
-                            onClick={() => handleClearFilterClick(name)}
+                            onClick={() => handleClearFilterClick(name, foreignKey)}
                           >
                             <i className="fa-regular fa-trash-can"></i>
                           </Button>

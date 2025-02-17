@@ -99,7 +99,9 @@
     "add_payment_request": "Add Payment Request",
     "invoice_amount": "Invoice Amount",
     "payment_priority": "Payment Priority",
-    "edit_payment_request": "Edit Payment Requests"
+    "edit_payment_request": "Edit Payment Requests",
+    "all_statuses" : "All Statuses",
+    "status": "Status"
   },
   "general": {
     "id": "ID",

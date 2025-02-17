@@ -74,7 +74,7 @@ export const getParametersByName = (nameTable, t) => {
       {
         Header: t("payment_request.payment_amount"),
         accessor: "payment_amount",
-        width: "15%",
+        width: "10%",
       },
       {
         Header: t("payment_request.invoice_date"),
@@ -89,7 +89,12 @@ export const getParametersByName = (nameTable, t) => {
       {
         Header: t("payment_request.user"),
         accessor: "user_full_name",
-        width: "15%",
+        width: "10%",
+      },
+      {
+        Header: t("payment_request.status"),
+        accessor: "status_display",
+        width: "10%",
       },
     ];
     return { url: getPaymentRequestsUrl(), columns };

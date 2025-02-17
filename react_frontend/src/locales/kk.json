@@ -99,7 +99,9 @@
     "add_payment_request": "Төлем сұрауын қосыңыз",
     "invoice_amount": "Шот-фактура сомасы",
     "payment_priority": "Төлем басымдығы",
-    "edit_payment_request": "Редактировать запросы на оплату"
+    "edit_payment_request": "Төлем сұрауларын өңдеу",
+    "all_statuses" : "Барлық күйлер",
+    "status": "Күй"
   },
   "general": {
     "id": "Код",

@@ -61,6 +61,10 @@ export const getPaymentRequestsUrl = () => {
   return "/payment-request/";
 };
 
+export const getPaymentRequestStatusesUrl = () => {
+  return "/payment-request-statuses/";
+};
+
 export const getUserProfileUrl = () => {
   return "/user-profiles/";
 };

@@ -1,10 +1,14 @@
 import React, { useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
-import { getPaymentRequestsUrl } from "../../api/axiosURL";
+import {
+  getPaymentRequestsUrl,
+  getPaymentRequestStatusesUrl,
+} from "../../api/axiosURL";
 import { getParametersByName } from "../../utils/selectFormParameters";
 
 import ObjectView from "../../components/ObjectView";
+import useGetOptions from "../../hooks/useGetOptions";
 
 const ViewPaymentRequestPage = ({ typeView = "view", objectName }) => {
   const { t } = useTranslation();
@@ -21,6 +25,8 @@ const ViewPaymentRequestPage = ({ typeView = "view", objectName }) => {
     payment_amount: 0,
     comment: "",
   });
+
+  const [optionsStatus] = useGetOptions([], getPaymentRequestStatusesUrl());
 
   const parametersPartner = useMemo(() => {
     return getParametersByName("partner", t);
@@ -141,6 +147,16 @@ const ViewPaymentRequestPage = ({ typeView = "view", objectName }) => {
         as: "input",
         placeholder: t("payment_request.deadline"),
         rows: 2,
+      },
+    ],
+    [
+      {
+        id: "status",
+        name: "status",
+        type: "select",
+        as: "select",
+        placeholder: t("payment_request.status"),
+        options: optionsStatus,
       },
     ],
     [

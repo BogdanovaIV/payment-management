@@ -1,8 +1,9 @@
 import React, { useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { getPaymentRequestsUrl } from "../../api/axiosURL";
+import { getPaymentRequestStatusesUrl } from "../../api/axiosURL";
 import ObjectList from "../../components/ObjectList";
 import { getParametersByName } from "../../utils/selectFormParameters";
+import useGetOptions from "../../hooks/useGetOptions";
 
 const PaymentRequestsPage = () => {
   const { t } = useTranslation();
@@ -16,6 +17,10 @@ const PaymentRequestsPage = () => {
     start_deadline: "",
     end_deadline: "",
   });
+
+  const [optionsStatus] = useGetOptions([
+    ["", t("payment_request.all_statuses")]
+  ], getPaymentRequestStatusesUrl());
 
   const parametersPaymentRequest = useMemo(() => {
     return getParametersByName("payment_request", t);
@@ -44,6 +49,13 @@ const PaymentRequestsPage = () => {
     },
   ];
   const filterFields = [
+    {
+      name: "status",
+      type: "select",
+      placeholder: "",
+      label: t("payment_request.status"),
+      options: optionsStatus,
+    },
     {
       name: "payer",
       type: "text",

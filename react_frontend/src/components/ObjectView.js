@@ -85,7 +85,6 @@ const ObjectView = ({
           const response = await getData(`${url}${id}/`);
           const responseData = response.data;
           let newData = { ...data };
-
           for (const [key, value] of Object.entries(responseData)) {
             if (
               Object.hasOwn(newData, key) &&
@@ -143,9 +142,11 @@ const ObjectView = ({
   }, []);
 
   const handleChange = (event) => {
+    const { name, type, checked, value } = event.target;
+
     setData((prevData) => ({
       ...prevData,
-      [event.target.name]: event.target.value,
+      [name]: type === "checkbox" ? checked : value,
     }));
   };
 
@@ -153,10 +154,12 @@ const ObjectView = ({
     event.preventDefault();
     try {
       const newData = Object.fromEntries(
-        Object.entries(data).map(([key, value]) => [
-          key,
-          typeof value === "object" && value !== null ? value.id : value,
-        ])
+        Object.entries(data)
+          .filter(([key]) => key !== "created_at" && key !== "updated_at")
+          .map(([key, value]) => [
+            key,
+            typeof value === "object" && value !== null ? value.id : value,
+          ])
       );
       if (typeView === "add") {
         const response = await postData(url, newData);
@@ -284,17 +287,9 @@ const ObjectView = ({
                                     className={inputStyles.CheckBoxObject}
                                     disabled={typeView === "view" || readOnly}
                                     name={name}
-                                    value={data[name] ?? ""}
+                                    checked={data[name] ?? ""}
                                     onChange={handleChange}
                                   >
-                                    {options?.map((option, index) => (
-                                      <option
-                                        key={`${name}${index}`}
-                                        value={option[0]}
-                                      >
-                                        {option[1]}
-                                      </option>
-                                    ))}
                                   </Form.Check>
                                 </>
                               ) : (

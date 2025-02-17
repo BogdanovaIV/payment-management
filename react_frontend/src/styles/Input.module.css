@@ -22,6 +22,17 @@
   letter-spacing: 0.05em;
   font-size: larger;
   padding-bottom: 5px;
+  
+}
+
+.CheckBoxObject input[type="checkbox"] {
+  width: 25px !important;  
+  height: 25px !important;
+  margin-top: 0;
+}
+
+.CheckBoxObject input[type="checkbox"] + label {
+  padding-left: 10px;
 }
 
 
