@@ -21,6 +21,7 @@ import AddPaymentRequestPage from "./pages/paymentRequest/AddPaymentRequestPage"
 import ViewPaymentRequestPage from "./pages/paymentRequest/ViewPaymentRequestPage";
 import EditPaymentRequestPage from "./pages/paymentRequest/EditPaymentRequestPage";
 import DeletePaymentRequestPage from "./pages/paymentRequest/DeletePaymentRequestPage";
+import NotFound from "./components/NotFound";
 
 function App() {
   return (
@@ -89,7 +90,7 @@ function App() {
             path="/payment-request/:id"
             render={() => <ViewPaymentRequestPage />}
           />
-          <Route render={() => <p>Not found</p>} />
+          <Route render={() => <NotFound />} />
         </Switch>
       </div>
     </div>
