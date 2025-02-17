@@ -1,8 +1,9 @@
 import React, { useState, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import ObjectList from "../../components/ObjectList";
-import useOptionsPartnerType from "../../hooks/useOptionsPartnerType";
 import { getParametersByName } from "../../utils/selectFormParameters";
+import { getPartnerTypesUrl } from "../../api/axiosURL";
+import useGetOptions from "../../hooks/useGetOptions";
 
 const PartnersPage = () => {
   const { t } = useTranslation();
@@ -14,9 +15,10 @@ const PartnersPage = () => {
     is_own: "",
   });
 
-  const [optionPartnerTypes] = useOptionsPartnerType([
-    ["", t("partner.all_types")],
-  ]);
+  const [optionPartnerTypes] = useGetOptions(
+    [["", t("partner.all_types")]],
+    getPartnerTypesUrl()
+  );
 
   const parametersPartner = useMemo(() => {
     return getParametersByName("partner", t);
@@ -27,13 +29,13 @@ const PartnersPage = () => {
       name: "trade_name",
       type: "text",
       placeholder: t("partner.search_trade_Name"),
-      label: t("partner.trade_name")
+      label: t("partner.trade_name"),
     },
     {
       name: "bin",
       type: "text",
       placeholder: t("partner.search_bin"),
-      label: t("partner.bin")
+      label: t("partner.bin"),
     },
     {
       name: "is_own",
@@ -62,7 +64,7 @@ const PartnersPage = () => {
     url: parametersPartner.url,
     ObjectsName: t("partner.partners"),
     filterFields,
-    queryKey : "PartnersList"
+    queryKey: "PartnersList",
   };
 
   return <ObjectList {...parameters} />;

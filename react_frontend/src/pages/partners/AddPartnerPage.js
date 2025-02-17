@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { getPartnersUrl } from "../../api/axiosURL";
+import { getPartnersUrl, getPartnerTypesUrl } from "../../api/axiosURL";
 
-import useOptionsPartnerType from "../../hooks/useOptionsPartnerType";
 import ObjectView from "../../components/ObjectView";
+import useGetOptions from "../../hooks/useGetOptions";
 
 const AddPartnerPage = () => {
   const { t } = useTranslation();
@@ -21,7 +21,7 @@ const AddPartnerPage = () => {
     is_own: false,
   });
 
-  const [optionPartnerTypes] = useOptionsPartnerType();
+  const [optionPartnerTypes] = useGetOptions([], getPartnerTypesUrl());
 
   const fields = [
     [{
