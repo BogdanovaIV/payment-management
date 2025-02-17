@@ -22,8 +22,10 @@ import { useToast } from "../../contexts/ToastContext";
 import { handleRequestError } from "../../utils/errorHandler";
 import { getUserProfileUrl } from "../../api/axiosURL";
 import SpinnerSecondary from "../../components/Spinners";
+import { useRedirect } from "../../hooks/useRedirect";
 
 const UserProfileEditForm = () => {
+  useRedirect("loggedOut");
   const { t } = useTranslation();
   const setUserProfileData = useSetUserProfileData();
   const currentUser = useCurrentUser();

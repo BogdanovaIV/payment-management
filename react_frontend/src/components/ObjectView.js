@@ -26,6 +26,7 @@ import {
 } from "../utils/selectFormParameters";
 import SaveBar from "./SaveBar";
 import SpinnerSecondary from "./Spinners";
+import { useRedirect } from "../hooks/useRedirect";
 
 const ObjectView = ({
   data,
@@ -36,6 +37,7 @@ const ObjectView = ({
   typeView,
   modalForms = [],
 }) => {
+  useRedirect("loggedOut");
   const { t } = useTranslation();
   const [errors, setErrors] = useState({});
   const [showModal, setShowModal] = useState({});

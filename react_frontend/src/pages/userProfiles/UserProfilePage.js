@@ -22,8 +22,10 @@ import { axiosRes } from "../../api/axiosDefaults";
 import { useToast } from "../../contexts/ToastContext";
 import { handleRequestError } from "../../utils/errorHandler";
 import { getUserProfileUrl } from "../../api/axiosURL";
+import { useRedirect } from "../../hooks/useRedirect";
 
 function UserProfilePage() {
+  useRedirect("loggedOut");
   const { t } = useTranslation();
   const currentUser = useCurrentUser();
   const [profile, setProfile] = useState(false);

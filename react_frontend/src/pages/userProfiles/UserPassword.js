@@ -19,8 +19,10 @@ import SaveBar from "../../components/SaveBar";
 import { axiosReq } from "../../api/axiosDefaults";
 import { useToast } from "../../contexts/ToastContext";
 import { handleRequestError } from "../../utils/errorHandler";
+import { useRedirect } from "../../hooks/useRedirect";
 
 const UserPasswordForm = () => {
+  useRedirect("loggedOut");
   const { t } = useTranslation();
   const currentUser = useCurrentUser();
   const { id } = useParams();

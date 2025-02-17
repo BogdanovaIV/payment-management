@@ -24,6 +24,7 @@ import CardCollection from "./CardCollection";
 import DataTable from "./DataTable";
 import useInfiniteData from "../hooks/useInfiniteData";
 import useInfiniteScroll from "../hooks/useInfiniteScroll";
+import { useRedirect } from "../hooks/useRedirect";
 
 const ObjectList = ({
   filters,
@@ -35,6 +36,7 @@ const ObjectList = ({
   modalForms = [],
   queryKey = "Objects",
 }) => {
+  useRedirect("loggedOut");
   const { t } = useTranslation();
   const [showFilters, setShowFilters] = useState(false);
   const history = useHistory();

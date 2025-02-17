@@ -20,8 +20,10 @@ import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 import { setTokenTimestamp } from "../../utils/localStorage";
 import { useToast } from "../../contexts/ToastContext";
 import { handleRequestError } from "../../utils/errorHandler";
+import { useRedirect } from "../../hooks/useRedirect";
 
 const SignUpForm = () => {
+  useRedirect("loggedIn");
   const { t } = useTranslation();
   const setCurrentUser = useSetCurrentUser();
   const showToast = useToast();
