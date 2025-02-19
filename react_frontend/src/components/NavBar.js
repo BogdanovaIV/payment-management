@@ -21,49 +21,52 @@ const NavBar = () => {
   const currentUser = useCurrentUser();
   const userProfileData = useUserProfileData();
   const { expanded, setExpanded, ref } = useClickOutsideToggle();
-
   const loggedInIcons = useMemo(
     () => (
       <>
-        <NavDropdown
-          className={styles.NavDropdown}
-          title={
-            <>
-              <i className="fas fa-book"></i> {t("button.dictionaries")}
-            </>
-          }
-          id="dictionaries-dropdown"
-        >
-          <NavDropdown.Item
-            as={NavLink}
-            to="/partners"
-            className={styles.NavLink}
-            activeClassName={styles.Active}
-          >
-            <i className="fas fa-users"></i>
-            {t("partner.partners")}
-          </NavDropdown.Item>
-        </NavDropdown>
-        <NavDropdown
-          className={styles.NavDropdown}
-          title={
-            <>
-              <i className="fas fa-hand-holding-usd"></i>{" "}
-              {t("button.transactions")}
-            </>
-          }
-          id="transactions-dropdown"
-        >
-          <NavDropdown.Item
-            as={NavLink}
-            to="/payment-request"
-            className={styles.NavLink}
-            activeClassName={styles.Active}
-          >
-            <i className="fas fa-money-check-alt"></i>
-            {t("payment_request.payment_requests")}
-          </NavDropdown.Item>
-        </NavDropdown>
+        {userProfileData?.checked && (
+          <>
+            <NavDropdown
+              className={styles.NavDropdown}
+              title={
+                <>
+                  <i className="fas fa-book"></i> {t("button.dictionaries")}
+                </>
+              }
+              id="dictionaries-dropdown"
+            >
+              <NavDropdown.Item
+                as={NavLink}
+                to="/partners"
+                className={styles.NavLink}
+                activeClassName={styles.Active}
+              >
+                <i className="fas fa-users"></i>
+                {t("partner.partners")}
+              </NavDropdown.Item>
+            </NavDropdown>
+            <NavDropdown
+              className={styles.NavDropdown}
+              title={
+                <>
+                  <i className="fas fa-hand-holding-usd"></i>{" "}
+                  {t("button.transactions")}
+                </>
+              }
+              id="transactions-dropdown"
+            >
+              <NavDropdown.Item
+                as={NavLink}
+                to="/payment-request"
+                className={styles.NavLink}
+                activeClassName={styles.Active}
+              >
+                <i className="fas fa-money-check-alt"></i>
+                {t("payment_request.payment_requests")}
+              </NavDropdown.Item>
+            </NavDropdown>
+          </>
+        )}
         <NavLink
           className={styles.NavLink}
           activeClassName={styles.Active}
@@ -83,7 +86,6 @@ const NavBar = () => {
     ),
     [t, currentUser, userProfileData]
   );
-
   const loggedOutIcons = useMemo(
     () => (
       <>

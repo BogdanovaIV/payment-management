@@ -1,14 +1,24 @@
 import axios from "axios";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useHistory } from "react-router";
+import { useUserProfileData } from "../contexts/ProfileDataContext";
+
 export const useRedirect = (userAuthStatus) => {
   const history = useHistory();
+  const userProfileData = useUserProfileData();
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
     const handleMount = async () => {
       try {
+        setIsLoading(true);
         await axios.post("/dj-rest-auth/token/refresh/");
-        // if user is logged in, the code below will run
-        if (userAuthStatus === "loggedIn") {
+        setIsLoading(false);
+        // if user is logged in, the code below will run or the user isn't checked
+
+        if (
+          !isLoading &&
+          (userAuthStatus === "loggedIn" || !userProfileData?.checked)
+        ) {
           history.push("/");
         }
       } catch (err) {
@@ -19,5 +29,5 @@ export const useRedirect = (userAuthStatus) => {
       }
     };
     handleMount();
-  }, [history, userAuthStatus]);
+  }, [history, userAuthStatus, userProfileData]);
 };
