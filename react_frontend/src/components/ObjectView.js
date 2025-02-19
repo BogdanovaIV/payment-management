@@ -216,13 +216,6 @@ const ObjectView = ({
     }
   }, [selectedItem]);
 
-  const handleClearFilterClick = (field) => {
-    setData((prevData) => ({
-      ...prevData,
-      [field]: { id: "", name: "" },
-    }));
-  };
-
   const backgroundStyle = {
     backgroundImage: `url(${backgroundImage})`,
     backgroundSize: "cover",
@@ -291,8 +284,7 @@ const ObjectView = ({
                                     name={name}
                                     checked={data[name] ?? ""}
                                     onChange={handleChange}
-                                  >
-                                  </Form.Check>
+                                  ></Form.Check>
                                 </>
                               ) : (
                                 <>
@@ -308,6 +300,11 @@ const ObjectView = ({
                                       }
                                       rows={rows || 1}
                                       readOnly={typeView === "view" || readOnly}
+                                      disabled={
+                                        foreignKey === undefined
+                                          ? typeView === "view" || readOnly
+                                          : typeView === "view" || disabled
+                                      }
                                       placeholder={placeholder}
                                       name={name}
                                       value={
@@ -335,22 +332,6 @@ const ObjectView = ({
                                         </option>
                                       ))}
                                     </Form.Control>
-                                    {foreignKey !== undefined &&
-                                    typeView !== "view" &&
-                                    !disabled ? (
-                                      <>
-                                        <Button
-                                          className={`${btnStyles.ButtonIcon} ${btnStyles.BlueIcon}`}
-                                          onClick={() =>
-                                            handleClearFilterClick(name)
-                                          }
-                                        >
-                                          <i className="fa-regular fa-trash-can"></i>
-                                        </Button>
-                                      </>
-                                    ) : (
-                                      <></>
-                                    )}
                                   </Col>
                                 </>
                               )}
