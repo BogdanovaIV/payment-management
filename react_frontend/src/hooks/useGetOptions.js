@@ -7,6 +7,7 @@ const useGetOptions = (extraItems = [], url) => {
   const [options, setOptions] = useState([]);
 
   useEffect(() => {
+    let isMounted = true;
     const fetchOptions = async () => {
       try {
         const response = await getData(url);
@@ -14,8 +15,9 @@ const useGetOptions = (extraItems = [], url) => {
           type.value,
           type.label,
         ]);
-
-        setOptions(() => [...extraItems, ...newOptions]);
+        if (isMounted) {
+          setOptions(() => [...extraItems, ...newOptions]);
+        }
       } catch (error) {
         if (process.env.NODE_ENV === "development") {
           console.error("Error fetching options:", error);
@@ -34,6 +36,7 @@ const useGetOptions = (extraItems = [], url) => {
 
     return () => {
       i18n.off("languageChanged", handleLanguageChange);
+      isMounted = false;
     };
   }, [i18n]);
 
