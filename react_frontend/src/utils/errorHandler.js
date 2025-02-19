@@ -1,6 +1,6 @@
 export const handleRequestError = (err, showToast, t, extraMessage = "") => {
   if (process.env.NODE_ENV === "development") {
-    console.log(err.response);
+    console.log(err);
   }
   if (!err.response) {
     showToast(

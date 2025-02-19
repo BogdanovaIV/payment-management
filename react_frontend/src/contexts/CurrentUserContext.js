@@ -6,6 +6,7 @@ import axios from "axios";
 import { axiosReq, axiosRes } from "../api/axiosDefaults";
 import {
   removeTokenTimestamp,
+  setTokenAccessExpiration,
   shouldRefreshToken,
 } from "../utils/localStorage";
 import { useToast } from "../contexts/ToastContext";
@@ -29,6 +30,7 @@ export const CurrentUserProvider = ({ children }) => {
         const { data } = await axiosRes.get("/dj-rest-auth/user/");
         setCurrentUser(data);
       } catch (err) {
+        setCurrentUser(null);
         if (process.env.NODE_ENV === "development") {
           console.log(err);
         }
@@ -43,7 +45,8 @@ export const CurrentUserProvider = ({ children }) => {
       async (config) => {
         if (shouldRefreshToken()) {
           try {
-            await axios.post("/dj-rest-auth/token/refresh/");
+            const response = await axios.post("/dj-rest-auth/token/refresh/");
+            setTokenAccessExpiration(response.data);
           } catch (err) {
             setCurrentUser((prevCurrentUser) => {
               if (prevCurrentUser) {
@@ -67,9 +70,10 @@ export const CurrentUserProvider = ({ children }) => {
     const responseInterceptor = axiosRes.interceptors.response.use(
       (response) => response,
       async (err) => {
-        if (err.response?.status === 401 && !isRefreshing) {
+        if (err.response?.status === 401 && !isRefreshing && shouldRefreshToken()) {
           try {
-            await axios.post("/dj-rest-auth/token/refresh/");
+            const response = await axios.post("/dj-rest-auth/token/refresh/");
+            setTokenAccessExpiration(response.data);
             isRefreshing = false;
           } catch (err) {
             isRefreshing = false;
