@@ -153,9 +153,10 @@ DATABASES = {
     'default': ({
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
-    } if config('DEBUG', default=False, cast=bool) else dj_database_url.parse(
-        config('DATABASE_URL', default='')
-    ))
+    } if config('DEBUG', default=False, cast=bool)
+      or config('DEV', default=False, cast=bool)
+      else dj_database_url.parse(config('DATABASE_URL', default=''))
+    )
 }
 
 # Password validation
