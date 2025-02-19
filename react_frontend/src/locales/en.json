@@ -26,7 +26,28 @@
     "if_have_account": "If you already have an account, please",
     "otherwise_sign_up": "otherwise please",
     "to_create_account": "to create an account.",
-    "profile_pending_verification": "Your profile is pending verification by an administrator. Once verified, you will have full access to all features available to you."
+    "profile_pending_verification": "Your profile is pending verification by an administrator. Once verified, you will have full access to all features available to you.",
+    "features": {
+      "title": "Key Features",
+      "user_management_title": "User Management",
+      "user_management_desc": "Partners can create and edit all users.",
+      "secure_requests_title": "Secure Payment Requests",
+      "secure_requests_desc": "Users can create requests and edit only their own.",
+      "multi_user_title": "Multi-User Collaboration",
+      "multi_user_desc": "Work seamlessly with structured permissions.",
+      "transparent_title": "Transparent & Efficient",
+      "transparent_desc": "Keep records organized with ease."
+    },
+    "benefits": {
+      "title": "Benefits of Using This App",
+      "workflow_title": "Improved Workflow",
+      "workflow_desc": "Manage partners and payments in one place.",
+      "access_title": "Role-Based Access:",
+      "access_desc": "Ensure users have the right level of control.",
+      "user_friendly_title": "User-Friendly",
+      "user_friendly_desc": "Simple, intuitive, and easy to navigate."
+    },
+    "introduction": "Simplify partner management and streamline payment requests effortlessly. Our platform ensures a seamless experience with intuitive controls and structured permissions."
   },
   "button": {
     "cancel": "Cancel",
@@ -100,7 +121,7 @@
     "invoice_amount": "Invoice Amount",
     "payment_priority": "Payment Priority",
     "edit_payment_request": "Edit Payment Requests",
-    "all_statuses" : "All Statuses",
+    "all_statuses": "All Statuses",
     "status": "Status"
   },
   "general": {
