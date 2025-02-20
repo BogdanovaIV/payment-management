@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useMemo } from "react";
 
-import { useTranslation } from "react-i18next";
+import { useTranslation, Trans } from "react-i18next";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
+import Button from "react-bootstrap/Button";
 
 import styles from "../../styles/UserProfilePage.module.css";
 import inputStyles from "../../styles/Input.module.css";
@@ -23,6 +24,7 @@ import { useToast } from "../../contexts/ToastContext";
 import { handleRequestError } from "../../utils/errorHandler";
 import { getUserProfileUrl } from "../../api/axiosURL";
 import { useRedirect } from "../../hooks/useRedirect";
+import Instruction from "../../components/Instruction";
 
 function UserProfilePage() {
   useRedirect("loggedOut");
@@ -32,6 +34,7 @@ function UserProfilePage() {
   const [hasLoaded, setHasLoaded] = useState(false);
   const showToast = useToast();
   const url = getUserProfileUrl();
+  const [showInstruction, setShowInstruction] = useState(false);
 
   const { id } = useParams();
 
@@ -98,12 +101,84 @@ function UserProfilePage() {
     backgroundRepeat: "no-repeat",
   };
 
+  const instructionBody = (
+    <>
+      <p>{t("instructions.user_profile_view.introduction")}</p>
+      <ol>
+        <li>
+          <strong>
+            {t("instructions.user_profile_view.profile_information")}
+          </strong>
+          <ul>
+            <li>
+              {t("instructions.user_profile_view.profile_information_desc1")}
+            </li>
+            <li>
+              <Trans
+                i18nKey="instructions.user_profile_view.profile_information_desc2"
+                components={[<strong />]}
+              />
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>{t("instructions.user_profile_view.edit_profile")}</strong>
+          <ul>
+            <li>
+              <Trans
+                i18nKey="instructions.user_profile_view.edit_profile_desc1"
+                components={[<strong />]}
+              />
+            </li>
+            <li>{t("instructions.user_profile_view.edit_profile_desc2")}</li>
+          </ul>
+        </li>
+        <li>
+          <strong>
+            {t("instructions.user_profile_view.changing_password")}
+          </strong>
+          <ul>
+            <li>
+              <Trans
+                i18nKey="instructions.user_profile_view.changing_password_desc1"
+                components={[<strong />]}
+              />
+            </li>
+            <li>
+              {t("instructions.user_profile_view.changing_password_desc2")}
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>{t("instructions.loading_indicator")}</strong>
+          <ul>
+            <li>
+              <Trans
+                i18nKey="instructions.loading_indicator_desc1"
+                components={[<strong />]}
+              />
+            </li>
+            <li>{t("instructions.loading_indicator_desc2")}</li>
+          </ul>
+        </li>
+      </ol>
+    </>
+  );
+
   return (
     <section className={bgImageStyles.BgImage} style={backgroundStyle}>
       <Container className="pt-2">
         <Row className="mb-3">
           <Container>
-            <h1 className={headerStyles.Header}>{t("auth.user_profile")}</h1>
+            <Row className="justify-content-center">
+              <h1 className={headerStyles.Header}>{t("auth.user_profile")}</h1>
+              <Button
+                className={`${btnStyles.ButtonIcon} ${btnStyles.OrangeIcon}`}
+                onClick={() => setShowInstruction(true)}
+              >
+                <i className="fa-solid fa-circle-question" />
+              </Button>
+            </Row>
           </Container>
         </Row>
         <Row>
@@ -154,6 +229,11 @@ function UserProfilePage() {
           </Col>
         </Row>
       </Container>
+      <Instruction
+        instructionBody={instructionBody}
+        showInstruction={showInstruction}
+        setShowInstruction={setShowInstruction}
+      />
     </section>
   );
 }

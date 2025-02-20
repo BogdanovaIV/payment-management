@@ -158,6 +158,11 @@
     color: var(--blue-color);
 }
 
+.OringeIcon,
+.OrangeIcon i {
+    color: var(--orange-color);
+}
+
 /* Media query: extra small devices*/
 @media screen and (max-width: 576px) {
     .ButtonGroup {

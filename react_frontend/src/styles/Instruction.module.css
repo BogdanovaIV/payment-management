@@ -1,0 +1,26 @@
+.ContainerModal {
+  width: 80%;
+  max-width: none !important;
+}
+
+.HeaderModal {
+  font-weight: 700 !important;
+  color: var(--blue-color);
+  background: rgba(var(--blue-color-rgb), 0.2) !important;
+}
+
+.TitleModal {
+  font-weight: 700 !important;
+  font-size: 1.7rem;
+}
+
+.BodyModal,
+.BodyModal p {
+  font-size: 1.05rem !important;
+  font-weight: 400 !important;
+  text-align: start !important;
+}
+
+.FooterModal {
+  background: rgba(var(--blue-color-rgb), 0.10) !important;
+}

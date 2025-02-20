@@ -60,7 +60,9 @@
     "edit": "Edit",
     "delete": "Delete",
     "dictionaries": "Dictionaries",
-    "transactions": "Transactions"
+    "transactions": "Transactions",
+    "instruction": "Instruction",
+    "close": "Close"
   },
   "partner": {
     "partners": "Partners",
@@ -131,5 +133,22 @@
   },
   "delete": {
     "delete_question": "Are you sure you want to delete this object?"
+  },
+  "instructions": {
+    "loading_indicator": "Loading Indicator",
+    "loading_indicator_desc1": "If the data is still being loaded, a <0>spinner animation</0> will be displayed to indicate processing.",
+    "loading_indicator_desc2": "Once loaded, the details will be displayed.",
+    "user_profile_view": {
+      "introduction": "The User Profile Page allows users to view their account details and make changes if they are the profile owner. Below are the key features and functionalities available on this page:",
+      "profile_information": "Profile Information Display",
+      "profile_information_desc1": "The page displays user details such as username, first name, last name, and email address.",
+      "profile_information_desc2": "All fields are <0>read-only</0> to prevent accidental modifications.",
+      "edit_profile": "Editing Profile Information",
+      "edit_profile_desc1": "If you are the owner of the profile, you can edit your details by clicking the <0>Edit Profile</0> button.",
+      "edit_profile_desc2": "You will be redirected to the profile editing page where you can update your information.",
+      "changing_password": "Changing Password",
+      "changing_password_desc1": "To update your password, click the <0>Change Password</0> button.",
+      "changing_password_desc2": "This will redirect you to a secure form where you can enter your current password and set a new one."
+    }
   }
 }
