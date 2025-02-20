@@ -149,6 +149,30 @@
       "changing_password": "Changing Password",
       "changing_password_desc1": "To update your password, click the <0>Change Password</0> button.",
       "changing_password_desc2": "This will redirect you to a secure form where you can enter your current password and set a new one."
+    },
+    "user_profile_edit": {
+      "introduction": "The User Profile Edit Page allows you to update your personal information, such as your first name, last name, and email address. Follow the steps below to edit your profile:",
+      "profile_information": "Updating Your Information",
+      "profile_information_desc1":"The <0>Username</0> field is <0>read-only</0> and cannot be changed.",
+      "profile_information_desc2":"You can modify the following fields (<0>all required</0>):",
+      "profile_information_desc2_field1":"<0>First Name</0> (required)",
+      "profile_information_desc2_field2":"<0>Last Name</0> (required)",
+      "profile_information_desc2_field3":"<0>Email Address</0> (required)",
+      "profile_information_desc3":"Click inside the field you want to edit and enter the new information.",
+      "saving_changes": "Saving Changes",
+      "saving_changes_desc1": "After updating your details, click the <0>Save</0> button.",
+      "saving_changes_desc2": "If the update is successful, you will be redirected to your profile page, and a confirmation message will appear.",
+      "error_handling": "Error Handling",
+      "error_handling_desc1": "If any required field is left empty, an alert message will appear asking you to fill it in.",
+      "error_handling_desc2": "If there are other errors (e.g., invalid email format), an alert message will appear below the corresponding field.",
+      "error_handling_desc3": "Review the error messages, correct the issues, and try saving again.",
+      "canceling_changes": "Canceling Changes",
+      "canceling_changes_desc1": "If you decide not to update your profile, you can navigate back to your profile page without saving, click the <0>Cancel</0> button.",
+      "note":"<0>Note</0>: Your changes will only be saved after clicking the <0>Save</0> button. If you leave the page without saving, your previous information will remain unchanged."
     }
+  },
+  "validation": {
+    "required": "This field may not be blank.",
+    "invalid_email": "Invalid email format."
   }
 }

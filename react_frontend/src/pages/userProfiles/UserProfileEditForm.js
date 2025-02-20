@@ -1,16 +1,18 @@
 import React, { useEffect, useState, useMemo } from "react";
 
 import { useHistory, useParams } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import { useTranslation, Trans } from "react-i18next";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
+import Button from "react-bootstrap/Button";
 
 import bgImageStyles from "../../styles/BgImage.module.css";
 import inputStyles from "../../styles/Input.module.css";
 import headerStyles from "../../styles/Header.module.css";
+import btnStyles from "../../styles/Button.module.css";
 
 import backgroundImage from "../../assets/user-profile.jpg";
 
@@ -23,6 +25,7 @@ import { handleRequestError } from "../../utils/errorHandler";
 import { getUserProfileUrl } from "../../api/axiosURL";
 import SpinnerSecondary from "../../components/Spinners";
 import { useRedirect } from "../../hooks/useRedirect";
+import Instruction from "../../components/Instruction";
 
 const UserProfileEditForm = () => {
   useRedirect("loggedOut");
@@ -32,6 +35,7 @@ const UserProfileEditForm = () => {
   const showToast = useToast();
   const url = getUserProfileUrl();
   const [hasLoaded, setHasLoaded] = useState(false);
+  const [showInstruction, setShowInstruction] = useState(false);
 
   const { id } = useParams();
 
@@ -106,9 +110,23 @@ const UserProfileEditForm = () => {
   }, [currentUser, id, url]);
 
   const handleChange = (event) => {
+    const { name, value } = event.target;
+    let errorMessage = "";
+
+    if (!value.trim()) {
+      errorMessage = t("validation.required");
+    } else if (name === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+      errorMessage = t("validation.invalid_email");
+    } 
+
     setProfileData((prevData) => ({
       ...prevData,
-      [event.target.name]: event.target.value,
+      [name]: value,
+    }));
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: errorMessage ? [errorMessage] : [],
     }));
   };
 
@@ -131,14 +149,123 @@ const UserProfileEditForm = () => {
     backgroundRepeat: "no-repeat",
   };
 
+  const instructionBody = (
+    <>
+      <p>{t("instructions.user_profile_edit.introduction")}</p>
+      <ol>
+        <li>
+          <strong>
+            {t("instructions.user_profile_edit.profile_information")}
+          </strong>
+          <ul>
+            <li>
+              <Trans
+                i18nKey="instructions.user_profile_edit.profile_information_desc1"
+                components={[<strong />]}
+              />
+            </li>
+            <li>
+              <Trans
+                i18nKey="instructions.user_profile_edit.profile_information_desc2"
+                components={[<strong />]}
+              />
+              <ul>
+                <li>
+                  <Trans
+                    i18nKey="instructions.user_profile_edit.profile_information_desc2_field1"
+                    components={[<strong />]}
+                  />
+                </li>
+                <li>
+                  <Trans
+                    i18nKey="instructions.user_profile_edit.profile_information_desc2_field2"
+                    components={[<strong />]}
+                  />
+                </li>
+                <li>
+                  <Trans
+                    i18nKey="instructions.user_profile_edit.profile_information_desc2_field3"
+                    components={[<strong />]}
+                  />
+                </li>
+              </ul>
+            </li>
+            <li>
+              {t("instructions.user_profile_edit.profile_information_desc3")}
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>{t("instructions.user_profile_edit.saving_changes")}</strong>
+          <ul>
+            <li>
+              <Trans
+                i18nKey="instructions.user_profile_edit.saving_changes_desc1"
+                components={[<strong />]}
+              />
+            </li>
+            <li>{t("instructions.user_profile_edit.saving_changes_desc2")}</li>
+          </ul>
+        </li>
+        <li>
+          <strong>{t("instructions.user_profile_edit.error_handling")}</strong>
+          <ul>
+            <li>{t("instructions.user_profile_edit.error_handling_desc1")}</li>
+            <li>{t("instructions.user_profile_edit.error_handling_desc2")}</li>
+            <li>{t("instructions.user_profile_edit.error_handling_desc3")}</li>
+          </ul>
+        </li>
+        <li>
+          <strong>
+            {t("instructions.user_profile_edit.canceling_changes")}
+          </strong>
+          <ul>
+            <li>
+              <Trans
+                i18nKey="instructions.user_profile_edit.canceling_changes_desc1"
+                components={[<strong />]}
+              />
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>{t("instructions.loading_indicator")}</strong>
+          <ul>
+            <li>
+              <Trans
+                i18nKey="instructions.loading_indicator_desc1"
+                components={[<strong />]}
+              />
+            </li>
+            <li>{t("instructions.loading_indicator_desc2")}</li>
+          </ul>
+        </li>
+      </ol>
+      <p>
+        <Trans
+          i18nKey="instructions.user_profile_edit.note"
+          components={[<strong />]}
+        />
+      </p>
+    </>
+  );
+
   return (
     <section className={bgImageStyles.BgImage} style={backgroundStyle}>
       <Container className="pt-2">
         <Row>
           <Container>
-            <h1 className={headerStyles.Header}>
-              {t("auth.edit_user_profile")}
-            </h1>
+            <Row className="justify-content-center">
+              <h1 className={headerStyles.Header}>
+                {t("auth.edit_user_profile")}
+              </h1>
+              <Button
+                className={`${btnStyles.ButtonIcon} ${btnStyles.OrangeIcon}`}
+                onClick={() => setShowInstruction(true)}
+              >
+                <i className="fa-solid fa-circle-question" />
+              </Button>
+            </Row>
           </Container>
         </Row>
         {hasLoaded ? (
@@ -181,6 +308,11 @@ const UserProfileEditForm = () => {
           <SpinnerSecondary />
         )}
       </Container>
+      <Instruction
+        instructionBody={instructionBody}
+        showInstruction={showInstruction}
+        setShowInstruction={setShowInstruction}
+      />
     </section>
   );
 };
