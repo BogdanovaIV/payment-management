@@ -42,7 +42,7 @@ const LanguageSelector = () => {
         <img
           src={languageOptions[currentLang].flag}
           alt={languageOptions[currentLang].label}
-          style={{ width: "24px", height: "16px" }}
+          className={styles.ImgFlag}
         />
       </button>
       {dropdownOpen && (
@@ -63,7 +63,7 @@ const LanguageSelector = () => {
                     <img
                       src={languageOptions[lng].flag}
                       alt={languageOptions[lng].label}
-                      style={{ width: "24px", height: "16px" }}
+                      className={styles.ImgFlagInside}
                     />
                   </button>
                 </li>

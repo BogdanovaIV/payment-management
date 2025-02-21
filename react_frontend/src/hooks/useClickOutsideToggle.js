@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import lngStyles from "../styles/LanguageSelector.module.css";
 
 const useClickOutsideToggle = () => {
   const [expanded, setExpanded] = useState(false);
@@ -8,7 +9,8 @@ const useClickOutsideToggle = () => {
       if (
         ref.current &&
         !ref.current.contains(event.target) &&
-        !event.target.classList.contains("dropdown-toggle")
+        !event.target.classList.contains("dropdown-toggle") &&
+        !event.target.classList.contains(lngStyles.ImgFlag)
       ) {
         setExpanded(false);
       }

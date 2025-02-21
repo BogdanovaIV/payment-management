@@ -5,3 +5,8 @@
 .DropdownItem {
     padding: .25rem 1rem !important;
 }
+
+.ImgFlag, .ImgFlagInside {
+    width: 24px;
+    height: 16px; 
+}
