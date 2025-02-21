@@ -18,7 +18,8 @@
     "edit_user_profile": "Edit User's Profile",
     "edit_user_password": "Edit User's Password",
     "user_profile": "User's Profile",
-    "full_name": "Full Name"
+    "full_name": "Full Name",
+    "old_password": "Old password"
   },
   "home": {
     "home": "Home",
@@ -169,6 +170,18 @@
       "canceling_changes": "Canceling Changes",
       "canceling_changes_desc1": "If you decide not to update your profile, you can navigate back to your profile page without saving, click the <0>Cancel</0> button.",
       "note":"<0>Note</0>: Your changes will only be saved after clicking the <0>Save</0> button. If you leave the page without saving, your previous information will remain unchanged."
+    },
+    "user_change_password" : {
+      "introduction": "This form allows users to change their password securely. Users must enter their current password and set a new one. The form validates the inputs and ensures that the new password meets security requirements.",
+      "filling_out": "Filling Out the Form",
+      "filling_out_desc1": "Enter your current password in the <0>Old Password</0> field.",
+      "filling_out_desc2": "Enter a new password in the <0>New Password</0> field.",
+      "filling_out_desc3": "Confirm the new password by re-entering it in the <0>Confirm New Password</0> field.",
+      "filling_out_desc4": "Ensure both new password fields match.",
+      "submitting": "Submitting the Form",
+      "submitting_desc1": "Click the <0>Save</0> button to submit the form.",
+      "submitting_desc2": "If successful, you will be redirected back to the previous page with a confirmation message.",
+      "submitting_desc3": "If there are errors (e.g., incorrect old password or mismatched new passwords), they will be displayed as alerts."
     }
   },
   "validation": {
