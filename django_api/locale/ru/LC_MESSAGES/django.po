@@ -623,3 +623,9 @@ msgstr "Одобренный"
 
 msgid "Paid"
 msgstr "Оплаченный"
+
+msgid "Your old password was entered incorrectly."
+msgstr "Ваш старый пароль был введен неверно."
+
+msgid "The two password fields didn’t match."
+msgstr "Два поля пароля не совпадают."

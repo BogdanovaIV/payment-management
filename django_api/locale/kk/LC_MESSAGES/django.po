@@ -565,3 +565,9 @@ msgstr "Бекітілді"
 
 msgid "Paid"
 msgstr "Ақылы"
+
+msgid "Your old password was entered incorrectly."
+msgstr "Ескі құпия сөзіңіз қате енгізілді."
+
+msgid "The two password fields didn’t match."
+msgstr "Екі құпия сөз өрісі сәйкес келмеді."

@@ -1,4 +1,6 @@
 from rest_framework import serializers
+from django.contrib.auth import password_validation
+from django.utils.translation import gettext_lazy as _
 from django.db import transaction
 from .models import UserProfile
 
@@ -83,3 +85,50 @@ class UserProfileSerializer(serializers.ModelSerializer):
             'full_name',
             'user_id'
         ]
+
+
+class CustomPasswordChangeSerializer(serializers.Serializer):
+    """
+    Serializer for handling password changes.
+
+    Fields:
+        old_password (CharField): The user's current password.
+        new_password1 (CharField): The new password.
+        new_password2 (CharField): Confirmation of the new password.
+    """
+    old_password = serializers.CharField(required=True)
+    new_password1 = serializers.CharField(required=True)
+    new_password2 = serializers.CharField(required=True)
+
+    def validate_old_password(self, value):
+        """Check if the old password is correct."""
+        print(value)
+        user = self.context["request"].user
+        if not user.check_password(value):
+            raise serializers.ValidationError(
+                _("Your old password was entered incorrectly.")
+            )
+        return value
+
+    def validate(self, data):
+        """Ensure the new passwords match and are valid."""
+        print(data)
+        if data["new_password1"] != data["new_password2"]:
+            raise serializers.ValidationError(
+                {"new_password2": _("The two password fields didn’t match.")}
+            )
+
+        # Validate new password strength
+        password_validation.validate_password(
+            data["new_password1"],
+            self.context["request"].user
+        )
+
+        return data
+
+    def save(self, **kwargs):
+        """Change the user’s password."""
+        user = self.context["request"].user
+        user.set_password(self.validated_data["new_password1"])
+        user.save()
+        return user
