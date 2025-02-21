@@ -23,6 +23,7 @@ import { useToast } from "../../contexts/ToastContext";
 import { handleRequestError } from "../../utils/errorHandler";
 import { useRedirect } from "../../hooks/useRedirect";
 import Instruction from "../../components/Instruction";
+import { getInstructionByFormName } from "../../utils/instructions";
 
 const UserPasswordForm = () => {
   useRedirect("loggedOut");
@@ -103,50 +104,7 @@ const UserPasswordForm = () => {
     []
   );
 
-  const instructionBody = (
-    <>
-      <p>{t("instructions.user_change_password.introduction")}</p>
-      <ol>
-        <li>
-          <strong>{t("instructions.user_change_password.filling_out")}</strong>
-          <ul>
-            <li>
-              <Trans
-                i18nKey="instructions.user_change_password.filling_out_desc1"
-                components={[<strong />]}
-              />
-            </li>
-            <li>
-              <Trans
-                i18nKey="instructions.user_change_password.filling_out_desc2"
-                components={[<strong />]}
-              />
-            </li>
-            <li>
-              <Trans
-                i18nKey="instructions.user_change_password.filling_out_desc3"
-                components={[<strong />]}
-              />
-            </li>
-            <li>{t("instructions.user_change_password.filling_out_desc4")}</li>
-          </ul>
-        </li>
-        <li>
-          <strong>{t("instructions.user_change_password.submitting")}</strong>
-          <ul>
-            <li>
-              <Trans
-                i18nKey="instructions.user_change_password.submitting_desc1"
-                components={[<strong />]}
-              />
-            </li>
-            <li>{t("instructions.user_change_password.submitting_desc2")}</li>
-            <li>{t("instructions.user_change_password.submitting_desc3")}</li>
-          </ul>
-        </li>
-      </ol>
-    </>
-  );
+  const instructionBody = getInstructionByFormName("UserPassword", t, Trans);
 
   return (
     <section className={bgImageStyles.BgImage} style={backgroundStyle}>

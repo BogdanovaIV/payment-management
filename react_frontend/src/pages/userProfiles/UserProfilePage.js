@@ -25,6 +25,7 @@ import { handleRequestError } from "../../utils/errorHandler";
 import { getUserProfileUrl } from "../../api/axiosURL";
 import { useRedirect } from "../../hooks/useRedirect";
 import Instruction from "../../components/Instruction";
+import { getInstructionByFormName } from "../../utils/instructions";
 
 function UserProfilePage() {
   useRedirect("loggedOut");
@@ -101,69 +102,7 @@ function UserProfilePage() {
     backgroundRepeat: "no-repeat",
   };
 
-  const instructionBody = (
-    <>
-      <p>{t("instructions.user_profile_view.introduction")}</p>
-      <ol>
-        <li>
-          <strong>
-            {t("instructions.user_profile_view.profile_information")}
-          </strong>
-          <ul>
-            <li>
-              {t("instructions.user_profile_view.profile_information_desc1")}
-            </li>
-            <li>
-              <Trans
-                i18nKey="instructions.user_profile_view.profile_information_desc2"
-                components={[<strong />]}
-              />
-            </li>
-          </ul>
-        </li>
-        <li>
-          <strong>{t("instructions.user_profile_view.edit_profile")}</strong>
-          <ul>
-            <li>
-              <Trans
-                i18nKey="instructions.user_profile_view.edit_profile_desc1"
-                components={[<strong />]}
-              />
-            </li>
-            <li>{t("instructions.user_profile_view.edit_profile_desc2")}</li>
-          </ul>
-        </li>
-        <li>
-          <strong>
-            {t("instructions.user_profile_view.changing_password")}
-          </strong>
-          <ul>
-            <li>
-              <Trans
-                i18nKey="instructions.user_profile_view.changing_password_desc1"
-                components={[<strong />]}
-              />
-            </li>
-            <li>
-              {t("instructions.user_profile_view.changing_password_desc2")}
-            </li>
-          </ul>
-        </li>
-        <li>
-          <strong>{t("instructions.loading_indicator")}</strong>
-          <ul>
-            <li>
-              <Trans
-                i18nKey="instructions.loading_indicator_desc1"
-                components={[<strong />]}
-              />
-            </li>
-            <li>{t("instructions.loading_indicator_desc2")}</li>
-          </ul>
-        </li>
-      </ol>
-    </>
-  );
+  const instructionBody = getInstructionByFormName("UserProfilePage", t, Trans);
 
   return (
     <section className={bgImageStyles.BgImage} style={backgroundStyle}>

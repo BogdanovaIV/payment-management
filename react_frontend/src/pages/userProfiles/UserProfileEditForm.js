@@ -26,6 +26,7 @@ import { getUserProfileUrl } from "../../api/axiosURL";
 import SpinnerSecondary from "../../components/Spinners";
 import { useRedirect } from "../../hooks/useRedirect";
 import Instruction from "../../components/Instruction";
+import { getInstructionByFormName } from "../../utils/instructions";
 
 const UserProfileEditForm = () => {
   useRedirect("loggedOut");
@@ -117,7 +118,7 @@ const UserProfileEditForm = () => {
       errorMessage = t("validation.required");
     } else if (name === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
       errorMessage = t("validation.invalid_email");
-    } 
+    }
 
     setProfileData((prevData) => ({
       ...prevData,
@@ -149,105 +150,10 @@ const UserProfileEditForm = () => {
     backgroundRepeat: "no-repeat",
   };
 
-  const instructionBody = (
-    <>
-      <p>{t("instructions.user_profile_edit.introduction")}</p>
-      <ol>
-        <li>
-          <strong>
-            {t("instructions.user_profile_edit.profile_information")}
-          </strong>
-          <ul>
-            <li>
-              <Trans
-                i18nKey="instructions.user_profile_edit.profile_information_desc1"
-                components={[<strong />]}
-              />
-            </li>
-            <li>
-              <Trans
-                i18nKey="instructions.user_profile_edit.profile_information_desc2"
-                components={[<strong />]}
-              />
-              <ul>
-                <li>
-                  <Trans
-                    i18nKey="instructions.user_profile_edit.profile_information_desc2_field1"
-                    components={[<strong />]}
-                  />
-                </li>
-                <li>
-                  <Trans
-                    i18nKey="instructions.user_profile_edit.profile_information_desc2_field2"
-                    components={[<strong />]}
-                  />
-                </li>
-                <li>
-                  <Trans
-                    i18nKey="instructions.user_profile_edit.profile_information_desc2_field3"
-                    components={[<strong />]}
-                  />
-                </li>
-              </ul>
-            </li>
-            <li>
-              {t("instructions.user_profile_edit.profile_information_desc3")}
-            </li>
-          </ul>
-        </li>
-        <li>
-          <strong>{t("instructions.user_profile_edit.saving_changes")}</strong>
-          <ul>
-            <li>
-              <Trans
-                i18nKey="instructions.user_profile_edit.saving_changes_desc1"
-                components={[<strong />]}
-              />
-            </li>
-            <li>{t("instructions.user_profile_edit.saving_changes_desc2")}</li>
-          </ul>
-        </li>
-        <li>
-          <strong>{t("instructions.user_profile_edit.error_handling")}</strong>
-          <ul>
-            <li>{t("instructions.user_profile_edit.error_handling_desc1")}</li>
-            <li>{t("instructions.user_profile_edit.error_handling_desc2")}</li>
-            <li>{t("instructions.user_profile_edit.error_handling_desc3")}</li>
-          </ul>
-        </li>
-        <li>
-          <strong>
-            {t("instructions.user_profile_edit.canceling_changes")}
-          </strong>
-          <ul>
-            <li>
-              <Trans
-                i18nKey="instructions.user_profile_edit.canceling_changes_desc1"
-                components={[<strong />]}
-              />
-            </li>
-          </ul>
-        </li>
-        <li>
-          <strong>{t("instructions.loading_indicator")}</strong>
-          <ul>
-            <li>
-              <Trans
-                i18nKey="instructions.loading_indicator_desc1"
-                components={[<strong />]}
-              />
-            </li>
-            <li>{t("instructions.loading_indicator_desc2")}</li>
-          </ul>
-        </li>
-      </ol>
-      <p>
-        <Trans
-          i18nKey="instructions.user_profile_edit.note"
-          components={[<strong />]}
-        />
-      </p>
-    </>
+  const instructionBody = getInstructionByFormName(
+    "UserProfileEditForm",
+    t,
+    Trans
   );
 
   return (

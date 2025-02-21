@@ -23,6 +23,7 @@ import { useToast } from "../../contexts/ToastContext";
 import { handleRequestError } from "../../utils/errorHandler";
 import { useRedirect } from "../../hooks/useRedirect";
 import Instruction from "../../components/Instruction";
+import { getInstructionByFormName } from "../../utils/instructions";
 
 const SignUpForm = () => {
   useRedirect("loggedIn");
@@ -128,109 +129,7 @@ const SignUpForm = () => {
     backgroundRepeat: "no-repeat",
   };
 
-  const instructionBody = (
-    <>
-      <p>{t("instructions.signup.introduction")}</p>
-      <ol>
-        <li>
-          <strong>{t("instructions.signup.filling_out")}</strong>
-          <ul>
-            <li>
-              <Trans
-                i18nKey="instructions.signup.filling_out_desc1"
-                components={[<strong />]}
-              />
-              <ul>
-                <li>{t("instructions.signup.filling_out_desc1_ul1")}</li>
-                <li>{t("instructions.signup.filling_out_desc1_ul2")}</li>
-              </ul>
-            </li>
-            <li>
-              <Trans
-                i18nKey="instructions.signup.filling_out_desc2"
-                components={[<strong />]}
-              />
-              <ul>
-                <li>{t("instructions.signup.filling_out_desc2_ul1")}</li>
-              </ul>
-            </li>
-            <li>
-              <Trans
-                i18nKey="instructions.signup.filling_out_desc3"
-                components={[<strong />]}
-              />
-              <ul>
-                <li>{t("instructions.signup.filling_out_desc3_ul1")}</li>
-              </ul>
-            </li>
-            <li>
-              <Trans
-                i18nKey="instructions.signup.filling_out_desc4"
-                components={[<strong />]}
-              />
-              <ul>
-                <li>{t("instructions.signup.filling_out_desc4_ul1")}</li>
-                <li>{t("instructions.signup.filling_out_desc4_ul2")}</li>
-              </ul>
-            </li>
-            <li>
-              <Trans
-                i18nKey="instructions.signup.filling_out_desc5"
-                components={[<strong />]}
-              />
-              <ul>
-                <li>{t("instructions.signup.filling_out_desc5_ul1")}</li>
-                <li>{t("instructions.signup.filling_out_desc5_ul2")}</li>
-              </ul>
-            </li>
-            <li>
-              <Trans
-                i18nKey="instructions.signup.filling_out_desc6"
-                components={[<strong />]}
-              />
-              <ul>
-                <li>{t("instructions.signup.filling_out_desc6_ul1")}</li>
-                <li>{t("instructions.signup.filling_out_desc6_ul2")}</li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <strong>{t("instructions.signup.submitting")}</strong>
-          <ul>
-            <li>
-              <Trans
-                i18nKey="instructions.signup.submitting_desc1"
-                components={[<strong />]}
-              />
-            </li>
-            <li>{t("instructions.signup.submitting_desc2")}</li>
-            <li>
-              {t("instructions.signup.submitting_desc3")}
-              <ul>
-                <li>{t("instructions.signup.submitting_desc3_ul1")}</li>
-                <li>{t("instructions.signup.submitting_desc3_ul2")}</li>
-                <li>{t("instructions.signup.submitting_desc3_ul3")}</li>
-                <li>{t("instructions.signup.submitting_desc3_ul4")}</li>
-              </ul>
-            </li>
-          </ul>
-        </li>
-        <li>
-          <strong>{t("instructions.signup.additional_notes")}</strong>
-          <ul>
-            <li>
-              <Trans
-                i18nKey="instructions.signup.additional_notes_desc1"
-                components={[<strong />]}
-              />
-            </li>
-            <li>{t("instructions.signup.additional_notes_desc2")}</li>
-          </ul>
-        </li>
-      </ol>
-    </>
-  );
+  const instructionBody = getInstructionByFormName("SignUpForm", t, Trans);
 
   return (
     <section className={bgImageStyles.BgImage} style={backgroundStyle}>
