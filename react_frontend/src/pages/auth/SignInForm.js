@@ -13,6 +13,7 @@ import styles from "../../styles/SignInUpForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import bgImageStyles from "../../styles/BgImage.module.css";
 import inputStyles from "../../styles/Input.module.css";
+import headerStyles from "../../styles/Header.module.css";
 
 import backgroundImage from "../../assets/signin.jpg";
 
@@ -84,7 +85,7 @@ function SignInForm() {
       <Container className="pt-2">
         <Row className="mb-3">
           <Container>
-            <h1 className={styles.Header}>{t("auth.sign_in")}</h1>
+            <h1 className={headerStyles.Header}>{t("auth.sign_in")}</h1>
             <Link className={styles.Link} to="/signup">
               {t("auth.sign_in_prompt")} <span>{t("auth.sign_up_now")}</span>
             </Link>

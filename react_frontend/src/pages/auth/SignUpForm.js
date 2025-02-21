@@ -13,6 +13,7 @@ import styles from "../../styles/SignInUpForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import bgImageStyles from "../../styles/BgImage.module.css";
 import inputStyles from "../../styles/Input.module.css";
+import headerStyles from "../../styles/Header.module.css";
 
 import backgroundImage from "../../assets/signup.jpg";
 
@@ -21,12 +22,14 @@ import { setTokenTimestamp } from "../../utils/localStorage";
 import { useToast } from "../../contexts/ToastContext";
 import { handleRequestError } from "../../utils/errorHandler";
 import { useRedirect } from "../../hooks/useRedirect";
+import Instruction from "../../components/Instruction";
 
 const SignUpForm = () => {
   useRedirect("loggedIn");
   const { t } = useTranslation();
   const setCurrentUser = useSetCurrentUser();
   const showToast = useToast();
+  const [showInstruction, setShowInstruction] = useState(false);
 
   const [signUpData, setSignUpData] = useState({
     username: "",
@@ -81,14 +84,28 @@ const SignUpForm = () => {
   const history = useHistory();
 
   const handleChange = (event) => {
+    const { name, value } = event.target;
+    let errorMessage = "";
+
+    if (!value.trim()) {
+      errorMessage = t("validation.required");
+    } else if (name === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
+      errorMessage = t("validation.invalid_email");
+    }
+
     setSignUpData((prevData) => ({
       ...prevData,
-      [event.target.name]: event.target.value,
+      [name]: value,
+    }));
+
+    setErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: errorMessage ? [errorMessage] : [],
     }));
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault(); 
+    event.preventDefault();
     try {
       await axios.post("/dj-rest-auth/registration/", signUpData);
       const { data } = await axios.post("/dj-rest-auth/login/", {
@@ -110,12 +127,126 @@ const SignUpForm = () => {
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
   };
+
+  const instructionBody = (
+    <>
+      <p>{t("instructions.signup.introduction")}</p>
+      <ol>
+        <li>
+          <strong>{t("instructions.signup.filling_out")}</strong>
+          <ul>
+            <li>
+              <Trans
+                i18nKey="instructions.signup.filling_out_desc1"
+                components={[<strong />]}
+              />
+              <ul>
+                <li>{t("instructions.signup.filling_out_desc1_ul1")}</li>
+                <li>{t("instructions.signup.filling_out_desc1_ul2")}</li>
+              </ul>
+            </li>
+            <li>
+              <Trans
+                i18nKey="instructions.signup.filling_out_desc2"
+                components={[<strong />]}
+              />
+              <ul>
+                <li>{t("instructions.signup.filling_out_desc2_ul1")}</li>
+              </ul>
+            </li>
+            <li>
+              <Trans
+                i18nKey="instructions.signup.filling_out_desc3"
+                components={[<strong />]}
+              />
+              <ul>
+                <li>{t("instructions.signup.filling_out_desc3_ul1")}</li>
+              </ul>
+            </li>
+            <li>
+              <Trans
+                i18nKey="instructions.signup.filling_out_desc4"
+                components={[<strong />]}
+              />
+              <ul>
+                <li>{t("instructions.signup.filling_out_desc4_ul1")}</li>
+                <li>{t("instructions.signup.filling_out_desc4_ul2")}</li>
+              </ul>
+            </li>
+            <li>
+              <Trans
+                i18nKey="instructions.signup.filling_out_desc5"
+                components={[<strong />]}
+              />
+              <ul>
+                <li>{t("instructions.signup.filling_out_desc5_ul1")}</li>
+                <li>{t("instructions.signup.filling_out_desc5_ul2")}</li>
+              </ul>
+            </li>
+            <li>
+              <Trans
+                i18nKey="instructions.signup.filling_out_desc6"
+                components={[<strong />]}
+              />
+              <ul>
+                <li>{t("instructions.signup.filling_out_desc6_ul1")}</li>
+                <li>{t("instructions.signup.filling_out_desc6_ul2")}</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>{t("instructions.signup.submitting")}</strong>
+          <ul>
+            <li>
+              <Trans
+                i18nKey="instructions.signup.submitting_desc1"
+                components={[<strong />]}
+              />
+            </li>
+            <li>{t("instructions.signup.submitting_desc2")}</li>
+            <li>
+              {t("instructions.signup.submitting_desc3")}
+              <ul>
+                <li>{t("instructions.signup.submitting_desc3_ul1")}</li>
+                <li>{t("instructions.signup.submitting_desc3_ul2")}</li>
+                <li>{t("instructions.signup.submitting_desc3_ul3")}</li>
+                <li>{t("instructions.signup.submitting_desc3_ul4")}</li>
+              </ul>
+            </li>
+          </ul>
+        </li>
+        <li>
+          <strong>{t("instructions.signup.additional_notes")}</strong>
+          <ul>
+            <li>
+              <Trans
+                i18nKey="instructions.signup.additional_notes_desc1"
+                components={[<strong />]}
+              />
+            </li>
+            <li>{t("instructions.signup.additional_notes_desc2")}</li>
+          </ul>
+        </li>
+      </ol>
+    </>
+  );
+
   return (
     <section className={bgImageStyles.BgImage} style={backgroundStyle}>
       <Container className="pt-2">
         <Row>
           <Container>
-            <h1 className={styles.Header}>{t("auth.sign_up")}</h1>
+            <Row className="justify-content-center">
+              <h1 className={headerStyles.Header}>{t("auth.sign_up")}</h1>
+              <Button
+                className={`${btnStyles.ButtonIcon} ${btnStyles.OrangeIcon}`}
+                onClick={() => setShowInstruction(true)}
+              >
+                <i className="fa-solid fa-circle-question" />
+              </Button>
+            </Row>
+
             <Link className={styles.Link} to="/signin">
               <Trans
                 i18nKey="auth.already_have_account"
@@ -131,7 +262,7 @@ const SignUpForm = () => {
           <Col className="my-auto offset-lg-3" lg={6}>
             <Container className="p-4">
               <Form onSubmit={handleSubmit}>
-                {fields.map(({ id, name, nameBackend, type, placeholder }) => (
+                {fields.map(({ id, name, type, placeholder }) => (
                   <Form.Group controlId={id} key={id}>
                     <Form.Label className="d-none">{placeholder}</Form.Label>
                     <Form.Control
@@ -166,6 +297,11 @@ const SignUpForm = () => {
           </Col>
         </Row>
       </Container>
+      <Instruction
+        instructionBody={instructionBody}
+        showInstruction={showInstruction}
+        setShowInstruction={setShowInstruction}
+      />
     </section>
   );
 };
