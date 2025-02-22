@@ -68,7 +68,7 @@ class Partner(LockableModel):
     )
     legal_address = models.TextField(blank=True, null=True)
     actual_address = models.TextField(blank=True, null=True)
-    phone_number = models.CharField(max_length=20, blank=True, null=True)
+    phone_number = models.CharField(max_length=255, blank=True, null=True)
     contact_person = models.CharField(
         max_length=255,
         blank=False,
