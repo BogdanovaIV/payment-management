@@ -1,9 +1,10 @@
 import React, { useState, useMemo } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation, Trans } from "react-i18next";
 import ObjectList from "../../components/ObjectList";
 import { getParametersByName } from "../../utils/selectFormParameters";
 import { getPartnerTypesUrl } from "../../api/axiosURL";
 import useGetOptions from "../../hooks/useGetOptions";
+import { getInstructionByFormName } from "../../utils/instructions";
 
 const PartnersPage = () => {
   const { t } = useTranslation();
@@ -65,6 +66,7 @@ const PartnersPage = () => {
     ObjectsName: t("partner.partners"),
     filterFields,
     queryKey: "PartnersList",
+    instructionBody: getInstructionByFormName("PartnerList", t, Trans),
   };
 
   return <ObjectList {...parameters} />;

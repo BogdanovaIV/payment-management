@@ -155,12 +155,12 @@
     "user_profile_edit": {
       "introduction": "The User Profile Edit Page allows you to update your personal information, such as your first name, last name, and email address. Follow the steps below to edit your profile:",
       "profile_information": "Updating Your Information",
-      "profile_information_desc1":"The <0>Username</0> field is <0>read-only</0> and cannot be changed.",
-      "profile_information_desc2":"You can modify the following fields (<0>all required</0>):",
-      "profile_information_desc2_field1":"<0>First Name</0> (required)",
-      "profile_information_desc2_field2":"<0>Last Name</0> (required)",
-      "profile_information_desc2_field3":"<0>Email Address</0> (required)",
-      "profile_information_desc3":"Click inside the field you want to edit and enter the new information.",
+      "profile_information_desc1": "The <0>Username</0> field is <0>read-only</0> and cannot be changed.",
+      "profile_information_desc2": "You can modify the following fields (<0>all required</0>):",
+      "profile_information_desc2_field1": "<0>First Name</0> (required)",
+      "profile_information_desc2_field2": "<0>Last Name</0> (required)",
+      "profile_information_desc2_field3": "<0>Email Address</0> (required)",
+      "profile_information_desc3": "Click inside the field you want to edit and enter the new information.",
       "saving_changes": "Saving Changes",
       "saving_changes_desc1": "After updating your details, click the <0>Save</0> button.",
       "saving_changes_desc2": "If the update is successful, you will be redirected to your profile page, and a confirmation message will appear.",
@@ -170,9 +170,9 @@
       "error_handling_desc3": "Review the error messages, correct the issues, and try saving again.",
       "canceling_changes": "Canceling Changes",
       "canceling_changes_desc1": "If you decide not to update your profile, you can navigate back to your profile page without saving, click the <0>Cancel</0> button.",
-      "note":"<0>Note</0>: Your changes will only be saved after clicking the <0>Save</0> button. If you leave the page without saving, your previous information will remain unchanged."
+      "note": "<0>Note</0>: Your changes will only be saved after clicking the <0>Save</0> button. If you leave the page without saving, your previous information will remain unchanged."
     },
-    "user_change_password" : {
+    "user_change_password": {
       "introduction": "This form allows users to change their password securely. Users must enter their current password and set a new one. The form validates the inputs and ensures that the new password meets security requirements.",
       "filling_out": "Filling Out the Form",
       "filling_out_desc1": "Enter your current password in the <0>Old Password</0> field.",
@@ -214,6 +214,49 @@
       "additional_notes": "Additional Notes:",
       "additional_notes_desc1": "If you already have an account, click on the Sign In link to log in.",
       "additional_notes_desc2": "Ensure you enter accurate information, as it will be used for account verification."
+    },
+    "object_list": {
+      "introduction": "The {{object}} List allows users to view, filter, and manage {{objects}} efficiently.",
+      "navigating": {
+        "title": "Navigating the {{object}} List",
+        "desc1": "The main page displays a list of {{objects}}.",
+        "desc2": "On larger screens, the data is presented in a table format.",
+        "desc3": "On smaller screens, the Partners appear as individual cards."
+      },
+      "adding_object": {
+        "title": "Adding a New {{object}}",
+        "desc1": "Click the <0>Add</0> button (green) at the top of the page.",
+        "desc2": "You will be redirected to a new page where you can enter details for the new {{object}}."
+      },
+      "filtering": {
+        "title": "Filtering Objects",
+        "desc1": "Click the <0>Show Filters</0> button (orange) to display filter options.",
+        "desc2": "Enter values in the fields to refine the {{object}} list.",
+        "desc3": "The system will automatically validate date ranges (e.g., start date cannot be after end date).",
+        "desc4": "To clear a specific filter field, click the <0>small trash</0> can icon next to the field.",
+        "desc5": "Click the <0>Clear Filters</0> button (blue) to reset all filters."
+      },
+      "foreign_keys": {
+        "title": "Selecting Foreign Key Fields",
+        "desc1": "Some fields require selecting values from another list (e.g., categories, references).",
+        "desc2": "Click on the field to open a selection modal.",
+        "desc3": "Choose the desired value, and it will be assigned to the corresponding field."
+      },
+      "view_edit": {
+        "title": "Viewing and Editing {{objects}}",
+        "desc1": "Click on a {{object}} in the list to open its details page.",
+        "desc2": "On the details page, you may be able to edit, update or delete the {{object_s}} information."
+      },
+      "scrolling": {
+        "title": "Infinite Scrolling",
+        "desc1": "The list automatically loads more data as you scroll.",
+        "desc2": "If additional pages are available, more {{objects}} will appear without needing to manually refresh the page."
+      },
+      "no_results": {
+        "title": "Handling No Results",
+        "desc1": "If no matching {{objects}} are found, a message 'No results found.' will be displayed.",
+        "desc2": "Try adjusting the filters to expand the search."
+      }
     }
   },
   "validation": {

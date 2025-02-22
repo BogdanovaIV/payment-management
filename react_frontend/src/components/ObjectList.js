@@ -25,6 +25,7 @@ import DataTable from "./DataTable";
 import useInfiniteData from "../hooks/useInfiniteData";
 import useInfiniteScroll from "../hooks/useInfiniteScroll";
 import { useRedirect } from "../hooks/useRedirect";
+import Instruction from "./Instruction";
 
 const ObjectList = ({
   filters,
@@ -35,6 +36,7 @@ const ObjectList = ({
   filterFields,
   modalForms = [],
   queryKey = "Objects",
+  instructionBody = <></>,
 }) => {
   useRedirect("loggedOut");
   const { t } = useTranslation();
@@ -42,6 +44,7 @@ const ObjectList = ({
   const history = useHistory();
   const [showModal, setShowModal] = useState({});
   const [selectedItem, setSelectedItem] = useState(null);
+  const [showInstruction, setShowInstruction] = useState(false);
 
   const [selectedField, setSelectedFiled] = useState({
     field: "",
@@ -161,12 +164,16 @@ const ObjectList = ({
   return (
     <section className={`${bgImageStyles.BgImage}`} style={backgroundStyle}>
       <Container className={styles.Main}>
-        <div>
-          <h1 className={`${headerStyles.Header} text-center flex-grow-1`}>
-            {ObjectsName}
-          </h1>
-        </div>
-        <Container className={styles.HeaderButtons}>
+        <Row className="justify-content-center">
+          <h1 className={headerStyles.Header}>{ObjectsName}</h1>
+          <Button
+            className={`${btnStyles.ButtonIcon} ${btnStyles.OrangeIcon}`}
+            onClick={() => setShowInstruction(true)}
+          >
+            <i className="fa-solid fa-circle-question" />
+          </Button>
+        </Row>
+        <Row className={styles.HeaderButtons}>
           <Button
             className={`${btnStyles.ButtonTransparent} ${btnStyles.GreenTransparent}`}
             onClick={() => handleAddClick()}
@@ -188,7 +195,7 @@ const ObjectList = ({
             <i className="fa-regular fa-trash-can"></i>
             {t("button.clear_filters")}
           </Button>
-        </Container>
+        </Row>
         {/* Filters Section */}
         {showFilters && (
           <Form className="mb-3">
@@ -307,6 +314,11 @@ const ObjectList = ({
       ) : (
         <></>
       )}
+      <Instruction
+        instructionBody={instructionBody}
+        showInstruction={showInstruction}
+        setShowInstruction={setShowInstruction}
+      />
     </section>
   );
 };

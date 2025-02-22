@@ -1,3 +1,5 @@
+import instructions from "../locales/en.json";
+
 export const getInstructionByFormName = (formName = "", t, Trans) => {
   if (formName === "UserProfilePage") {
     return (
@@ -326,6 +328,62 @@ export const getInstructionByFormName = (formName = "", t, Trans) => {
               <li>{t("instructions.signup.additional_notes_desc2")}</li>
             </ul>
           </li>
+        </ol>
+      </>
+    );
+  } else if (formName === "PartnerList" || formName === "PaymentRequestsList") {
+    let object = "Object";
+    let objects = "Objects";
+    let object_s = "Object's";
+    if (formName === "PartnerList") {
+      object = "Partner";
+      objects = "Partners";
+      object_s = "Partner's";
+    } else if (formName === "PaymentRequestsList") {
+      object = "Payment Request";
+      objects = "Payment Requests";
+      object_s = "Payment Request's";
+    }
+    return (
+      <>
+        <p>
+          <Trans
+            i18nKey="instructions.object_list.introduction"
+            values={{
+              object,
+              objects,
+              object_s,
+            }}
+            components={[<strong />]}
+          />
+        </p>
+        <ol>
+          {Object.entries(instructions.instructions.object_list).map(
+            ([key, section]) =>
+              key !== "introduction" && (
+                <li key={key}>
+                  <strong>{t(`instructions.object_list.${key}.title`)}</strong>
+                  <ul>
+                    {Object.entries(section).map(
+                      ([subKey, subDesc]) =>
+                        subKey !== "title" && (
+                          <li key={subKey}>
+                            <Trans
+                              i18nKey={`instructions.object_list.${key}.${subKey}`}
+                              values={{
+                                object,
+                                objects,
+                                object_s,
+                              }}
+                              components={[<strong />]}
+                            />
+                          </li>
+                        )
+                    )}
+                  </ul>
+                </li>
+              )
+          )}
         </ol>
       </>
     );

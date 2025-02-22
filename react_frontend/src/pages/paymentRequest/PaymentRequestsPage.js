@@ -1,11 +1,12 @@
 import React, { useState, useMemo, useEffect } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation, Trans } from "react-i18next";
 import { getPaymentRequestStatusesUrl } from "../../api/axiosURL";
 import ObjectList from "../../components/ObjectList";
 import { getParametersByName } from "../../utils/selectFormParameters";
 import useGetOptions from "../../hooks/useGetOptions";
 import { useUserProfileData } from "../../contexts/ProfileDataContext";
 import SpinnerSecondary from "../../components/Spinners";
+import { getInstructionByFormName } from "../../utils/instructions";
 
 const PaymentRequestsPage = () => {
   const { t } = useTranslation();
@@ -128,6 +129,7 @@ const PaymentRequestsPage = () => {
     filterFields,
     modalForms,
     queryKey: "PaymentRequestsList",
+    instructionBody: getInstructionByFormName("PaymentRequestsList", t, Trans),
   };
 
   if (!userProfileData) {
