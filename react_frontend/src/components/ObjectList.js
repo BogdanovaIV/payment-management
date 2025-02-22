@@ -103,7 +103,7 @@ const ObjectList = ({
       ...prevSelected,
       field: e.target.name,
       foreignKey,
-      additional_filter
+      additional_filter,
     }));
     setShowModal((prevShowModal) => ({
       ...prevShowModal,
@@ -129,6 +129,26 @@ const ObjectList = ({
     setFilters((prevSelected) => ({
       ...prevSelected,
       [field]: foreignKey !== undefined ? { id: "", name: "" } : "",
+    }));
+  };
+
+  const handleClearFiltersClick = () => {
+    const emptyValue = (value) => {
+      if (typeof value === "object") {
+        return { id: "", name: "" };
+      } else if (typeof value === "number") {
+        return 0;
+      } else {
+        return "";
+      }
+    };
+    setFilters((prevSelected) => ({
+      ...Object.fromEntries(
+        Object.entries(prevSelected).map(([key, value]) => [
+          key,
+          emptyValue(value),
+        ])
+      ),
     }));
   };
 
@@ -161,6 +181,13 @@ const ObjectList = ({
             <i className="fa-solid fa-magnifying-glass"></i>
             {showFilters ? t("button.hide_filters") : t("button.show_filters")}
           </Button>
+          <Button
+            className={`${btnStyles.ButtonTransparent} ${btnStyles.BlueTransparent}`}
+            onClick={() => handleClearFiltersClick()}
+          >
+            <i className="fa-regular fa-trash-can"></i>
+            {t("button.clear_filters")}
+          </Button>
         </Container>
         {/* Filters Section */}
         {showFilters && (
@@ -175,7 +202,7 @@ const ObjectList = ({
                   foreignKey,
                   readOnly,
                   label,
-                  additional_filter
+                  additional_filter,
                 }) => (
                   <Col key={name} xs={12} md={4} lg={3} className="mb-1">
                     <Form.Label className={styles.Label}>
@@ -198,7 +225,12 @@ const ObjectList = ({
                         onChange={(e) => handleFilterChange(e)}
                         onClick={
                           foreignKey !== undefined
-                            ? (e) => handleForeignKeyClick(e, foreignKey, additional_filter)
+                            ? (e) =>
+                                handleForeignKeyClick(
+                                  e,
+                                  foreignKey,
+                                  additional_filter
+                                )
                             : undefined
                         }
                       >

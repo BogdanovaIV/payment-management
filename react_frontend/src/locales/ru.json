@@ -63,7 +63,8 @@
     "dictionaries": "Справочники",
     "transactions": "Документы",
     "instruction": "Инструкция",
-    "close": "Закрыть"
+    "close": "Закрыть",
+    "clear_filters": "Очистить фильтры"
   },
   "partner": {
     "partners": "Контрагенты",

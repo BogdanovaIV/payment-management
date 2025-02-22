@@ -63,7 +63,8 @@
     "dictionaries": "Dictionaries",
     "transactions": "Transactions",
     "instruction": "Instruction",
-    "close": "Close"
+    "close": "Close",
+    "clear_filters": "Clear filters"
   },
   "partner": {
     "partners": "Partners",

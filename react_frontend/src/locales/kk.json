@@ -63,7 +63,8 @@
     "dictionaries": "Анықтамалар",
     "transactions": "Құжаттар",
     "instruction": "Нұсқау",
-    "close": "Жабу"
+    "close": "Жабу",
+    "clear_filters": "Сүзгілерді тазалау"
   },
   "partner": {
     "partners": "Kонтрагенттер",
