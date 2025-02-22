@@ -12,18 +12,24 @@ const useInfiniteData = ({ queryKey, filters, searchQuery, url }) => {
       queryKey: [[queryKey], filters],
       queryFn: async ({ pageParam = null }) => {
         try {
-          const processedFilters = filters
-            ? Object.fromEntries(
-                Object.entries(filters).map(([key, value]) => [
-                  key,
-                  typeof value === "object" && value !== null
-                    ? value.id
-                    : value,
-                ])
-              )
-            : searchQuery
-            ? { search: searchQuery }
-            : undefined;
+          const processedFilters = (() => {
+            if (filters) {
+              return {
+                ...Object.fromEntries(
+                  Object.entries(filters).map(([key, value]) => [
+                    key,
+                    typeof value === "object" && value !== null
+                      ? value.id
+                      : value,
+                  ])
+                ),
+                ...(searchQuery ? { search: searchQuery } : {}),
+              };
+            } else if (searchQuery) {
+              return { search: searchQuery };
+            }
+            return undefined;
+          })();
           const response = pageParam
             ? await getNextPage(pageParam)
             : await getData(url, processedFilters);

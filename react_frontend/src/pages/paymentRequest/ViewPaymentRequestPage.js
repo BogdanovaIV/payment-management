@@ -87,6 +87,7 @@ const ViewPaymentRequestPage = ({ typeView = "view", objectName }) => {
         placeholder: t("payment_request.payer"),
         as: "input",
         foreignKey: "partner",
+        additional_filter: { is_own: "true" },
         readOnly: true,
       },
       {
@@ -96,6 +97,7 @@ const ViewPaymentRequestPage = ({ typeView = "view", objectName }) => {
         placeholder: t("payment_request.recipient"),
         as: "input",
         foreignKey: "partner",
+        additional_filter: { is_own: "false" },
         readOnly: true,
       },
     ],

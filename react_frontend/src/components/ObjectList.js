@@ -46,6 +46,7 @@ const ObjectList = ({
   const [selectedField, setSelectedFiled] = useState({
     field: "",
     foreignKey: "",
+    additional_filter: undefined,
   });
 
   const handleRowClick = (object) => {
@@ -97,11 +98,12 @@ const ObjectList = ({
     refetch();
   };
 
-  const handleForeignKeyClick = (e, foreignKey) => {
+  const handleForeignKeyClick = (e, foreignKey, additional_filter) => {
     setSelectedFiled((prevSelected) => ({
       ...prevSelected,
       field: e.target.name,
       foreignKey,
+      additional_filter
     }));
     setShowModal((prevShowModal) => ({
       ...prevShowModal,
@@ -173,6 +175,7 @@ const ObjectList = ({
                   foreignKey,
                   readOnly,
                   label,
+                  additional_filter
                 }) => (
                   <Col key={name} xs={12} md={4} lg={3} className="mb-1">
                     <Form.Label className={styles.Label}>
@@ -195,7 +198,7 @@ const ObjectList = ({
                         onChange={(e) => handleFilterChange(e)}
                         onClick={
                           foreignKey !== undefined
-                            ? (e) => handleForeignKeyClick(e, foreignKey)
+                            ? (e) => handleForeignKeyClick(e, foreignKey, additional_filter)
                             : undefined
                         }
                       >
@@ -266,6 +269,7 @@ const ObjectList = ({
             url={url}
             columns={columns}
             queryKey={queryKey}
+            selectedField={selectedField}
           />
         ))
       ) : (

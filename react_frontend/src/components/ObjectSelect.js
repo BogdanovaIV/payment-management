@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Form from "react-bootstrap/Form";
 import Container from "react-bootstrap/Container";
 import Modal from "react-bootstrap/Modal";
@@ -21,6 +21,7 @@ const ObjectSelect = ({
   url,
   columns,
   queryKey,
+  selectedField,
 }) => {
   const [query, setQuery] = useState("");
   const [isSmallScreen] = useIsSmallScreen();
@@ -37,7 +38,12 @@ const ObjectSelect = ({
     isFetching,
     isLoading,
     refetch,
-  } = useInfiniteData({ queryKey, searchQuery: query, url });
+  } = useInfiniteData({
+    queryKey,
+    searchQuery: query,
+    filters: selectedField.additional_filter,
+    url,
+  });
 
   const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
     useTable({ columns, data: objects });
@@ -51,10 +57,18 @@ const ObjectSelect = ({
     show,
   });
 
+  useEffect(() => {
+    const delayDebounce = setTimeout(() => {
+      refetch();
+    }, 500);
+
+    return () => clearTimeout(delayDebounce);
+  }, [query]);
+
   const handleQueryChange = (e) => {
     setQuery(e.target.value);
-    refetch();
   };
+
   return (
     <Modal show={show} onHide={handleClose} dialogClassName={styles.Modal}>
       <Modal.Header closeButton>

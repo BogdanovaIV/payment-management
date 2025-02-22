@@ -45,6 +45,7 @@ const ObjectView = ({
   const [selectedField, setSelectedFiled] = useState({
     field: "",
     foreignKey: "",
+    additional_filter: undefined,
   });
   const [hasLoaded, setHasLoaded] = useState(typeView === "add" ? true : false);
 
@@ -131,7 +132,6 @@ const ObjectView = ({
     return async () => {
       try {
         if (typeView === "edit") {
-          console.log(`Unlocking ID on unmount: ${id}`);
           await postData(`${url}${id}/unlock/`);
         }
       } catch (err) {
@@ -187,11 +187,12 @@ const ObjectView = ({
     }
   };
 
-  const handleForeignKeyClick = (e, foreignKey) => {
+  const handleForeignKeyClick = (e, foreignKey, additional_filter) => {
     setSelectedFiled((prevSelected) => ({
       ...prevSelected,
       field: e.target.name,
       foreignKey,
+      additional_filter,
     }));
     setShowModal((prevShowModal) => ({
       ...prevShowModal,
@@ -272,6 +273,7 @@ const ObjectView = ({
                           as,
                           foreignKey,
                           disabled,
+                          additional_filter,
                         }) => (
                           <Col key={id} md={item.length === 1 ? 12 : 6}>
                             <Form.Group controlId={id}>
@@ -318,7 +320,8 @@ const ObjectView = ({
                                           ? (e) =>
                                               handleForeignKeyClick(
                                                 e,
-                                                foreignKey
+                                                foreignKey,
+                                                additional_filter
                                               )
                                           : undefined
                                       }
@@ -394,6 +397,7 @@ const ObjectView = ({
             url={url}
             columns={columns}
             queryKey={queryKey}
+            selectedField={selectedField}
           />
         ))
       ) : (

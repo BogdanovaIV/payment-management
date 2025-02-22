@@ -41,6 +41,7 @@ const AddPaymentRequestPage = () => {
         placeholder: t("payment_request.payer"),
         as: "input",
         foreignKey: "partner",
+        additional_filter: { is_own: "true" },
         readOnly: true,
       },
       {
@@ -49,6 +50,7 @@ const AddPaymentRequestPage = () => {
         placeholder: t("payment_request.recipient"),
         as: "input",
         foreignKey: "partner",
+        additional_filter: { is_own: "false" },
         readOnly: true,
       },
     ],

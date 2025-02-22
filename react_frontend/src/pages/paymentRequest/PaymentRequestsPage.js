@@ -76,6 +76,7 @@ const PaymentRequestsPage = () => {
       placeholder: t("payment_request.search_payer"),
       label: t("payment_request.payer"),
       foreignKey: "partner",
+      additional_filter: { is_own: "true" },
       readOnly: true,
     },
     {
@@ -84,6 +85,7 @@ const PaymentRequestsPage = () => {
       placeholder: t("payment_request.search_recipient"),
       label: t("payment_request.recipient"),
       foreignKey: "partner",
+      additional_filter: { is_own: "false" },
       readOnly: true,
     },
     {
