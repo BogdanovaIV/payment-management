@@ -5,6 +5,7 @@ import Modal from "react-bootstrap/Modal";
 import { useTable } from "react-table";
 
 import styles from "../styles/ObjectSelect.module.css";
+import headerStyles from "../styles/Header.module.css";
 import SpinnerSecondary from "./Spinners";
 
 import useIsSmallScreen from "../hooks/useIsSmallScreen";
@@ -75,6 +76,10 @@ const ObjectSelect = ({
           </Form>
           {isLoading ? (
             <SpinnerSecondary />
+          ) : objects.length === 0 ? (
+            <>
+              <p className={headerStyles.HeaderNotFound}>No results found.</p>
+            </>
           ) : isSmallScreen ? (
             <CardCollection
               columns={columns}

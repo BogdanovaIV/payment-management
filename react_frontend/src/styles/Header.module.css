@@ -9,3 +9,9 @@
   margin-bottom: 10px;
   align-self: center;
 }
+
+.HeaderNotFound {
+  background: transparent;
+  font-size: 30px;
+  color: var(--blue-color);
+}

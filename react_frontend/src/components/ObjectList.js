@@ -209,7 +209,9 @@ const ObjectList = ({
                         <>
                           <Button
                             className={`${btnStyles.ButtonIcon} ${btnStyles.BlueIcon}`}
-                            onClick={() => handleClearFilterClick(name, foreignKey)}
+                            onClick={() =>
+                              handleClearFilterClick(name, foreignKey)
+                            }
                           >
                             <i className="fa-regular fa-trash-can"></i>
                           </Button>
@@ -227,6 +229,10 @@ const ObjectList = ({
 
         {isLoading ? (
           <SpinnerSecondary />
+        ) : objects.length === 0 ? (
+          <>
+            <p className={headerStyles.HeaderNotFound}>No results found.</p>
+          </>
         ) : isSmallScreen ? (
           <CardCollection
             columns={columns}
