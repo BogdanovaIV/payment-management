@@ -1,6 +1,7 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.contrib.auth.models import User
+from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 from partner.models import Partner
 from common.models import LockableModel
@@ -71,26 +72,48 @@ class PaymentRequest(LockableModel):
         null=False,
         default=1
     )
-    invoice_number = models.CharField(max_length=50, blank=True, null=True)
-    invoice_date = models.DateField(blank=True, null=True)
-    invoice_amount = models.PositiveIntegerField(null=True, default=0)
+    invoice_number = models.CharField(
+        max_length=50,
+        blank=False,
+        null=False,
+        default='Undefined'
+    )
+    invoice_date = models.DateField(blank=False, null=False, default=now)
+    invoice_amount = models.PositiveIntegerField(null=False, default=0)
     deadline = models.DateField()
     payment_amount = models.PositiveIntegerField(null=False, default=0)
     comment = models.TextField(blank=True, null=True)
     user = models.ForeignKey(
         User,
         on_delete=models.PROTECT,
-        null=True,
-        blank=True,
-        related_name="author"
+        null=False,
+        blank=False,
+        related_name="author",
+        default=1
     )
     status = models.IntegerField(
         choices=PaymentRequestStatus.choices,
         default=0,
+        null=False,
+        blank=False
     )
 
     class Meta:
         ordering = ["deadline"]
+        indexes = [
+            models.Index(fields=['payer'], name='payer_idx'),
+            models.Index(fields=['recipient'], name='recipient_idx'),
+            models.Index(fields=['invoice_number'], name='invoice_number_idx'),
+            models.Index(fields=['invoice_date'], name='invoice_date_idx'),
+            models.Index(fields=['deadline'], name='deadline_idx'),
+            models.Index(fields=['user'], name='user_idx'),
+            models.Index(fields=['status'], name='status_idx'),
+            models.Index(fields=['user', 'status'], name='user_status_idx'),
+            models.Index(
+                fields=['payer', 'recipient'],
+                name='payer_recipient_idx'
+            )
+        ]
 
     def __str__(self):
         return f"{self.recipient}-{self.payment_amount}-{self.deadline}"
