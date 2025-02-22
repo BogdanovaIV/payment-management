@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import { useTranslation, Trans } from "react-i18next";
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -27,6 +27,7 @@ import {
 import SaveBar from "./SaveBar";
 import SpinnerSecondary from "./Spinners";
 import { useRedirect } from "../hooks/useRedirect";
+import { validateField } from "../utils/validation";
 
 const ObjectView = ({
   data,
@@ -36,6 +37,7 @@ const ObjectView = ({
   objectName,
   typeView,
   modalForms = [],
+  formName,
 }) => {
   useRedirect("loggedOut");
   const { t } = useTranslation();
@@ -145,6 +147,14 @@ const ObjectView = ({
 
   const handleChange = (event) => {
     const { name, type, checked, value } = event.target;
+    const errorMessage = validateField(formName, t, Trans)(name, value);
+
+    if (errorMessage !== undefined) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: errorMessage ? [errorMessage] : [],
+      }));
+    }
 
     setData((prevData) => ({
       ...prevData,
@@ -154,6 +164,21 @@ const ObjectView = ({
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    let newErrors = {};
+    Object.keys(data).forEach((key) => {
+      const errorMessage = validateField(formName, t, Trans)(key, data[key]);
+      if (errorMessage) newErrors[key] = errorMessage ? [errorMessage] : [];
+    });
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        ...newErrors,
+      }));
+      return;
+    }
+
     try {
       const newData = Object.fromEntries(
         Object.entries(data)
@@ -169,7 +194,7 @@ const ObjectView = ({
         showToast(t("toast.success_add"), "success");
       } else if (typeView === "edit") {
         await putData(`${url}${id}/`, newData);
-        history.goBack();
+        history.push(`${url}${id}`);
         showToast(t("toast.success_update"), "success");
       }
     } catch (err) {

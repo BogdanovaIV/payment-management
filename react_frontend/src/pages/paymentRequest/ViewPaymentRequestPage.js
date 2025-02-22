@@ -181,6 +181,7 @@ const ViewPaymentRequestPage = ({ typeView = "view", objectName }) => {
     objectName: objectName,
     typeView,
     modalForms,
+    formName: "payment_request",
   };
 
   return <ObjectView {...parameters} />;

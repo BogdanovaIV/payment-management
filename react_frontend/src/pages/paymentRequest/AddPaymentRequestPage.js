@@ -30,7 +30,7 @@ const AddPaymentRequestPage = () => {
       foreignKey: "partner",
       url: parametersPartner.url,
       columns: parametersPartner.columns,
-      queryKey:  "partnerQuery"
+      queryKey: "partnerQuery",
     },
   ];
   const fields = [
@@ -123,7 +123,8 @@ const AddPaymentRequestPage = () => {
     url: getPaymentRequestsUrl(),
     objectName: t("payment_request.add_payment_request"),
     typeView: "add",
-    modalForms
+    modalForms,
+    formName: "payment_request",
   };
 
   return <ObjectView {...parameters} />;

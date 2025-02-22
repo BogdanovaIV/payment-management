@@ -27,6 +27,7 @@ import SpinnerSecondary from "../../components/Spinners";
 import { useRedirect } from "../../hooks/useRedirect";
 import Instruction from "../../components/Instruction";
 import { getInstructionByFormName } from "../../utils/instructions";
+import { validateField } from "../../utils/validation";
 
 const UserProfileEditForm = () => {
   useRedirect("loggedOut");
@@ -112,27 +113,41 @@ const UserProfileEditForm = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    let errorMessage = "";
-
-    if (!value.trim()) {
-      errorMessage = t("validation.required");
-    } else if (name === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-      errorMessage = t("validation.invalid_email");
+    const errorMessage = validateField("user_profile", t, Trans)(name, value);
+    if (errorMessage !== undefined) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: errorMessage ? [errorMessage] : [],
+      }));
     }
 
     setProfileData((prevData) => ({
       ...prevData,
       [name]: value,
     }));
-
-    setErrors((prevErrors) => ({
-      ...prevErrors,
-      [name]: errorMessage ? [errorMessage] : [],
-    }));
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    let newErrors = {};
+    Object.keys(profileData).forEach((key) => {
+      const errorMessage = validateField(
+        "user_profile",
+        t,
+        Trans
+      )(key, profileData[key]);
+      if (errorMessage) newErrors[key] = errorMessage ? [errorMessage] : [];
+    });
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        ...newErrors,
+      }));
+      return;
+    }
+
     try {
       const { data } = await axiosReq.put(`${url}${id}/`, profileData);
       setUserProfileData(data);

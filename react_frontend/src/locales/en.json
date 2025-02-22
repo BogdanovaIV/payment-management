@@ -217,6 +217,10 @@
   },
   "validation": {
     "required": "This field may not be blank.",
-    "invalid_email": "Invalid email format."
+    "invalid_email": "Invalid email format.",
+    "more_than": "Ensure this field has no more than {{length}} characters.",
+    "phone_number": "Invalid format. Use '+1234567890' or multiple numbers separated by commas.",
+    "between": "Ensure this value is between {{from}} and {{to}}.",
+    "greater_than_equal": "Ensure this value is greater than or equal to {{value}}."
   }
 }
