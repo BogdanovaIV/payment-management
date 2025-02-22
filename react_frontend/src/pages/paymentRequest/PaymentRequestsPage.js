@@ -1,12 +1,16 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { getPaymentRequestStatusesUrl } from "../../api/axiosURL";
 import ObjectList from "../../components/ObjectList";
 import { getParametersByName } from "../../utils/selectFormParameters";
 import useGetOptions from "../../hooks/useGetOptions";
+import { useUserProfileData } from "../../contexts/ProfileDataContext";
+import SpinnerSecondary from "../../components/Spinners";
 
 const PaymentRequestsPage = () => {
   const { t } = useTranslation();
+
+  const userProfileData = useUserProfileData();
 
   const [filters, setFilters] = useState({
     payer: { id: "", name: "" },
@@ -18,9 +22,19 @@ const PaymentRequestsPage = () => {
     end_deadline: "",
   });
 
-  const [optionsStatus] = useGetOptions([
-    ["", t("payment_request.all_statuses")]
-  ], getPaymentRequestStatusesUrl());
+  useEffect(() => {
+    if (userProfileData) {
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        user: { id: userProfileData.user_id, name: userProfileData.full_name },
+      }));
+    }
+  }, [userProfileData]);
+
+  const [optionsStatus] = useGetOptions(
+    [["", t("payment_request.all_statuses")]],
+    getPaymentRequestStatusesUrl()
+  );
 
   const parametersPaymentRequest = useMemo(() => {
     return getParametersByName("payment_request", t);
@@ -113,6 +127,10 @@ const PaymentRequestsPage = () => {
     modalForms,
     queryKey: "PaymentRequestsList",
   };
+
+  if (!userProfileData) {
+    return <SpinnerSecondary />;
+  }
 
   return <ObjectList {...parameters} />;
 };
