@@ -142,78 +142,109 @@
     "loading_indicator_desc2": "Once loaded, the details will be displayed.",
     "user_profile_view": {
       "introduction": "The User Profile Page allows users to view their account details and make changes if they are the profile owner. Below are the key features and functionalities available on this page:",
-      "profile_information": "Profile Information Display",
-      "profile_information_desc1": "The page displays user details such as username, first name, last name, and email address.",
-      "profile_information_desc2": "All fields are <0>read-only</0> to prevent accidental modifications.",
-      "edit_profile": "Editing Profile Information",
-      "edit_profile_desc1": "If you are the owner of the profile, you can edit your details by clicking the <0>Edit Profile</0> button.",
-      "edit_profile_desc2": "You will be redirected to the profile editing page where you can update your information.",
-      "changing_password": "Changing Password",
-      "changing_password_desc1": "To update your password, click the <0>Change Password</0> button.",
-      "changing_password_desc2": "This will redirect you to a secure form where you can enter your current password and set a new one."
+      "profile_information": {
+        "title": "Profile Information Display",
+        "desc1": "The page displays user details such as username, first name, last name, and email address.",
+        "desc2": "All fields are <0>read-only</0> to prevent accidental modifications."
+      },
+      "edit_profile": {
+        "title": "Editing Profile Information",
+        "desc1": "If you are the owner of the profile, you can edit your details by clicking the <0>Edit Profile</0> button.",
+        "desc2": "You will be redirected to the profile editing page where you can update your information."
+      },
+      "changing_password": {
+        "title": "Changing Password",
+        "desc1": "To update your password, click the <0>Change Password</0> button.",
+        "desc2": "This will redirect you to a secure form where you can enter your current password and set a new one."
+      }
     },
     "user_profile_edit": {
       "introduction": "The User Profile Edit Page allows you to update your personal information, such as your first name, last name, and email address. Follow the steps below to edit your profile:",
-      "profile_information": "Updating Your Information",
-      "profile_information_desc1": "The <0>Username</0> field is <0>read-only</0> and cannot be changed.",
-      "profile_information_desc2": "You can modify the following fields (<0>all required</0>):",
-      "profile_information_desc2_field1": "<0>First Name</0> (required)",
-      "profile_information_desc2_field2": "<0>Last Name</0> (required)",
-      "profile_information_desc2_field3": "<0>Email Address</0> (required)",
-      "profile_information_desc3": "Click inside the field you want to edit and enter the new information.",
-      "saving_changes": "Saving Changes",
-      "saving_changes_desc1": "After updating your details, click the <0>Save</0> button.",
-      "saving_changes_desc2": "If the update is successful, you will be redirected to your profile page, and a confirmation message will appear.",
-      "error_handling": "Error Handling",
-      "error_handling_desc1": "If any required field is left empty, an alert message will appear asking you to fill it in.",
-      "error_handling_desc2": "If there are other errors (e.g., invalid email format), an alert message will appear below the corresponding field.",
-      "error_handling_desc3": "Review the error messages, correct the issues, and try saving again.",
-      "canceling_changes": "Canceling Changes",
-      "canceling_changes_desc1": "If you decide not to update your profile, you can navigate back to your profile page without saving, click the <0>Cancel</0> button.",
+      "profile_information": {
+        "title": "Updating Your Information",
+        "desc1": "The <0>Username</0> field is <0>read-only</0> and cannot be changed.",
+        "desc2_dict": {
+          "title": "You can modify the following fields (<0>all required</0>):",
+          "desc1": "<0>First Name</0> (required)",
+          "desc2": "<0>Last Name</0> (required)",
+          "desc3": "<0>Email Address</0> (required)"
+        },
+        "desc3": "Click inside the field you want to edit and enter the new information."
+      },
+      "saving_changes": {
+        "title": "Saving Changes",
+        "desc1": "After updating your details, click the <0>Save</0> button.",
+        "desc2": "If the update is successful, you will be redirected to your profile page, and a confirmation message will appear."
+      },
+      "error_handling": {
+        "title": "Error Handling",
+        "desc1": "If any required field is left empty, an alert message will appear asking you to fill it in.",
+        "desc2": "If there are other errors (e.g., invalid email format), an alert message will appear below the corresponding field.",
+        "desc3": "Review the error messages, correct the issues, and try saving again."
+      },
+      "canceling_changes": {
+        "title": "Canceling Changes",
+        "desc1": "If you decide not to update your profile, you can navigate back to your profile page without saving, click the <0>Cancel</0> button."
+      },
       "note": "<0>Note</0>: Your changes will only be saved after clicking the <0>Save</0> button. If you leave the page without saving, your previous information will remain unchanged."
     },
     "user_change_password": {
       "introduction": "This form allows users to change their password securely. Users must enter their current password and set a new one. The form validates the inputs and ensures that the new password meets security requirements.",
-      "filling_out": "Filling Out the Form",
-      "filling_out_desc1": "Enter your current password in the <0>Old Password</0> field.",
-      "filling_out_desc2": "Enter a new password in the <0>New Password</0> field.",
-      "filling_out_desc3": "Confirm the new password by re-entering it in the <0>Confirm New Password</0> field.",
-      "filling_out_desc4": "Ensure both new password fields match.",
-      "submitting": "Submitting the Form",
-      "submitting_desc1": "Click the <0>Save</0> button to submit the form.",
-      "submitting_desc2": "If successful, you will be redirected back to the previous page with a confirmation message.",
-      "submitting_desc3": "If there are errors (e.g., incorrect old password or mismatched new passwords), they will be displayed as alerts."
+      "filling_out": {
+        "title": "Filling Out the Form",
+        "desc1": "Enter your current password in the <0>Old Password</0> field.",
+        "desc2": "Enter a new password in the <0>New Password</0> field.",
+        "desc3": "Confirm the new password by re-entering it in the <0>Confirm New Password</0> field.",
+        "desc4": "Ensure both new password fields match."
+      },
+      "submitting": {
+        "title": "Submitting the Form",
+        "desc1": "Click the <0>Save</0> button to submit the form.",
+        "desc2": "If successful, you will be redirected back to the previous page with a confirmation message.",
+        "desc3": "If there are errors (e.g., incorrect old password or mismatched new passwords), they will be displayed as alerts."
+      }
     },
     "signup": {
       "introduction": "The sign-up form allows new users to create an account securely. All fields in the form are required, and the inputs must meet validation criteria.",
-      "filling_out": "Filling Out the Form",
-      "filling_out_desc1": "<0>Username:</0>",
-      "filling_out_desc1_ul1": "Enter a unique username.",
-      "filling_out_desc1_ul2": "The username should not contain spaces.",
-      "filling_out_desc2": "<0>First Name:</0>",
-      "filling_out_desc2_ul1": "Enter your first name.",
-      "filling_out_desc3": "<0>Last Name:</0>",
-      "filling_out_desc3_ul1": "Enter your last name.",
-      "filling_out_desc4": "<0>Email:</0>",
-      "filling_out_desc4_ul1": "Enter a valid email address.",
-      "filling_out_desc4_ul2": "Example: user@example.com.",
-      "filling_out_desc5": "<0>Password:</0>",
-      "filling_out_desc5_ul1": "Enter a secure password in the Password field.",
-      "filling_out_desc5_ul2": "The password must meet security requirements (e.g., minimum length, special characters, and numbers may be required).",
-      "filling_out_desc6": "<0>Confirm Password:</0>",
-      "filling_out_desc6_ul1": "Re-enter the same password to confirm.",
-      "filling_out_desc6_ul2": "Ensure both password fields match.",
-      "submitting": "Submitting the Form",
-      "submitting_desc1": "Click the <0>Sign Up</0> button to submit the form.",
-      "submitting_desc2": "If all fields are correctly filled, you will be redirected to the home page with a confirmation message.",
-      "submitting_desc3": "If there are errors, they will be displayed as alerts. Common errors include:",
-      "submitting_desc3_ul1": "Missing required fields.",
-      "submitting_desc3_ul2": "Invalid email format.",
-      "submitting_desc3_ul3": "Passwords do not match.",
-      "submitting_desc3_ul4": "Username or email already in use.",
-      "additional_notes": "Additional Notes:",
-      "additional_notes_desc1": "If you already have an account, click on the Sign In link to log in.",
-      "additional_notes_desc2": "Ensure you enter accurate information, as it will be used for account verification."
+      "filling_out": {
+        "title": "Filling Out the Form",
+        "desc1_dict": {
+          "title": "Username:",
+          "desc1": "Enter a unique username.",
+          "desc2": "The username should not contain spaces."
+        },
+        "desc2_dict": {
+          "title": "First Name:",
+          "desc1": "Enter your first name."
+        },
+        "desc3_dict": {
+          "title": "Last Name:",
+          "desc1": "Enter your last name."
+        },
+        "desc4_dict": {
+          "title": "Email:",
+          "desc1": "Enter a valid email address (e.g., user@example.com)."
+        },
+        "desc5_dict": {
+          "title": "Password:",
+          "desc1": " Enter a secure password that meets security requirements (e.g., minimum length, special characters, and numbers may be required)."
+        },
+        "desc6_dict": {
+          "title": "Confirm Password:",
+          "desc1": " Re-enter the same password to confirm. Ensure both password fields match."
+        }
+      },
+      "submitting": {
+        "title": "Submitting the Form",
+        "desc1": "Click the <0>Sign Up</0> button to submit the form.",
+        "desc2": "If all fields are correctly filled, you will be redirected to the home page with a confirmation message.",
+        "desc3": "If there are errors, they will be displayed as alerts. Common errors include: missing required fields, invalid email format, passwords not matching, or username/email already in use."
+      },
+      "additional_notes": {
+        "title": "Additional Notes",
+        "desc1": "If you already have an account, click on the Sign In link to log in.",
+        "desc2": "Ensure you enter accurate information, as it will be used for account verification."
+      }
     },
     "object_list": {
       "introduction": "The {{object}} List allows users to view, filter, and manage {{objects}} efficiently.",
