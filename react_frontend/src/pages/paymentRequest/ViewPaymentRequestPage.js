@@ -182,6 +182,7 @@ const ViewPaymentRequestPage = ({ typeView = "view", objectName }) => {
     typeView,
     modalForms,
     formName: "payment_request",
+    edit_only_owner: true,
   };
 
   return <ObjectView {...parameters} />;

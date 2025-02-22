@@ -28,6 +28,7 @@ import SaveBar from "./SaveBar";
 import SpinnerSecondary from "./Spinners";
 import { useRedirect } from "../hooks/useRedirect";
 import { validateField } from "../utils/validation";
+import { useCurrentUser } from "../contexts/CurrentUserContext";
 
 const ObjectView = ({
   data,
@@ -38,6 +39,7 @@ const ObjectView = ({
   typeView,
   modalForms = [],
   formName,
+  edit_only_owner = false,
 }) => {
   useRedirect("loggedOut");
   const { t } = useTranslation();
@@ -50,6 +52,8 @@ const ObjectView = ({
     additional_filter: undefined,
   });
   const [hasLoaded, setHasLoaded] = useState(typeView === "add" ? true : false);
+  const currentUser = useCurrentUser();
+  const [isOwner, setIsOwner] = useState(!edit_only_owner);
 
   const { id } = useParams();
 
@@ -129,6 +133,14 @@ const ObjectView = ({
       isMounted = false;
     };
   }, [id, t, typeView, url]);
+
+  useEffect(() => {
+    if (data?.user?.id && currentUser?.pk) {
+      setIsOwner(
+        edit_only_owner ? currentUser?.pk === data.user.id : true
+      );
+    }
+  }, [data.user, currentUser]);
 
   useEffect(() => {
     return async () => {
@@ -267,13 +279,15 @@ const ObjectView = ({
                   <i className="fa-solid fa-circle-xmark"></i>
                   {t("button.cancel")}
                 </Button>
-
-                <Button
-                  className={`${btnStyles.ButtonTransparent} ${btnStyles.BlueTransparent}`}
-                  onClick={() => handleEditClick()}
-                >
-                  <i className="fa-solid fa-circle-plus"></i> {t("button.edit")}
-                </Button>
+                {isOwner && (
+                  <Button
+                    className={`${btnStyles.ButtonTransparent} ${btnStyles.BlueTransparent}`}
+                    onClick={() => handleEditClick()}
+                  >
+                    <i className="fa-solid fa-circle-plus"></i>{" "}
+                    {t("button.edit")}
+                  </Button>
+                )}
               </>
             )}
           </Col>
@@ -307,7 +321,11 @@ const ObjectView = ({
                                   <Form.Check
                                     label={placeholder}
                                     className={inputStyles.CheckBoxObject}
-                                    disabled={typeView === "view" || readOnly}
+                                    disabled={
+                                      typeView === "view" ||
+                                      readOnly ||
+                                      !isOwner
+                                    }
                                     name={name}
                                     checked={data[name] ?? ""}
                                     onChange={handleChange}
@@ -326,11 +344,19 @@ const ObjectView = ({
                                         type !== "select" ? type : undefined
                                       }
                                       rows={rows || 1}
-                                      readOnly={typeView === "view" || readOnly}
+                                      readOnly={
+                                        typeView === "view" ||
+                                        readOnly ||
+                                        !isOwner
+                                      }
                                       disabled={
                                         foreignKey === undefined
-                                          ? typeView === "view" || readOnly
-                                          : typeView === "view" || disabled
+                                          ? typeView === "view" ||
+                                            readOnly ||
+                                            !isOwner
+                                          : typeView === "view" ||
+                                            disabled ||
+                                            !isOwner
                                       }
                                       placeholder={placeholder}
                                       name={name}
@@ -380,7 +406,7 @@ const ObjectView = ({
                     </Row>
                   ))}
                 </Form.Group>
-                {typeView === "view" ? (
+                {typeView === "view" && isOwner ? (
                   <>
                     <Button
                       className={`${btnStyles.ButtonTransparent} ${btnStyles.OrangeTransparent}`}
@@ -390,15 +416,20 @@ const ObjectView = ({
                       {t("button.delete")}
                     </Button>
                   </>
-                ) : (
+                ) : typeView !== "view" ? (
                   <>
-                    <SaveBar handleCancelClick={handleCancelClick} />
+                    <SaveBar
+                      handleCancelClick={handleCancelClick}
+                      showSave={isOwner}
+                    />
                     {errors.non_field_errors?.map((message, idx) => (
                       <Alert key={idx} variant="warning" className="mt-3">
                         {message}
                       </Alert>
                     ))}
                   </>
+                ) : (
+                  <></>
                 )}
               </Form>
             </Container>
