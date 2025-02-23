@@ -1,10 +1,11 @@
 import React, { useState, useMemo } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation, Trans } from "react-i18next";
 
 import { getPaymentRequestsUrl } from "../../api/axiosURL";
 import { getParametersByName } from "../../utils/selectFormParameters";
 
 import ObjectView from "../../components/ObjectView";
+import { getInstructionByFormName } from "../../utils/instructions";
 
 const AddPaymentRequestPage = () => {
   const { t } = useTranslation();
@@ -125,6 +126,7 @@ const AddPaymentRequestPage = () => {
     typeView: "add",
     modalForms,
     formName: "payment_request",
+    instructionBody: getInstructionByFormName("AddPaymentRequestPage", t, Trans),
   };
 
   return <ObjectView {...parameters} />;

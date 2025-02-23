@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation, Trans } from "react-i18next";
 
 import { getPartnersUrl, getPartnerTypesUrl } from "../../api/axiosURL";
 
 import ObjectView from "../../components/ObjectView";
 import useGetOptions from "../../hooks/useGetOptions";
+import { getInstructionByFormName } from "../../utils/instructions";
 
 const ViewPartnerPage = ({ typeView = "view", objectName }) => {
   const { t } = useTranslation();
@@ -141,6 +142,11 @@ const ViewPartnerPage = ({ typeView = "view", objectName }) => {
     objectName,
     typeView,
     formName: "partner",
+    instructionBody: getInstructionByFormName(
+      typeView === "view" ? "ViewPartnerPage" : "EditPartnerPage",
+      t,
+      Trans
+    ),
   };
 
   return <ObjectView {...parameters} />;

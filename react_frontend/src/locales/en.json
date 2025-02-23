@@ -69,6 +69,7 @@
   "partner": {
     "partners": "Partners",
     "partner": "Partner",
+    "partner_s": "Partner's",
     "trade_name": "Trade Name",
     "bin": "BIN",
     "partner_type": "Partner Type",
@@ -105,6 +106,8 @@
   },
   "payment_request": {
     "payment_requests": "Payment Requests",
+    "payment_request": "Payment Request",
+    "payment_request_s": "Payment Request's",
     "payer": "Payer",
     "recipient": "Recipient",
     "user": "Author",
@@ -119,14 +122,14 @@
     "search_invoice_number": "Search by Invoice Number",
     "start_deadline": "Deadline From",
     "end_deadline": "Deadline To",
-    "payment_request": "Payment Request",
     "comment": "Comment",
     "add_payment_request": "Add Payment Request",
     "invoice_amount": "Invoice Amount",
     "payment_priority": "Payment Priority",
     "edit_payment_request": "Edit Payment Requests",
     "all_statuses": "All Statuses",
-    "status": "Status"
+    "status": "Status",
+    "instructuon_note": "Only the user who created the Payment Request can edit it. If you are not the creator, you will not have permission to make changes."
   },
   "general": {
     "id": "ID",
@@ -288,6 +291,206 @@
         "desc1": "If no matching {{objects}} are found, a message 'No results found.' will be displayed.",
         "desc2": "Try adjusting the filters to expand the search."
       }
+    },
+    "object_view": {
+      "introduction": "The {{object}} View allows users to create, edit, and view {{objects}} within the system. Users can enter data, interact with foreign key fields, and submit the form for processing. The form ensures data integrity through validation.",
+      "actions": {
+        "title": "Actions",
+        "desc1_dict": {
+          "title": "Adding a New {{object}}",
+          "desc1": "Enter required information.",
+          "desc2": "Select related objects where applicable.",
+          "desc3": "Click <0>Save</0> to submit.",
+          "desc4": "Correct any validation errors and resubmit if needed."
+        },
+        "desc2_dict": {
+          "title": "Editing a {{object}}",
+          "desc1": "Click <0>Edit</0> to enable modifications.",
+          "desc2": "Update the necessary fields.",
+          "desc3": "Click <0>Save</0> to update the {{object}}.",
+          "desc4": "Click <0>Cancel</0> to discard changes."
+        },
+        "desc3_dict": {
+          "title": "Canceling an Operation",
+          "desc1": "Click <0>Cancel</0> to return to the previous page without saving changes."
+        },
+        "desc4_dict": {
+          "title": "Deleting a {{object}}",
+          "desc1": "Click <0>Delete</0> to remove the {{object}}.",
+          "desc2": "Confirm the deletion in the prompt to proceed.",
+          "desc3": "This action is irreversible, and the {{object}} cannot be restored.",
+          "desc4": "The system will check if the {{object}} is referenced in another record.",
+          "desc5": "If deletion is not possible, an error message will appear: 'Cannot delete this item because it is referenced in another record.'"
+        }
+      },
+      "navigating": {
+        "title": "Navigating the Form",
+        "desc1": "Fields are grouped for ease of use.",
+        "desc2": "Foreign key fields allow selecting related objects via a modal window.",
+        "desc3": "Validation messages appear below fields when errors occur."
+      },
+      "foreidn_key": {
+        "title": "Foreign Key Selection",
+        "desc1": "Click the respective field to open a selection modal.",
+        "desc2": "Choose the appropriate related object.",
+        "desc3": "The selected object is displayed in the form."
+      },
+      "error_handling": {
+        "title": "Error Handling",
+        "desc1": "If any required field is left empty, an alert message will appear asking you to fill it in.",
+        "desc2": "If there are other errors (e.g., invalid email format), an alert message will appear below the corresponding field.",
+        "desc3": "Review the error messages, correct the issues, and try saving again."
+      },
+      "submitting": {
+        "title": "Submitting the Form",
+        "desc1": "Upon successful submission, a confirmation message appears.",
+        "desc2": "Changes are saved and immediately reflected.",
+        "desc3": "New objects redirect to their detail page after creation."
+      },
+      "pessimistic_locking": {
+        "title": "Pessimistic Locking",
+        "desc1": "To prevent conflicts in multi-user environments, the system uses pessimistic locking when a user edits an item.",
+        "desc2": "When a user clicks <0>Edit</0>, the system locks the item for <0>20 minutes</0>.",
+        "desc3": "While locked, other users cannot modify the item.",
+        "desc4": "The lock automatically expires after <0>20 minutes</0> if no action is taken.",
+        "desc5": {
+          "title": "The item is <0>unlocked</0> when the user:",
+          "desc1": "<0>Saves</0> the changes.",
+          "desc2": "<0>Cancels</0> the edit.",
+          "desc3": "<0>Leaves</0> the page."
+        }
+      },
+      "note": "<0>Note</0> Unauthorized users cannot make modifications. Editing restrictions may apply based on user permissions. {{additional_notes}}"
+    },
+    "add_edit_partner": {
+      "introduction": "The Partner Form allows users to create or edit a Partner record by entering relevant details and ensuring all required fields meet validation criteria. This guide outlines how to use the form, including field descriptions and validation rules.",
+      "fields": {
+        "title": "Fields and Their Descriptions",
+        "trade_name_dict": {
+          "title": "Trade Name:",
+          "desc1": "Enter the trade name of the partner.",
+          "desc2": "The trade name must not exceed 255 characters."
+        },
+        "full_name_dict": {
+          "title": "Full Name:",
+          "desc1": "Enter the full legal name of the partner.",
+          "desc2": "The full name must not exceed 255 characters."
+        },
+        "bin_dict": {
+          "title": "Business Identification Number (BIN):",
+          "desc1": "Enter the Business Identification Number of the partner.",
+          "desc2": "This field is required and must not exceed 20 characters."
+        },
+        "partner_type_dict": {
+          "title": "Partner Type:",
+          "desc1": "Select the type of partner from the dropdown list.",
+          "desc2": "Ensure you select an appropriate type."
+        },
+        "legal_address_dict": {
+          "title": "Legal Address:",
+          "desc1": "Enter the legal address of the partner.",
+          "desc2": "This field supports multiline input."
+        },
+        "actual_address_dict": {
+          "title": "Actual Address:",
+          "desc1": "Enter the actual address of the partner.",
+          "desc2": "This field supports multiline input."
+        },
+        "phone_number_dict": {
+          "title": "Phone Number:",
+          "desc1": "Enter the contact phone number of the partner.",
+          "desc2": "Must be in international format (e.g., +1234567890). Maximum length is 255 characters."
+        },
+        "contact_person_dict": {
+          "title": "Contact Person:",
+          "desc1": "Enter the name of the contact person.",
+          "desc2": "This field is required and must not exceed 255 characters."
+        },
+        "is_own_dict": {
+          "title": "Own Partner:",
+          "desc1": "Check this box if the partner is an internal entity.",
+          "desc2": "This is an optional field."
+        }
+      },
+      "error_handling": {
+        "title": "Error Handling",
+        "desc1": "If any required field is left empty, an alert message will appear asking you to fill it in.",
+        "desc2": "If there are other errors (e.g., invalid email format), an alert message will appear below the corresponding field.",
+        "desc3": "Review the error messages, correct the issues, and try saving again."
+      },
+      "submitting": {
+        "title": "Submitting the Form",
+        "desc1": "Enter all necessary details.",
+        "desc2": "Ensure all fields pass validation.",
+        "desc3": "Click <0>Save</0> to submit.",
+        "desc4": "Upon successful submission, a confirmation message will appear, and the new partner record will be created."
+      },
+      "note": "<0>Note</0>: The fields 'ID', 'Created At', and 'Updated At' are read-only. These fields are automatically managed by the system and cannot be modified by the user."
+    },
+    "add_edit_payment_request": {
+      "introduction": "The Payment Request Form allows users to create or edit a Payment Request record by entering relevant details and ensuring all required fields meet validation criteria. This guide outlines how to use the form, including field descriptions and validation rules.",
+      "fields": {
+        "title": "Fields and Their Descriptions",
+        "payer_dict": {
+          "title": "Payer:",
+          "desc1": "Select the payer from the available options.",
+          "desc2": "This field is required."
+        },
+        "recipient_dict": {
+          "title": "Recipient:",
+          "desc1": "Select the recipient from the available options.",
+          "desc2": "This field is required."
+        },
+        "invoice_number_dict": {
+          "title": "Invoice Number:",
+          "desc1": "Enter the invoice number associated with the payment request.",
+          "desc2": "This field is required."
+        },
+        "invoice_date_dict": {
+          "title": "Invoice Date:",
+          "desc1": "Enter the date of the invoice.",
+          "desc2": "This field is required and must be in the correct date format."
+        },
+        "invoice_amount_dict": {
+          "title": "Invoice Amount:",
+          "desc1": "Enter the total amount of the invoice.",
+          "desc2": "The value must be greater than or equal to 0."
+        },
+        "payment_priority_dict": {
+          "title": "Payment Priority:",
+          "desc1": "Enter the priority of the payment request (1-10).",
+          "desc2": "The value must be between 1 and 10."
+        },
+        "payment_amount_dict": {
+          "title": "Payment Amount:",
+          "desc1": "Enter the amount requested for payment.",
+          "desc2": "The value must be greater than or equal to 0."
+        },
+        "deadline_dict": {
+          "title": "Deadline:",
+          "desc1": "Enter the deadline for the payment request.",
+          "desc2": "This field must be in the correct date format."
+        },
+        "comment_dict": {
+          "title": "Comment:",
+          "desc1": "Enter any additional comments regarding the payment request.",
+          "desc2": "This is an optional field."
+        }
+      },
+      "error_handling": {
+        "title": "Error Handling",
+        "desc1": "If any required field is left empty, an alert message will appear asking you to fill it in.",
+        "desc2": "If any field contains an invalid value (e.g., negative amounts or incorrect date format), an alert message will appear below the corresponding field.",
+        "desc3": "Review the error messages, correct the issues, and try saving again."
+      },
+      "submitting": {
+        "title": "Submitting the Form",
+        "desc1": "Enter all necessary details.",
+        "desc2": "Ensure all fields pass validation.",
+        "desc3": "Click <0>Save</0> to submit.",
+        "desc4": "Upon successful submission, a confirmation message will appear, and the new payment request record will be created."
+      },
+      "note": "<0>Note</0>: The fields 'ID', 'User', 'Created At', and 'Updated At' are read-only. These fields are automatically managed by the system and cannot be modified by the user."
     }
   },
   "validation": {

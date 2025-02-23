@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { useTranslation } from "react-i18next";
+import { useTranslation, Trans } from "react-i18next";
 
 import {
   getPaymentRequestsUrl,
@@ -9,6 +9,7 @@ import { getParametersByName } from "../../utils/selectFormParameters";
 
 import ObjectView from "../../components/ObjectView";
 import useGetOptions from "../../hooks/useGetOptions";
+import { getInstructionByFormName } from "../../utils/instructions";
 
 const ViewPaymentRequestPage = ({ typeView = "view", objectName }) => {
   const { t } = useTranslation();
@@ -183,6 +184,11 @@ const ViewPaymentRequestPage = ({ typeView = "view", objectName }) => {
     modalForms,
     formName: "payment_request",
     edit_only_owner: true,
+    instructionBody: getInstructionByFormName(
+      typeView === "view" ? "ViewPaymentRequestPage" : "EditPaymentRequestPage",
+      t,
+      Trans
+    ),
   };
 
   return <ObjectView {...parameters} />;

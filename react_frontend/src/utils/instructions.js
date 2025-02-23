@@ -3,17 +3,18 @@ import instructions from "../locales/en.json";
 export const getInstructionByFormName = (formName = "", t, Trans) => {
   let object = "Object";
   let objects = "Objects";
-  let object_s = "Object's";
+  let objectS = "Object's";
   let nameInstruction = "object_list";
+  let additionalNotes = "";
 
   if (formName === "PartnerList") {
-    object = "Partner";
-    objects = "Partners";
-    object_s = "Partner's";
+    object = t("partner.partner");
+    objects = t("partner.partners");
+    objectS = t("partner.partner_s");
   } else if (formName === "PaymentRequestsList") {
-    object = "Payment Request";
-    objects = "Payment Requests";
-    object_s = "Payment Request's";
+    object = t("payment_request.payment_request");
+    objects = t("payment_request.payment_requests");
+    objectS = t("payment_request.payment_request_s");
   } else if (formName === "UserProfilePage") {
     nameInstruction = "user_profile_view";
   } else if (formName === "UserProfileEditForm") {
@@ -22,23 +23,52 @@ export const getInstructionByFormName = (formName = "", t, Trans) => {
     nameInstruction = "user_change_password";
   } else if (formName === "SignUpForm") {
     nameInstruction = "signup";
+  } else if (formName === "ViewPartnerPage") {
+    nameInstruction = "object_view";
+    object = t("partner.partner");
+    objects = t("partner.partners");
+    objectS = t("partner.partner_s");
+  } else if (formName === "ViewPaymentRequestPage") {
+    nameInstruction = "object_view";
+    object = t("payment_request.payment_request");
+    objects = t("payment_request.payment_requests");
+    objectS = t("payment_request.payment_request_s");
+    additionalNotes = t("payment_request.instructuon_note");
+  } else if (formName === "AddPartnerPage" || formName === "EditPartnerPage") {
+    nameInstruction = "add_edit_partner";
+    object = t("partner.partner");
+    objects = t("partner.partners");
+    objectS = t("partner.partner_s");
+  } else if (
+    formName === "AddPaymentRequestPage" ||
+    formName === "EditPaymentRequestPage"
+  ) {
+    nameInstruction = "add_edit_payment_request";
+    object = t("payment_request.payment_request");
+    objects = t("payment_request.payment_requests");
+    objectS = t("payment_request.payment_request_s");
   } else {
     return <></>;
   }
 
+  const callTrans = (key) => {
+    return (
+      <Trans
+        i18nKey={key}
+        values={{
+          object,
+          objects,
+          object_s: objectS,
+          additional_notes: additionalNotes,
+        }}
+        components={[<strong />]}
+      />
+    );
+  };
+
   return (
     <>
-      <p>
-        <Trans
-          i18nKey={`instructions.${nameInstruction}.introduction`}
-          values={{
-            object,
-            objects,
-            object_s,
-          }}
-          components={[<strong />]}
-        />
-      </p>
+      <p>{callTrans(`instructions.${nameInstruction}.introduction`)}</p>
       <ol>
         {Object.entries(instructions.instructions[nameInstruction]).map(
           ([key, section]) =>
@@ -46,14 +76,14 @@ export const getInstructionByFormName = (formName = "", t, Trans) => {
             key !== "note" && (
               <li key={key}>
                 <strong>
-                  {t(`instructions.${nameInstruction}.${key}.title`)}
+                  {callTrans(`instructions.${nameInstruction}.${key}.title`)}
                 </strong>
                 <ul>
                   {Object.entries(section).map(([subKey, subDesc]) =>
                     subKey.endsWith("_dict") ? (
                       <li key={subKey}>
                         <strong>
-                          {t(
+                          {callTrans(
                             `instructions.${nameInstruction}.${key}.${subKey}.title`
                           )}
                         </strong>
@@ -62,15 +92,9 @@ export const getInstructionByFormName = (formName = "", t, Trans) => {
                             ([subKeyFields, subDescFields]) =>
                               subKeyFields !== "title" && (
                                 <li key={subKeyFields}>
-                                  <Trans
-                                    i18nKey={`instructions.${nameInstruction}.${key}.${subKey}.${subKeyFields}`}
-                                    values={{
-                                      object,
-                                      objects,
-                                      object_s,
-                                    }}
-                                    components={[<strong />]}
-                                  />
+                                  {callTrans(
+                                    `instructions.${nameInstruction}.${key}.${subKey}.${subKeyFields}`
+                                  )}
                                 </li>
                               )
                           )}
@@ -78,15 +102,9 @@ export const getInstructionByFormName = (formName = "", t, Trans) => {
                       </li>
                     ) : subKey !== "title" ? (
                       <li key={subKey}>
-                        <Trans
-                          i18nKey={`instructions.${nameInstruction}.${key}.${subKey}`}
-                          values={{
-                            object,
-                            objects,
-                            object_s,
-                          }}
-                          components={[<strong />]}
-                        />
+                        {callTrans(
+                          `instructions.${nameInstruction}.${key}.${subKey}`
+                        )}
                       </li>
                     ) : null
                   )}
@@ -97,28 +115,13 @@ export const getInstructionByFormName = (formName = "", t, Trans) => {
         <li>
           <strong>{t("instructions.loading_indicator")}</strong>
           <ul>
-            <li>
-              <Trans
-                i18nKey="instructions.loading_indicator_desc1"
-                components={[<strong />]}
-              />
-            </li>
-            <li>{t("instructions.loading_indicator_desc2")}</li>
+            <li>{callTrans("instructions.loading_indicator_desc1")}</li>
+            <li>{callTrans("instructions.loading_indicator_desc2")}</li>
           </ul>
         </li>
       </ol>
       {instructions.instructions[nameInstruction]?.note && (
-        <p>
-          <Trans
-            i18nKey={`instructions.${nameInstruction}.note`}
-            values={{
-              object,
-              objects,
-              object_s,
-            }}
-            components={[<strong />]}
-          />
-        </p>
+        <p>{callTrans(`instructions.${nameInstruction}.note`)}</p>
       )}
     </>
   );

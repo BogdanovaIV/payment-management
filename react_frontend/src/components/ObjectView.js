@@ -29,6 +29,7 @@ import SpinnerSecondary from "./Spinners";
 import { useRedirect } from "../hooks/useRedirect";
 import { validateField } from "../utils/validation";
 import { useCurrentUser } from "../contexts/CurrentUserContext";
+import Instruction from "./Instruction";
 
 const ObjectView = ({
   data,
@@ -40,6 +41,7 @@ const ObjectView = ({
   modalForms = [],
   formName,
   edit_only_owner = false,
+  instructionBody = <></>,
 }) => {
   useRedirect("loggedOut");
   const { t } = useTranslation();
@@ -54,6 +56,7 @@ const ObjectView = ({
   const [hasLoaded, setHasLoaded] = useState(typeView === "add" ? true : false);
   const currentUser = useCurrentUser();
   const [isOwner, setIsOwner] = useState(!edit_only_owner);
+  const [showInstruction, setShowInstruction] = useState(false);
 
   const { id } = useParams();
 
@@ -136,9 +139,7 @@ const ObjectView = ({
 
   useEffect(() => {
     if (data?.user?.id && currentUser?.pk) {
-      setIsOwner(
-        edit_only_owner ? currentUser?.pk === data.user.id : true
-      );
+      setIsOwner(edit_only_owner ? currentUser?.pk === data.user.id : true);
     }
   }, [data.user, currentUser]);
 
@@ -263,10 +264,14 @@ const ObjectView = ({
   return (
     <section className={`${bgImageStyles.BgImage}`} style={backgroundStyle}>
       <Container className="pt-2">
-        <Row className=" offset-lg-1 align-items-center justify-content-between text-center text-lg-start flex-column flex-lg-row">
-          <Col className="text-center">
-            <h1 className={`${headerStyles.Header} m-0`}>{objectName}</h1>
-          </Col>
+        <Row className="justify-content-center">
+          <h1 className={`${headerStyles.Header} m-0`}>{objectName}</h1>
+          <Button
+            className={`${btnStyles.ButtonIcon} ${btnStyles.OrangeIcon}`}
+            onClick={() => setShowInstruction(true)}
+          >
+            <i className="fa-solid fa-circle-question" />
+          </Button>
         </Row>
         <Row>
           <Col className="px-4 py-1">
@@ -459,6 +464,11 @@ const ObjectView = ({
       ) : (
         <></>
       )}
+      <Instruction
+        instructionBody={instructionBody}
+        showInstruction={showInstruction}
+        setShowInstruction={setShowInstruction}
+      />
     </section>
   );
 };
