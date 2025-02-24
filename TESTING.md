@@ -100,6 +100,14 @@ Ran 7 tests in 0.408s
 
 OK
 ```
+**partner**
+```
+..................
+----------------------------------------------------------------------
+Ran 18 tests in 1.399s
+
+OK
+```
 
 - Code Coverage:
   - Prerequisites:
@@ -121,6 +129,10 @@ OK
   **django_api**
 
     ![coverage - django_api](documentation/coverage/django_api.png)
+
+  **partner**
+
+    ![coverage - partner](documentation/coverage/partner.png)
 
 ### Jest (React)
 1. **Prerequisites**
@@ -215,6 +227,56 @@ Notes: Each Python file contains a newline at the end of the file.
 - wsgi.py
 
   ![validator - wsgi.py](documentation/validator/pep8/djamgo_api/wsgi.png)
+
+**partner**
+
+- commands/create_test_partners.py
+
+  ![validator - test_filters.py](documentation/validator/pep8/partner/test_filters.png)
+
+- test_cases/test_filters.py
+
+  ![validator - test_filters.py](documentation/validator/pep8/partner/test_filters.png)
+
+- test_cases/test_models.py
+
+  ![validator - test_models.py](documentation/validator/pep8/partner/test_models.png)
+
+- test_cases/test_serializers.py
+
+  ![validator - test_serializers.py](documentation/validator/pep8/partner/test_serializers.png)
+
+- test_cases/test_views.py
+
+  ![validator - test_views.py](documentation/validator/pep8/partner/test_views.png)
+
+- admin.py
+
+  ![validator - admin.py](documentation/validator/pep8/partner/admin.png)
+
+- apps.py
+
+  ![validator - apps.py](documentation/validator/pep8/partner/apps.png)
+
+- filters.py
+
+  ![validator - filters.py](documentation/validator/pep8/partner/filters.png)
+
+- models.py
+
+  ![validator - models.py](documentation/validator/pep8/partner/models.png)
+
+- serilizers.py
+
+  ![validator - serilizers.py](documentation/validator/pep8/partner/serializers.png)
+
+- urls.py
+
+  ![validator - urls.py](documentation/validator/pep8/partner/urls.png)
+
+- views.py
+
+  ![validator - views.py](documentation/validator/pep8/partner/views.png)
 
 
 ## Bugs
