@@ -42,7 +42,7 @@ class CustomRegisterSerializer(RegisterSerializer):
         """
         Saves the user with additional fields.
 
-        Creates a new user using the validated data, assigns first name, 
+        Creates a new user using the validated data, assigns first name,
         last name, and email, and then saves the user.
 
         Args:

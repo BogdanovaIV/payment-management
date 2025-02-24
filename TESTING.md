@@ -92,6 +92,14 @@ Ran 16 tests in 6.370s
 
 OK
 ```
+**django_api**
+```
+.......
+----------------------------------------------------------------------
+Ran 7 tests in 0.408s
+
+OK
+```
 
 - Code Coverage:
   - Prerequisites:
@@ -107,8 +115,12 @@ OK
   - Results:
 
   **common**
+
     ![coverage - common](documentation/coverage/common.png)
-  
+
+  **django_api**
+
+    ![coverage - django_api](documentation/coverage/django_api.png)
 
 ### Jest (React)
 1. **Prerequisites**
@@ -151,15 +163,59 @@ Notes: Each Python file contains a newline at the end of the file.
 
 **common**
 - mixins/pessimistic_locking_view.py
+
   ![validator - pessimistic_locking_view.py](documentation/validator/pep8/common/pessimistic_loccking_view.png)
+
 - test_cases/test_models.py
+
   ![validator - test_models.py](documentation/validator/pep8/common/test_models.png)
+
 - test_cases/test_pessimistic_locking_view.py
+
   ![validator - test_pessimistic_locking_view.py](documentation/validator/pep8/common/test_pessimistic_loccking_view.png)
+
 - test_cases/test_urls.py
+
   ![validator - test_urls.py](documentation/validator/pep8/common/test_urls.png)
+
 - models.py
+
   ![validator - models.py](documentation/validator/pep8/common/models.png)
+
+**django_api**
+
+- test_cases/test_permissions.py
+
+  ![validator - test_permissions.py](documentation/validator/pep8/djamgo_api/test_permissions.png)
+
+- test_cases/test_serializers.py
+
+  ![validator - test_serializers.py](documentation/validator/pep8/djamgo_api/test_serializers.png)
+
+- permissions.py
+
+  ![validator - permissions.py](documentation/validator/pep8/djamgo_api/permissions.png)
+
+- serilizers.py
+
+  ![validator - serilizers.py](documentation/validator/pep8/djamgo_api/serializers.png)
+
+- settings.py
+
+  ![validator - settings.py](documentation/validator/pep8/djamgo_api/settings.png)
+
+- urls.py
+
+  ![validator - urls.py](documentation/validator/pep8/djamgo_api/urls.png)
+
+- views.py
+
+  ![validator - views.py](documentation/validator/pep8/djamgo_api/views.png)
+
+- wsgi.py
+
+  ![validator - wsgi.py](documentation/validator/pep8/djamgo_api/wsgi.png)
+
 
 ## Bugs
 
