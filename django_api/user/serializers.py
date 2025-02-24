@@ -102,7 +102,6 @@ class CustomPasswordChangeSerializer(serializers.Serializer):
 
     def validate_old_password(self, value):
         """Check if the old password is correct."""
-        print(value)
         user = self.context["request"].user
         if not user.check_password(value):
             raise serializers.ValidationError(
@@ -112,7 +111,6 @@ class CustomPasswordChangeSerializer(serializers.Serializer):
 
     def validate(self, data):
         """Ensure the new passwords match and are valid."""
-        print(data)
         if data["new_password1"] != data["new_password2"]:
             raise serializers.ValidationError(
                 {"new_password2": _("The two password fields didn’t match.")}

@@ -116,6 +116,14 @@ Ran 22 tests in 4.677s
 
 OK
 ```
+**user**
+```
+...................
+----------------------------------------------------------------------
+Ran 19 tests in 5.960s
+
+OK
+```
 
 - Code Coverage:
   - Prerequisites:
@@ -145,6 +153,10 @@ OK
   **payment**
 
     ![coverage - payment](documentation/coverage/payment.png)
+
+  **user**
+
+    ![coverage - user](documentation/coverage/user.png)
 
 ### Jest (React)
 1. **Prerequisites**
@@ -339,6 +351,44 @@ Notes: Each Python file contains a newline at the end of the file.
 - views.py
 
   ![validator - views.py](documentation/validator/pep8/payment/views.png)
+
+**user**
+
+- test_cases/test_models.py
+
+  ![validator - test_models.py](documentation/validator/pep8/user/test_models.png)
+
+- test_cases/test_serializers.py
+
+  ![validator - test_serializers.py](documentation/validator/pep8/user/test_serializers.png)
+
+- test_cases/test_views.py
+
+  ![validator - test_views.py](documentation/validator/pep8/user/test_views.png)
+
+- admin.py
+
+  ![validator - admin.py](documentation/validator/pep8/user/admin.png)
+
+- apps.py
+
+  ![validator - apps.py](documentation/validator/pep8/user/apps.png)
+
+- models.py
+
+  ![validator - models.py](documentation/validator/pep8/user/models.png)
+
+- serilizers.py
+
+  ![validator - serilizers.py](documentation/validator/pep8/user/serializers.png)
+
+- urls.py
+
+  ![validator - urls.py](documentation/validator/pep8/user/urls.png)
+
+- views.py
+
+  ![validator - views.py](documentation/validator/pep8/user/views.png)
 
 
 ## Bugs
