@@ -1,5 +1,4 @@
 import django_filters
-from django_filters import DateFromToRangeFilter
 from django.contrib.auth.models import User
 from partner.models import Partner
 from .models import PaymentRequest
@@ -38,12 +37,12 @@ class PaymentRequestFilter(django_filters.FilterSet):
         label="User"
     )
 
-    invoice_date = DateFromToRangeFilter(
+    invoice_date = django_filters.DateFromToRangeFilter(
         field_name="invoice_date",
         label="Invoice Date (Period)"
     )
 
-    deadline = DateFromToRangeFilter(
+    deadline = django_filters.DateFromToRangeFilter(
         field_name="deadline",
         label="Deadline (Period)"
     )
