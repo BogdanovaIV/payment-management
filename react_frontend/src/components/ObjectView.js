@@ -238,13 +238,25 @@ const ObjectView = ({
 
   useEffect(() => {
     if (selectedField.field) {
+      const value = {
+        id: getIDFromItem(selectedField.foreignKey, selectedItem),
+        name: selectedItem[getNameByNameTable(selectedField.foreignKey)] || "",
+      };
+      const errorMessage = validateField(
+        formName,
+        t,
+        Trans
+      )(selectedField.field, value);
+
+      if (errorMessage !== undefined) {
+        setErrors((prevErrors) => ({
+          ...prevErrors,
+          [selectedField.field]: errorMessage ? [errorMessage] : [],
+        }));
+      }
       setData((prevData) => ({
         ...prevData,
-        [selectedField.field]: {
-          id: getIDFromItem(selectedField.foreignKey, selectedItem),
-          name:
-            selectedItem[getNameByNameTable(selectedField.foreignKey)] || "",
-        },
+        [selectedField.field]: value,
       }));
       setShowModal((prevShowModal) => ({
         ...prevShowModal,
@@ -302,7 +314,7 @@ const ObjectView = ({
               <Form onSubmit={handleSubmit}>
                 <Form.Group>
                   {fields.map((item, itemIndex) => (
-                    <Row key={itemIndex} className="align-items-end">
+                    <Row key={itemIndex} className="align-items-start">
                       {item.map(
                         ({
                           id,
