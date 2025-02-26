@@ -26,7 +26,6 @@ import {
 } from "../utils/selectFormParameters";
 import SaveBar from "./SaveBar";
 import SpinnerSecondary from "./Spinners";
-import { useRedirect } from "../hooks/useRedirect";
 import { validateField } from "../utils/validation";
 import { useCurrentUser } from "../contexts/CurrentUserContext";
 import Instruction from "./Instruction";
@@ -43,7 +42,6 @@ const ObjectView = ({
   edit_only_owner = false,
   instructionBody = <></>,
 }) => {
-  useRedirect("loggedOut");
   const { t } = useTranslation();
   const [errors, setErrors] = useState({});
   const [showModal, setShowModal] = useState({});

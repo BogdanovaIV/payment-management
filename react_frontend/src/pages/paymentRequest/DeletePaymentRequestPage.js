@@ -3,14 +3,16 @@ import { useHistory, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import ObjectDelete from "../../components/ObjectDelete";
 import { getData, getPaymentRequestsUrl } from "../../api/axiosURL";
+import { useRedirect } from "../../hooks/useRedirect";
 
 const DeletePaymentRequestPage = () => {
+  const { isLoading, shouldRedirect } = useRedirect("loggedOut");
   const { t } = useTranslation();
   const { id } = useParams();
   const history = useHistory();
-  const url = getPaymentRequestsUrl();
-
   const [description, setDescription] = useState("");
+
+  const url = getPaymentRequestsUrl();
 
   useEffect(() => {
     let isMounted = true;
@@ -40,6 +42,10 @@ const DeletePaymentRequestPage = () => {
       isMounted = false;
     };
   }, [history, id, t, url]);
+
+  if (isLoading || shouldRedirect) {
+    return null;
+  }
 
   return (
     <ObjectDelete

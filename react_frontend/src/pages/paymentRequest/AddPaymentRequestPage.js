@@ -6,10 +6,11 @@ import { getParametersByName } from "../../utils/selectFormParameters";
 
 import ObjectView from "../../components/ObjectView";
 import { getInstructionByFormName } from "../../utils/instructions";
+import { useRedirect } from "../../hooks/useRedirect";
 
 const AddPaymentRequestPage = () => {
+  const { isLoading, shouldRedirect } = useRedirect("loggedOut");
   const { t } = useTranslation();
-
   const [data, setData] = useState({
     payer: { id: "", name: "" },
     recipient: { id: "", name: "" },
@@ -25,6 +26,10 @@ const AddPaymentRequestPage = () => {
   const parametersPartner = useMemo(() => {
     return getParametersByName("partner", t);
   }, [t]);
+
+  if (isLoading || shouldRedirect) {
+    return null;
+  }
 
   const modalForms = [
     {
@@ -126,7 +131,11 @@ const AddPaymentRequestPage = () => {
     typeView: "add",
     modalForms,
     formName: "payment_request",
-    instructionBody: getInstructionByFormName("AddPaymentRequestPage", t, Trans),
+    instructionBody: getInstructionByFormName(
+      "AddPaymentRequestPage",
+      t,
+      Trans
+    ),
   };
 
   return <ObjectView {...parameters} />;

@@ -7,8 +7,10 @@ import useGetOptions from "../../hooks/useGetOptions";
 import { useUserProfileData } from "../../contexts/ProfileDataContext";
 import SpinnerSecondary from "../../components/Spinners";
 import { getInstructionByFormName } from "../../utils/instructions";
+import { useRedirect } from "../../hooks/useRedirect";
 
 const PaymentRequestsPage = () => {
+  const { isLoading, shouldRedirect } = useRedirect("loggedOut");
   const { t } = useTranslation();
 
   const userProfileData = useUserProfileData();
@@ -131,6 +133,10 @@ const PaymentRequestsPage = () => {
     queryKey: "PaymentRequestsList",
     instructionBody: getInstructionByFormName("PaymentRequestsList", t, Trans),
   };
+
+  if (isLoading || shouldRedirect) {
+    return null;
+  }
 
   if (!userProfileData) {
     return <SpinnerSecondary />;

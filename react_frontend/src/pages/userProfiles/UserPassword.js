@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useMemo } from "react";
-
 import { useHistory, useParams } from "react-router-dom";
 import { useTranslation, Trans } from "react-i18next";
 import Form from "react-bootstrap/Form";
@@ -8,14 +7,11 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
-
 import bgImageStyles from "../../styles/BgImage.module.css";
 import inputStyles from "../../styles/Input.module.css";
 import headerStyles from "../../styles/Header.module.css";
 import btnStyles from "../../styles/Button.module.css";
-
 import backgroundImage from "../../assets/user-profile.jpg";
-
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import SaveBar from "../../components/SaveBar";
 import { axiosReq } from "../../api/axiosDefaults";
@@ -26,7 +22,7 @@ import Instruction from "../../components/Instruction";
 import { getInstructionByFormName } from "../../utils/instructions";
 
 const UserPasswordForm = () => {
-  useRedirect("loggedOut");
+  const { isLoading, shouldRedirect } = useRedirect("loggedOut");
   const { t } = useTranslation();
   const currentUser = useCurrentUser();
   const { id } = useParams();
@@ -95,14 +91,15 @@ const UserPasswordForm = () => {
     }
   };
 
-  const backgroundStyle = useMemo(
-    () => ({
-      backgroundImage: `url(${backgroundImage})`,
-      backgroundSize: "cover",
-      backgroundRepeat: "no-repeat",
-    }),
-    []
-  );
+  if (isLoading || shouldRedirect) {
+    return null;
+  }
+
+  const backgroundStyle = {
+    backgroundImage: `url(${backgroundImage})`,
+    backgroundSize: "cover",
+    backgroundRepeat: "no-repeat",
+  };
 
   const instructionBody = getInstructionByFormName("UserPassword", t, Trans);
 

@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useMemo } from "react";
-
 import { useHistory, useParams } from "react-router-dom";
 import { useTranslation, Trans } from "react-i18next";
 import Form from "react-bootstrap/Form";
@@ -8,14 +7,11 @@ import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
-
 import bgImageStyles from "../../styles/BgImage.module.css";
 import inputStyles from "../../styles/Input.module.css";
 import headerStyles from "../../styles/Header.module.css";
 import btnStyles from "../../styles/Button.module.css";
-
 import backgroundImage from "../../assets/user-profile.jpg";
-
 import { axiosReq, axiosRes } from "../../api/axiosDefaults";
 import { useSetUserProfileData } from "../../contexts/ProfileDataContext";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
@@ -30,7 +26,7 @@ import { getInstructionByFormName } from "../../utils/instructions";
 import { validateField } from "../../utils/validation";
 
 const UserProfileEditForm = () => {
-  useRedirect("loggedOut");
+  const { isLoading, shouldRedirect } = useRedirect("loggedOut");
   const { t } = useTranslation();
   const setUserProfileData = useSetUserProfileData();
   const currentUser = useCurrentUser();
@@ -158,6 +154,10 @@ const UserProfileEditForm = () => {
       handleRequestError(err, showToast, t);
     }
   };
+
+  if (isLoading || shouldRedirect) {
+    return null;
+  }
 
   const backgroundStyle = {
     backgroundImage: `url(${backgroundImage})`,

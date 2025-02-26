@@ -5,8 +5,10 @@ import { getParametersByName } from "../../utils/selectFormParameters";
 import { getPartnerTypesUrl } from "../../api/axiosURL";
 import useGetOptions from "../../hooks/useGetOptions";
 import { getInstructionByFormName } from "../../utils/instructions";
+import { useRedirect } from "../../hooks/useRedirect";
 
 const PartnersPage = () => {
+  const { isLoading, shouldRedirect } = useRedirect("loggedOut");
   const { t } = useTranslation();
 
   const [filters, setFilters] = useState({
@@ -24,6 +26,10 @@ const PartnersPage = () => {
   const parametersPartner = useMemo(() => {
     return getParametersByName("partner", t);
   }, [t]);
+
+  if (isLoading || shouldRedirect) {
+    return null;
+  }
 
   const filterFields = [
     {

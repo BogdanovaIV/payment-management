@@ -10,8 +10,10 @@ import { getParametersByName } from "../../utils/selectFormParameters";
 import ObjectView from "../../components/ObjectView";
 import useGetOptions from "../../hooks/useGetOptions";
 import { getInstructionByFormName } from "../../utils/instructions";
+import { useRedirect } from "../../hooks/useRedirect";
 
 const ViewPaymentRequestPage = ({ typeView = "view", objectName }) => {
+  const { isLoading, shouldRedirect } = useRedirect("loggedOut");
   const { t } = useTranslation();
   objectName = objectName ?? t("payment_request.payment_request");
   const [data, setData] = useState({
@@ -32,6 +34,10 @@ const ViewPaymentRequestPage = ({ typeView = "view", objectName }) => {
   const parametersPartner = useMemo(() => {
     return getParametersByName("partner", t);
   }, [t]);
+
+  if (isLoading || shouldRedirect) {
+    return null;
+  }
 
   const modalForms = [
     {

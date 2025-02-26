@@ -1,20 +1,16 @@
 import React, { useEffect, useState, useMemo } from "react";
-
 import { useTranslation, Trans } from "react-i18next";
 import Form from "react-bootstrap/Form";
 import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
-
 import styles from "../../styles/UserProfilePage.module.css";
 import inputStyles from "../../styles/Input.module.css";
 import bgImageStyles from "../../styles/BgImage.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import headerStyles from "../../styles/Header.module.css";
-
 import backgroundImage from "../../assets/user-profile.jpg";
-
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { useParams } from "react-router";
 import SpinnerSecondary from "../../components/Spinners";
@@ -28,7 +24,7 @@ import Instruction from "../../components/Instruction";
 import { getInstructionByFormName } from "../../utils/instructions";
 
 function UserProfilePage() {
-  useRedirect("loggedOut");
+  const { isLoading, shouldRedirect } = useRedirect("loggedOut");
   const { t } = useTranslation();
   const currentUser = useCurrentUser();
   const [profile, setProfile] = useState(false);
@@ -95,6 +91,10 @@ function UserProfilePage() {
   ];
 
   const fields = useMemo(() => arrayFields(t), [t]);
+
+  if (isLoading || shouldRedirect) {
+    return null;
+  }
 
   const backgroundStyle = {
     backgroundImage: `url(${backgroundImage})`,

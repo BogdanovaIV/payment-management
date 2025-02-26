@@ -24,7 +24,6 @@ import CardCollection from "./CardCollection";
 import DataTable from "./DataTable";
 import useInfiniteData from "../hooks/useInfiniteData";
 import useInfiniteScroll from "../hooks/useInfiniteScroll";
-import { useRedirect } from "../hooks/useRedirect";
 import Instruction from "./Instruction";
 
 const ObjectList = ({
@@ -38,7 +37,6 @@ const ObjectList = ({
   queryKey = "Objects",
   instructionBody = <></>,
 }) => {
-  useRedirect("loggedOut");
   const { t } = useTranslation();
   const [showFilters, setShowFilters] = useState(false);
   const history = useHistory();

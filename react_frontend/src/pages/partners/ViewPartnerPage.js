@@ -6,8 +6,10 @@ import { getPartnersUrl, getPartnerTypesUrl } from "../../api/axiosURL";
 import ObjectView from "../../components/ObjectView";
 import useGetOptions from "../../hooks/useGetOptions";
 import { getInstructionByFormName } from "../../utils/instructions";
+import { useRedirect } from "../../hooks/useRedirect";
 
 const ViewPartnerPage = ({ typeView = "view", objectName }) => {
+  const { isLoading, shouldRedirect } = useRedirect("loggedOut");
   const { t } = useTranslation();
 
   objectName = objectName ?? t("partner.partner");
@@ -25,6 +27,10 @@ const ViewPartnerPage = ({ typeView = "view", objectName }) => {
   });
 
   const [optionPartnerTypes] = useGetOptions([], getPartnerTypesUrl());
+
+  if (isLoading || shouldRedirect) {
+    return null;
+  }
 
   const fields = [
     [

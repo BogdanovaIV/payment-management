@@ -4,8 +4,10 @@ import { useTranslation } from "react-i18next";
 
 import ObjectDelete from "../../components/ObjectDelete";
 import { getData, getPartnersUrl } from "../../api/axiosURL";
+import { useRedirect } from "../../hooks/useRedirect";
 
 const DeletePartnerPage = () => {
+  const { isLoading, shouldRedirect } = useRedirect("loggedOut");
   const { t } = useTranslation();
   const { id } = useParams();
   const url = getPartnersUrl();
@@ -14,7 +16,7 @@ const DeletePartnerPage = () => {
 
   useEffect(() => {
     let isMounted = true;
-    const handleMount = async () => { 
+    const handleMount = async () => {
       try {
         const response = await getData(`${url}${id}/`);
         if (isMounted) {
@@ -38,6 +40,10 @@ const DeletePartnerPage = () => {
       isMounted = false;
     };
   }, [id, t, url]);
+
+  if (isLoading || shouldRedirect) {
+    return null;
+  }
 
   return (
     <ObjectDelete

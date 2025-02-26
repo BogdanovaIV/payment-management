@@ -14,10 +14,8 @@ import backgroundImage from "../assets/main-background.jpg";
 
 import { useToast } from "../contexts/ToastContext";
 import { handleRequestError } from "../utils/errorHandler";
-import { useRedirect } from "../hooks/useRedirect";
 
 const ObjectDelete = ({ descriptionObject, url, urlBack }) => {
-  useRedirect("loggedOut");
   const { t } = useTranslation();
   const history = useHistory();
   const showToast = useToast();
