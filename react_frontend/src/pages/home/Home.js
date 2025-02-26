@@ -63,14 +63,14 @@ const Home = () => {
               rel="noopener noreferrer"
               className="me-3"
             >
-              <i className="fa-brands fa-facebook fa-2x text-primary"></i>
+              <i className={`fa-brands fa-facebook fa-2x ${styles.LinkBlue}`}></i>
             </a>
             <a
               href="https://instagram.com"
               target="_blank"
               rel="noopener noreferrer"
             >
-              <i className="fa-brands fa-instagram fa-2x text-danger"></i>
+              <i className={`fa-brands fa-instagram fa-2x ${styles.LinkRed}`}></i>
             </a>
           </Col>
         </Row>

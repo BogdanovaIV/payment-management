@@ -36,6 +36,22 @@ p {
   font-size: 20px;
 }
 
+.LinkBlue {
+  color: #007bff;
+}
+
+.LinkRed {
+  color: #dc3545;
+}
+.LinkBlue:hover, .LinkRed:hover {
+  color: --var(--grey-color) !important;
+}
+
+i:hover.Introduction {
+  color: --var(--grey-color) !important;
+}
+
+
 .CardFeatures {
   margin-bottom: 15px;
   padding-left: 0;
