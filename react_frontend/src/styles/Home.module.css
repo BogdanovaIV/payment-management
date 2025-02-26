@@ -81,6 +81,19 @@ p {
   background: rgba(var(--blue-color-rgb), 0.15) !important;
 }
 
+/* Media query: small devices*/
+@media screen and (max-width: 767px) {
+  .CardFeatures {
+    margin-bottom: 15px;
+    padding: 0;
+  }
+  
+  .CardBenefits {
+    margin-bottom: 15px;
+    padding: 0;  
+  }
+}
+
 /* Media query: extra small devices*/
 @media screen and (max-width: 576px) {
   .Header {

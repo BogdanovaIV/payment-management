@@ -74,14 +74,14 @@ const Home = () => {
             </a>
           </Col>
         </Row>
-        <Row className="justify-content-center">
+        <Row>
           <Col xs={12} md={6} className={styles.CardFeatures}>
             <Card className={styles.Card}>
               <Card.Body className={styles.CardBody}>
                 <Card.Title className={styles.CardTitle}>
                   {t("home.features.title")}
                 </Card.Title>
-                <Card.Text as="div" className={styles.CardText}>
+                <Card.Text as="div">
                   <ListGroup variant="flush">
                     <ListGroup.Item>
                       <i className="fa-solid fa-user-gear text-primary me-3"></i>

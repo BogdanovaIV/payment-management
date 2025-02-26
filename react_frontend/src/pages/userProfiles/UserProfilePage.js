@@ -157,6 +157,7 @@ function UserProfilePage() {
                         name={name}
                         value={profile[name] || ""}
                         readOnly
+                        disabled
                       />
                     </Form.Group>
                   ))}

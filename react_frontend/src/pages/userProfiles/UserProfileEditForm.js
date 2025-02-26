@@ -204,6 +204,7 @@ const UserProfileEditForm = () => {
                         name={name}
                         value={profileData[name] || ""}
                         readOnly={readOnly}
+                        disabled={readOnly}
                         onChange={handleChange}
                       />
                       {errors?.[name]?.length > 0 &&
