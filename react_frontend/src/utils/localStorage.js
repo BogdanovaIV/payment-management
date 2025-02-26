@@ -6,8 +6,6 @@ export const setTokenTimestamp = (data) => {
 };
 
 export const shouldRefreshToken = () => {
-  console.log(!!localStorage.getItem("refreshTokenTimestamp"));
-  console.log(!!localStorage.getItem("refreshTokenTimestamp") && !!localStorage.getItem("tokenAccessExpiration"));
   if (!!localStorage.getItem("refreshTokenTimestamp") && !!localStorage.getItem("tokenAccessExpiration")) {
     const expirationTime = new Date(
       localStorage.getItem("tokenAccessExpiration")
@@ -24,7 +22,6 @@ export const removeTokenTimestamp = () => {
 };
 
 export const setTokenAccessExpiration = (data) => {
-  console.log(data);
   localStorage.setItem("tokenAccessExpiration", data?.access_expiration);
 };
 

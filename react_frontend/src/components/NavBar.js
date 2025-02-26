@@ -5,10 +5,8 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { NavLink } from "react-router-dom";
-
 import logo from "../assets/logo.png";
 import styles from "../styles/NavBar.module.css";
-
 import useClickOutsideToggle from "../hooks/useClickOutsideToggle";
 import { useCurrentUser } from "../contexts/CurrentUserContext";
 import SpinnerSecondary from "./Spinners";
@@ -16,6 +14,20 @@ import { useTranslation } from "react-i18next";
 import LanguageSelector from "./LanguageSelector";
 import { useUserProfileData } from "../contexts/ProfileDataContext";
 
+/**
+ * NavBar Component
+ *
+ * A responsive navigation bar that displays different links based on the user's authentication status.
+ * Shows sign-in, sign-up, and user profile links when logged out, and profile, dictionaries, and transactions
+ * options when logged in and verified. Includes a logo, language selector, and collapsible menu.
+ * Displays a spinner while the user data is loading.
+ *
+ * @component
+ * @example
+ * return (
+ *   <NavBar />
+ * )
+ */
 const NavBar = () => {
   const { t } = useTranslation();
   const currentUser = useCurrentUser();

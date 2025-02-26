@@ -1,7 +1,13 @@
 import React from "react";
-
 import styles from "../styles/NotFound.module.css";
 
+/**
+ * NotFound component displays a 404 error page with a message indicating
+ * that the requested page could not be found. This is typically shown when
+ * a user tries to access a route that does not exist.
+ *
+ * @returns {JSX.Element} The rendered NotFound component.
+ */
 const NotFound = () => {
   return (
     <div>
