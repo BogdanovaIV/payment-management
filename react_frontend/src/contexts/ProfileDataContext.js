@@ -5,8 +5,8 @@ import { useCurrentUser } from "../contexts/CurrentUserContext";
 import { useToast } from "../contexts/ToastContext";
 import { handleRequestError } from "../utils/errorHandler";
 
-const UserProfileDataContext = createContext();
-const SetUserProfileDataContext = createContext();
+export const UserProfileDataContext = createContext();
+export const SetUserProfileDataContext = createContext();
 
 export const useUserProfileData = () => useContext(UserProfileDataContext);
 export const useSetUserProfileData = () =>
