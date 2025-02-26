@@ -36,9 +36,10 @@ const ObjectList = ({
   modalForms = [],
   queryKey = "Objects",
   instructionBody = <></>,
+  showFiltersParameter = false,
 }) => {
   const { t } = useTranslation();
-  const [showFilters, setShowFilters] = useState(false);
+  const [showFilters, setShowFilters] = useState(showFiltersParameter);
   const history = useHistory();
   const [showModal, setShowModal] = useState({});
   const [selectedItem, setSelectedItem] = useState(null);
@@ -210,11 +211,12 @@ const ObjectList = ({
                   additional_filter,
                 }) => (
                   <Col key={name} xs={12} md={4} lg={3} className="mb-1">
-                    <Form.Label className={styles.Label}>
+                    <Form.Label className={styles.Label} htmlFor={name}>
                       {label === undefined ? placeholder : label}
                     </Form.Label>
                     <Col className="p-0 d-flex">
                       <Form.Control
+                        id={name}
                         key={name}
                         className={styles.Input}
                         as={type === "select" ? "select" : undefined}

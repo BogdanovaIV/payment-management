@@ -1,9 +1,15 @@
 import React from "react";
 import Spinner from "react-bootstrap/Spinner";
 import Container from "react-bootstrap/Container";
-
 import styles from "../styles/Spinners.module.css";
 
+/**
+ * SpinnerSecondary Component
+ * 
+ * Renders a Bootstrap secondary spinner inside a container to indicate loading.
+ * 
+ * @returns {JSX.Element} A styled loading spinner.
+ */
 const SpinnerSecondary = () => {
   return (
     <Container>

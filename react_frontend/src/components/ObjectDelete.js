@@ -6,15 +6,30 @@ import Container from "react-bootstrap/Container";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-
 import bgImageStyles from "../styles/BgImage.module.css";
 import btnStyles from "../styles/Button.module.css";
 import styles from "../styles/ObjectDelete.module.css";
 import backgroundImage from "../assets/main-background.jpg";
-
 import { useToast } from "../contexts/ToastContext";
 import { handleRequestError } from "../utils/errorHandler";
 
+/**
+ * ObjectDelete Component
+ *
+ * Displays a confirmation UI for deleting an object with "Cancel" and "Delete" options.
+ *
+ * Props:
+ * @param {string} descriptionObject - Description of the object to delete.
+ * @param {string} url - API endpoint for deletion.
+ * @param {string} urlBack - Redirect URL after deletion.
+ *
+ * Features:
+ * - Deletes object via `deleteData` and shows a toast on success.
+ * - Handles errors with `handleRequestError`.
+ * - Uses Bootstrap for styling and `useHistory` for navigation.
+ *
+ * @returns {JSX.Element} Delete confirmation UI.
+ */
 const ObjectDelete = ({ descriptionObject, url, urlBack }) => {
   const { t } = useTranslation();
   const history = useHistory();

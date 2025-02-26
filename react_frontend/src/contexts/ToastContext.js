@@ -3,7 +3,7 @@ import Toast from "react-bootstrap/Toast";
 
 import styles from "../styles/ToastContext.module.css";
 
-const ToastContext = createContext();
+export const ToastContext = createContext();
 export const useToast = () => useContext(ToastContext);
 
 export const ToastProvider = ({ children }) => {

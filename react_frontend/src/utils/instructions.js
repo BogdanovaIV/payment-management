@@ -1,5 +1,13 @@
 import instructions from "../locales/en.json";
 
+/**
+ * Retrieves and renders instructional content based on the given form name.
+ *
+ * @param {string} formName - The name of the form to fetch instructions for.
+ * @param {function} t - Translation function for localized text.
+ * @param {React.Component} Trans - Component for handling translations with formatting.
+ * @returns {JSX.Element} The instruction content for the specified form.
+ */
 export const getInstructionByFormName = (formName = "", t, Trans) => {
   let object = "Object";
   let objects = "Objects";

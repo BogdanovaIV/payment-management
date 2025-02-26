@@ -1,3 +1,10 @@
+/**
+ * Validates form fields based on the provided form name.
+ * @param {string} formName - The name of the form (e.g., "user_profile", "partner", "payment_request").
+ * @param {Function} t - Translation function for validation messages.
+ * @param {Function} Trans - Component for handling translations with dynamic values.
+ * @returns {Function} A validation function for the given form, checking field values and returning error messages.
+ */
 export const validateField = (formName = "", t, Trans) => {
   if (formName === "user_profile") {
     return (name, value) => {
@@ -42,7 +49,6 @@ export const validateField = (formName = "", t, Trans) => {
             );
           break;
         case "full_name":
-        case "contact_person":
           if (value.length > 255)
             return (
               <Trans
@@ -85,6 +91,16 @@ export const validateField = (formName = "", t, Trans) => {
           break;
         case "contact_person":
           if (!value) return t("validation.required");
+          if (value.length > 255)
+            return (
+              <Trans
+                i18nKey="validation.more_than"
+                values={{
+                  length: "255",
+                }}
+                components={[]}
+              />
+            );
           break;
 
         default:
