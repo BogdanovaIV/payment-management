@@ -2,6 +2,10 @@ export const handleRequestError = (err, showToast, t, extraMessage = "") => {
   if (process.env.NODE_ENV === "development") {
     console.log(err);
   }
+
+  if (!showToast) {
+    return;
+  }
   if (!err.response) {
     showToast(
       t("toast.error_server_unavailable") + " " + extraMessage,
