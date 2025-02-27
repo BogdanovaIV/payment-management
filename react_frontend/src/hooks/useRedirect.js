@@ -41,7 +41,9 @@ export const useRedirect = (userAuthStatus) => {
           history.push("/");
         }
         if (!err.response){
-          showToast(err.message);
+          if (userAuthStatus === "loggedOut"){
+            showToast(err.message);
+          }
         } else {
           handleRequestError(err, showToast, t);
         }
