@@ -168,7 +168,7 @@ msgstr "Жарамсыз жол."
 
 #: fields.py:767
 msgid "This field may not be blank."
-msgstr "Бұл өріс бос болмауы керек."
+msgstr "Бул өріс бос болмауы керек."
 
 #: fields.py:816
 msgid "Enter a valid email address."

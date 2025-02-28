@@ -80,7 +80,7 @@ class PaymentRequest(LockableModel):
     )
     invoice_date = models.DateField(blank=False, null=False, default=now)
     invoice_amount = models.PositiveIntegerField(null=False, default=0)
-    deadline = models.DateField()
+    deadline = models.DateField(blank=False, null=False, default=now)
     payment_amount = models.PositiveIntegerField(null=False, default=0)
     comment = models.TextField(blank=True, null=True)
     user = models.ForeignKey(

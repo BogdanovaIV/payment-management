@@ -471,7 +471,7 @@
           "title": "Deadline:",
           "desc1": "Enter the deadline for the payment request.",
           "desc2": "This field must be in the correct date format.",
-          "desc3": "This is an optional field."
+          "desc3": "This field is required."
         },
         "comment_dict": {
           "title": "Comment:",

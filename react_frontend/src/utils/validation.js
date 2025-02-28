@@ -116,6 +116,7 @@ export const validateField = (formName = "") => {
             };
           break;
         case "invoice_date":
+        case "deadline":
           if (!value) {
             return { i18nKey: "validation.required" };
           }
