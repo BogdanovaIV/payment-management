@@ -444,7 +444,8 @@
         "invoice_number_dict": {
           "title": "Invoice Number:",
           "desc1": "Enter the invoice number associated with the payment request.",
-          "desc2": "This field is required."
+          "desc2": "This field is required.",
+          "desc3": "This field is required and must not exceed 50 characters."
         },
         "invoice_date_dict": {
           "title": "Invoice Date:",
@@ -469,7 +470,8 @@
         "deadline_dict": {
           "title": "Deadline:",
           "desc1": "Enter the deadline for the payment request.",
-          "desc2": "This field must be in the correct date format."
+          "desc2": "This field must be in the correct date format.",
+          "desc3": "This is an optional field."
         },
         "comment_dict": {
           "title": "Comment:",

@@ -105,6 +105,16 @@ export const validateField = (formName = "") => {
           break;
 
         case "invoice_number":
+          if (!value) {
+            return { i18nKey: "validation.required" };
+          } else if (value.length > 255)
+            return {
+              i18nKey: "validation.more_than",
+              values: {
+                length: "50",
+              },
+            };
+          break;
         case "invoice_date":
           if (!value) {
             return { i18nKey: "validation.required" };
