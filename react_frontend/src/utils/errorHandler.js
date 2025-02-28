@@ -35,6 +35,13 @@ export const handleRequestError = (err, showToast, t, extraMessage = "") => {
         extraMessage,
       "danger"
     );
+  } else if (err.response.status === 404) {
+    showToast(
+      (t("toast.no_results_found")) +
+        " " +
+        extraMessage,
+      "danger"
+    );
   } else {
     if (process.env.NODE_ENV === "development") {
       console.log(err.response.status);

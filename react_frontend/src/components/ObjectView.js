@@ -55,6 +55,7 @@ const ObjectView = ({
   const currentUser = useCurrentUser();
   const [isOwner, setIsOwner] = useState(!edit_only_owner);
   const [showInstruction, setShowInstruction] = useState(false);
+  const [isExist, setIsExist] = useState(true);
 
   const { id } = useParams();
 
@@ -121,6 +122,9 @@ const ObjectView = ({
           if (process.env.NODE_ENV === "development") {
             console.log(err);
           }
+          if (err.response?.status === 404) {
+            setIsExist(false);
+          }
           handleRequestError(err, showToast, t);
           if (typeView === "edit") {
             history.push(`${url}${id}`);
@@ -144,7 +148,7 @@ const ObjectView = ({
   useEffect(() => {
     return async () => {
       try {
-        if (typeView === "edit") {
+        if (typeView === "edit" && isExist) {
           await postData(`${url}${id}/unlock/`);
         }
       } catch (err) {
@@ -288,181 +292,191 @@ const ObjectView = ({
             <i className="fa-solid fa-circle-question" />
           </Button>
         </Row>
-        <Row>
-          <Col className="px-4 py-1">
-            {typeView === "view" && (
-              <>
-                <Button
-                  className={`${btnStyles.ButtonTransparent} ${btnStyles.RedTransparent}`}
-                  onClick={() => history.push(url)}
-                >
-                  <i className="fa-solid fa-circle-xmark"></i>
-                  {t("button.cancel")}
-                </Button>
-                {isOwner && (
+        {isExist && (
+          <Row>
+            <Col className="px-4 py-1">
+              {typeView === "view" && (
+                <>
                   <Button
-                    className={`${btnStyles.ButtonTransparent} ${btnStyles.BlueTransparent}`}
-                    onClick={() => handleEditClick()}
+                    className={`${btnStyles.ButtonTransparent} ${btnStyles.RedTransparent}`}
+                    onClick={() => history.push(url)}
                   >
-                    <i className="fa-solid fa-circle-plus"></i>{" "}
-                    {t("button.edit")}
+                    <i className="fa-solid fa-circle-xmark"></i>
+                    {t("button.cancel")}
                   </Button>
-                )}
-              </>
-            )}
-          </Col>
-        </Row>
-
-        <Row>
-          {hasLoaded ? (
-            <Container>
-              <Form onSubmit={handleSubmit}>
-                <Form.Group>
-                  {fields.map((item, itemIndex) => (
-                    <Row key={itemIndex} className="align-items-start">
-                      {item.map(
-                        ({
-                          id,
-                          name,
-                          type,
-                          placeholder,
-                          rows,
-                          options,
-                          readOnly,
-                          as,
-                          foreignKey,
-                          disabled,
-                          additional_filter,
-                        }) => (
-                          <Col key={id} md={item.length === 1 ? 12 : 6}>
-                            <Form.Group controlId={id}>
-                              {type === "checkbox" ? (
-                                <>
-                                  <Form.Check
-                                    label={placeholder}
-                                    className={inputStyles.CheckBoxObject}
-                                    disabled={
-                                      typeView === "view" ||
-                                      readOnly ||
-                                      !isOwner
-                                    }
-                                    name={name}
-                                    checked={data[name] ?? ""}
-                                    onChange={handleChange}
-                                  ></Form.Check>
-                                </>
-                              ) : (
-                                <>
-                                  <Form.Label className={styles.Label}>
-                                    {placeholder}
-                                  </Form.Label>
-                                  <Col key={id} className="p-0 d-flex">
-                                    <Form.Control
-                                      className={inputStyles.InputObject}
-                                      as={as}
-                                      type={
-                                        type !== "select" ? type : undefined
-                                      }
-                                      rows={rows || 1}
-                                      readOnly={
+                  {isOwner && (
+                    <Button
+                      className={`${btnStyles.ButtonTransparent} ${btnStyles.BlueTransparent}`}
+                      onClick={() => handleEditClick()}
+                    >
+                      <i className="fa-solid fa-circle-plus"></i>{" "}
+                      {t("button.edit")}
+                    </Button>
+                  )}
+                </>
+              )}
+            </Col>
+          </Row>
+        )}
+        {isExist ? (
+          <Row>
+            {hasLoaded ? (
+              <Container>
+                <Form onSubmit={handleSubmit}>
+                  <Form.Group>
+                    {fields.map((item, itemIndex) => (
+                      <Row key={itemIndex} className="align-items-start">
+                        {item.map(
+                          ({
+                            id,
+                            name,
+                            type,
+                            placeholder,
+                            rows,
+                            options,
+                            readOnly,
+                            as,
+                            foreignKey,
+                            disabled,
+                            additional_filter,
+                          }) => (
+                            <Col key={id} md={item.length === 1 ? 12 : 6}>
+                              <Form.Group controlId={id}>
+                                {type === "checkbox" ? (
+                                  <>
+                                    <Form.Check
+                                      label={placeholder}
+                                      className={inputStyles.CheckBoxObject}
+                                      disabled={
                                         typeView === "view" ||
                                         readOnly ||
                                         !isOwner
                                       }
-                                      disabled={
-                                        foreignKey === undefined
-                                          ? typeView === "view" ||
-                                            readOnly ||
-                                            !isOwner
-                                          : typeView === "view" ||
-                                            disabled ||
-                                            !isOwner
-                                      }
-                                      placeholder={placeholder}
                                       name={name}
-                                      value={
-                                        foreignKey !== undefined
-                                          ? data[name]?.name ?? ""
-                                          : data[name] ?? ""
-                                      }
+                                      checked={data[name] ?? ""}
                                       onChange={handleChange}
-                                      onClick={
-                                        foreignKey !== undefined && !disabled
-                                          ? (e) =>
-                                              handleForeignKeyClick(
-                                                e,
-                                                foreignKey,
-                                                additional_filter
-                                              )
-                                          : undefined
-                                      }
-                                    >
-                                      {options?.map((option, index) => (
-                                        <option
-                                          key={`${name}${index}`}
-                                          value={option[0]}
-                                        >
-                                          {option[1]}
-                                        </option>
-                                      ))}
-                                    </Form.Control>
-                                  </Col>
-                                </>
-                              )}
+                                    ></Form.Check>
+                                  </>
+                                ) : (
+                                  <>
+                                    <Form.Label className={styles.Label}>
+                                      {placeholder}
+                                    </Form.Label>
+                                    <Col key={id} className="p-0 d-flex">
+                                      <Form.Control
+                                        className={inputStyles.InputObject}
+                                        as={as}
+                                        type={
+                                          type !== "select" ? type : undefined
+                                        }
+                                        rows={rows || 1}
+                                        readOnly={
+                                          typeView === "view" ||
+                                          readOnly ||
+                                          !isOwner
+                                        }
+                                        disabled={
+                                          foreignKey === undefined
+                                            ? typeView === "view" ||
+                                              readOnly ||
+                                              !isOwner
+                                            : typeView === "view" ||
+                                              disabled ||
+                                              !isOwner
+                                        }
+                                        placeholder={placeholder}
+                                        name={name}
+                                        value={
+                                          foreignKey !== undefined
+                                            ? data[name]?.name ?? ""
+                                            : data[name] ?? ""
+                                        }
+                                        onChange={handleChange}
+                                        onClick={
+                                          foreignKey !== undefined && !disabled
+                                            ? (e) =>
+                                                handleForeignKeyClick(
+                                                  e,
+                                                  foreignKey,
+                                                  additional_filter
+                                                )
+                                            : undefined
+                                        }
+                                      >
+                                        {options?.map((option, index) => (
+                                          <option
+                                            key={`${name}${index}`}
+                                            value={option[0]}
+                                          >
+                                            {option[1]}
+                                          </option>
+                                        ))}
+                                      </Form.Control>
+                                    </Col>
+                                  </>
+                                )}
 
-                              {errors[name]?.map((message, idx) => (
-                                <Alert
-                                  variant="warning"
-                                  key={idx}
-                                  className="mt-2"
-                                >
-                                  <Trans
-                                    i18nKey={message.i18nKey}
-                                    values={message.values}
-                                  />
-                                </Alert>
-                              ))}
-                            </Form.Group>
-                          </Col>
-                        )
-                      )}
-                    </Row>
-                  ))}
-                </Form.Group>
-                {typeView === "view" && isOwner ? (
-                  <>
-                    <Button
-                      className={`${btnStyles.ButtonTransparent} ${btnStyles.OrangeTransparent}`}
-                      onClick={() => history.push(`${url}${id}/delete`)}
-                    >
-                      <i className="fa-solid fa-trash-can"></i>
-                      {t("button.delete")}
-                    </Button>
-                  </>
-                ) : typeView !== "view" ? (
-                  <>
-                    <SaveBar
-                      handleCancelClick={handleCancelClick}
-                      showSave={isOwner}
-                    />
-                    {errors.non_field_errors?.map((message, idx) => (
-                      <Alert key={idx} variant="warning" className="mt-3">
-                        <Trans
-                          i18nKey={message.i18nKey}
-                          values={message.values}
-                        />
-                      </Alert>
+                                {errors[name]?.map((message, idx) => (
+                                  <Alert
+                                    variant="warning"
+                                    key={idx}
+                                    className="mt-2"
+                                  >
+                                    <Trans
+                                      i18nKey={message.i18nKey}
+                                      values={message.values}
+                                    />
+                                  </Alert>
+                                ))}
+                              </Form.Group>
+                            </Col>
+                          )
+                        )}
+                      </Row>
                     ))}
-                  </>
-                ) : (
-                  <></>
-                )}
-              </Form>
-            </Container>
-          ) : (
-            <SpinnerSecondary />
-          )}
-        </Row>
+                  </Form.Group>
+                  {typeView === "view" && isOwner ? (
+                    <>
+                      <Button
+                        className={`${btnStyles.ButtonTransparent} ${btnStyles.OrangeTransparent}`}
+                        onClick={() => history.push(`${url}${id}/delete`)}
+                      >
+                        <i className="fa-solid fa-trash-can"></i>
+                        {t("button.delete")}
+                      </Button>
+                    </>
+                  ) : typeView !== "view" ? (
+                    <>
+                      <SaveBar
+                        handleCancelClick={handleCancelClick}
+                        showSave={isOwner}
+                      />
+                      {errors.non_field_errors?.map((message, idx) => (
+                        <Alert key={idx} variant="warning" className="mt-3">
+                          <Trans
+                            i18nKey={message.i18nKey}
+                            values={message.values}
+                          />
+                        </Alert>
+                      ))}
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                </Form>
+              </Container>
+            ) : (
+              <SpinnerSecondary />
+            )}
+          </Row>
+        ) : (
+          <>
+            {" "}
+            <p className={headerStyles.HeaderNotFound}>
+              {t("toast.no_results_found")}
+            </p>
+          </>
+        )}
       </Container>
       {modalForms ? (
         modalForms.map(({ url, columns, foreignKey, queryKey }) => (

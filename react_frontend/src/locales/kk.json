@@ -102,7 +102,8 @@
     "error_server_occurred": "Ішкі сервер қатесі орын алды. Әрекетті кейінірек қайталаңыз.",
     "error_occurred": "Қате орын алды. Енгізуіңізді тексеріңіз.",
     "permission_denied": "Рұқсат қабылданбады.",
-    "data_not_save": "Деректер сақталмады!!!"
+    "data_not_save": "Деректер сақталмады!!!",
+    "no_results_found": "Нәтиже табылмады."
   },
   "payment_request": {
     "payment_requests": "Төлем сұраулары",

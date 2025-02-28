@@ -32,6 +32,7 @@ function UserProfilePage() {
   const showToast = useToast();
   const url = getUserProfileUrl();
   const [showInstruction, setShowInstruction] = useState(false);
+  const [isExist, setIsExist] = useState(true);
 
   const { id } = useParams();
 
@@ -48,6 +49,9 @@ function UserProfilePage() {
         if (process.env.NODE_ENV === "development") {
           console.log(err);
         }
+        if (err.response?.status === 404) {
+          setIsExist(false);
+        }
         handleRequestError(err, showToast, t);
       }
     };
@@ -55,7 +59,7 @@ function UserProfilePage() {
     return () => {
       isMounted = false;
     };
-  }, [id, url, showToast, t]);
+  }, [id, url]);
 
   const is_owner = useMemo(
     () => currentUser?.username === profile?.username,
@@ -144,7 +148,14 @@ function UserProfilePage() {
                 </div>
               </Container>
             )}
-            {hasLoaded ? (
+            {!isExist ? (
+              <>
+                {" "}
+                <p className={headerStyles.HeaderNotFound}>
+                  {t("toast.no_results_found")}
+                </p>
+              </>
+            ) : hasLoaded ? (
               <Container>
                 <Form>
                   {fields.map(({ id, name, type, placeholder }) => (

@@ -273,7 +273,7 @@ const ObjectList = ({
           <SpinnerSecondary />
         ) : objects.length === 0 ? (
           <>
-            <p className={headerStyles.HeaderNotFound}>No results found.</p>
+            <p className={headerStyles.HeaderNotFound}>{t("toast.no_results_found")}</p>
           </>
         ) : isSmallScreen ? (
           <CardCollection
