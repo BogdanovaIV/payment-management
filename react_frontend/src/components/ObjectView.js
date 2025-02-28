@@ -158,7 +158,7 @@ const ObjectView = ({
 
   const handleChange = (event) => {
     const { name, type, checked, value } = event.target;
-    const errorMessage = validateField(formName, t, Trans)(name, value);
+    const errorMessage = validateField(formName)(name, value);
 
     if (errorMessage !== undefined) {
       setErrors((prevErrors) => ({
@@ -178,7 +178,7 @@ const ObjectView = ({
 
     let newErrors = {};
     Object.keys(data).forEach((key) => {
-      const errorMessage = validateField(formName, t, Trans)(key, data[key]);
+      const errorMessage = validateField(formName)(key, data[key]);
       if (errorMessage) newErrors[key] = errorMessage ? [errorMessage] : [];
     });
 
@@ -210,7 +210,16 @@ const ObjectView = ({
       }
     } catch (err) {
       if (err.response?.status !== 401) {
-        setErrors(err.response?.data);
+        setErrors(
+          Object.fromEntries(
+            Object.entries(err.response?.data).map(([key, value]) => [
+              key,
+              Array.isArray(value)
+                ? value.map((item) => ({ i18nKey: item }))
+                : value,
+            ])
+          )
+        );
       }
       let extraMessage = "";
       if (err.response?.status === 423) {
@@ -242,11 +251,7 @@ const ObjectView = ({
         id: getIDFromItem(selectedField.foreignKey, selectedItem),
         name: selectedItem[getNameByNameTable(selectedField.foreignKey)] || "",
       };
-      const errorMessage = validateField(
-        formName,
-        t,
-        Trans
-      )(selectedField.field, value);
+      const errorMessage = validateField(formName)(selectedField.field, value);
 
       if (errorMessage !== undefined) {
         setErrors((prevErrors) => ({
@@ -411,7 +416,10 @@ const ObjectView = ({
                                   key={idx}
                                   className="mt-2"
                                 >
-                                  {message}
+                                  <Trans
+                                    i18nKey={message.i18nKey}
+                                    values={message.values}
+                                  />
                                 </Alert>
                               ))}
                             </Form.Group>
@@ -439,7 +447,10 @@ const ObjectView = ({
                     />
                     {errors.non_field_errors?.map((message, idx) => (
                       <Alert key={idx} variant="warning" className="mt-3">
-                        {message}
+                        <Trans
+                          i18nKey={message.i18nKey}
+                          values={message.values}
+                        />
                       </Alert>
                     ))}
                   </>

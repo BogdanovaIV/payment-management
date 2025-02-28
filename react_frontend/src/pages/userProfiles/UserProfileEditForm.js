@@ -109,7 +109,7 @@ const UserProfileEditForm = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    const errorMessage = validateField("user_profile", t, Trans)(name, value);
+    const errorMessage = validateField("user_profile")(name, value);
     if (errorMessage !== undefined) {
       setErrors((prevErrors) => ({
         ...prevErrors,
@@ -128,11 +128,7 @@ const UserProfileEditForm = () => {
 
     let newErrors = {};
     Object.keys(profileData).forEach((key) => {
-      const errorMessage = validateField(
-        "user_profile",
-        t,
-        Trans
-      )(key, profileData[key]);
+      const errorMessage = validateField("user_profile")(key, profileData[key]);
       if (errorMessage) newErrors[key] = errorMessage ? [errorMessage] : [];
     });
 
@@ -150,7 +146,16 @@ const UserProfileEditForm = () => {
       history.goBack();
       showToast(t("toast.success_edit_profile"), "success");
     } catch (err) {
-      setErrors(err.response?.data);
+      setErrors(
+        Object.fromEntries(
+          Object.entries(err.response?.data).map(([key, value]) => [
+            key,
+            Array.isArray(value)
+              ? value.map((item) => ({ i18nKey: item }))
+              : value,
+          ])
+        )
+      );
       handleRequestError(err, showToast, t);
     }
   };
@@ -210,7 +215,10 @@ const UserProfileEditForm = () => {
                       {errors?.[name]?.length > 0 &&
                         errors[name]?.map((message, idx) => (
                           <Alert variant="warning" key={idx}>
-                            {message}
+                            <Trans
+                              i18nKey={message.i18nKey}
+                              values={message.values}
+                            />
                           </Alert>
                         ))}
                     </Form.Group>
@@ -219,7 +227,10 @@ const UserProfileEditForm = () => {
                   <SaveBar />
                   {errors.non_field_errors?.map((message, idx) => (
                     <Alert key={idx} variant="warning" className="mt-3">
-                      {message}
+                      <Trans
+                        i18nKey={message.i18nKey}
+                        values={message.values}
+                      />
                     </Alert>
                   ))}
                 </Form>

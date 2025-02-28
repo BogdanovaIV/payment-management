@@ -369,7 +369,7 @@
         "trade_name_dict": {
           "title": "Trade Name:",
           "desc1": "Enter the trade name of the partner.",
-          "desc2": "The trade name must not exceed 255 characters."
+          "desc2": "This field is required and must not exceed 255 characters."
         },
         "full_name_dict": {
           "title": "Full Name:",
@@ -408,8 +408,7 @@
         },
         "is_own_dict": {
           "title": "Own Partner:",
-          "desc1": "Check this box if the partner is an internal entity.",
-          "desc2": "This is an optional field."
+          "desc1": "Check this box if the partner is an internal entity."
         }
       },
       "error_handling": {

@@ -24,6 +24,7 @@ import { handleRequestError } from "../../utils/errorHandler";
 import { useRedirect } from "../../hooks/useRedirect";
 import Instruction from "../../components/Instruction";
 import { getInstructionByFormName } from "../../utils/instructions";
+import { validateField } from "../../utils/validation";
 
 const SignUpForm = () => {
   useRedirect("loggedIn");
@@ -86,12 +87,18 @@ const SignUpForm = () => {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
-    let errorMessage = "";
-
-    if (!value.trim()) {
-      errorMessage = t("validation.required");
-    } else if (name === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)) {
-      errorMessage = t("validation.invalid_email");
+    const errorMessage = validateField("sign_up")(name, value);
+    if (errorMessage !== undefined) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: errorMessage ? [errorMessage] : [],
+      }));
+    }
+    if (errors.non_field_errors) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        non_field_errors: [],
+      }));
     }
 
     setSignUpData((prevData) => ({
@@ -107,6 +114,21 @@ const SignUpForm = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    let newErrors = {};
+    Object.keys(signUpData).forEach((key) => {
+      const errorMessage = validateField("sign_up")(key, signUpData[key]);
+      if (errorMessage) newErrors[key] = errorMessage ? [errorMessage] : [];
+    });
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        ...newErrors,
+      }));
+      return;
+    }
+
     try {
       await axios.post("/dj-rest-auth/registration/", signUpData);
       const { data } = await axios.post("/dj-rest-auth/login/", {
@@ -119,7 +141,16 @@ const SignUpForm = () => {
       history.push("/");
       showToast(t("toast.success_sign_up"), "success");
     } catch (err) {
-      setErrors(err.response?.data);
+      setErrors(
+        Object.fromEntries(
+          Object.entries(err.response?.data).map(([key, value]) => [
+            key,
+            Array.isArray(value)
+              ? value.map((item) => ({ i18nKey: item }))
+              : value,
+          ])
+        )
+      );
       handleRequestError(err, showToast, t);
     }
   };
@@ -174,7 +205,10 @@ const SignUpForm = () => {
                     />
                     {errors[name]?.map((message, idx) => (
                       <Alert variant="warning" key={idx}>
-                        {message}
+                        <Trans
+                          i18nKey={message.i18nKey}
+                          values={message.values}
+                        />
                       </Alert>
                     ))}
                   </Form.Group>
@@ -188,7 +222,7 @@ const SignUpForm = () => {
                 </Button>
                 {errors.non_field_errors?.map((message, idx) => (
                   <Alert key={idx} variant="warning" className="mt-3">
-                    {message}
+                    <Trans i18nKey={message.i18nKey} values={message.values} />
                   </Alert>
                 ))}
               </Form>

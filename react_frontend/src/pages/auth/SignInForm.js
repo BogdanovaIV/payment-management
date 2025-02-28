@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useTranslation } from "react-i18next";
+import React, { useEffect, useState } from "react";
+import { useTranslation, Trans } from "react-i18next";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
 import Form from "react-bootstrap/Form";
@@ -22,6 +22,7 @@ import { setTokenTimestamp } from "../../utils/localStorage";
 import { useToast } from "../../contexts/ToastContext";
 import { handleRequestError } from "../../utils/errorHandler";
 import { useRedirect } from "../../hooks/useRedirect";
+import { validateAll, validateField } from "../../utils/validation";
 
 function SignInForm() {
   useRedirect("loggedIn");
@@ -52,8 +53,22 @@ function SignInForm() {
   const [errors, setErrors] = useState({});
 
   const history = useHistory();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+    let newErrors = {};
+    Object.keys(signInData).forEach((key) => {
+      const errorMessage = validateField("sign_in")(key, signInData[key]);
+      if (errorMessage) newErrors[key] = errorMessage ? [errorMessage] : [];
+    });
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        ...newErrors,
+      }));
+      return;
+    }
 
     try {
       const { data } = await axios.post("/dj-rest-auth/login/", signInData);
@@ -62,15 +77,38 @@ function SignInForm() {
       history.push("/");
       showToast(t("toast.success_log_in"), "success");
     } catch (err) {
-      setErrors(err.response?.data);
+      setErrors(
+        Object.fromEntries(
+          Object.entries(err.response?.data).map(([key, value]) => [
+            key,
+            Array.isArray(value)
+              ? value.map((item) => ({ i18nKey: item }))
+              : value,
+          ])
+        )
+      );
       handleRequestError(err, showToast, t);
     }
   };
 
   const handleChange = (event) => {
+    const { name, value } = event.target;
+    const errorMessage = validateField("sign_in")(name, value);
+    if (errorMessage !== undefined) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: errorMessage ? [errorMessage] : [],
+      }));
+    }
+    if (errors.non_field_errors) {
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        non_field_errors: [],
+      }));
+    }
     setSignInData((prevData) => ({
       ...prevData,
-      [event.target.name]: event.target.value,
+      [name]: value,
     }));
   };
 
@@ -108,7 +146,10 @@ function SignInForm() {
                     />
                     {errors[name]?.map((message, idx) => (
                       <Alert variant="warning" key={idx}>
-                        {message}
+                        <Trans
+                          i18nKey={message.i18nKey}
+                          values={message.values}
+                        />
                       </Alert>
                     ))}
                   </Form.Group>
@@ -122,7 +163,7 @@ function SignInForm() {
                 </Button>
                 {errors.non_field_errors?.map((message, idx) => (
                   <Alert key={idx} variant="warning" className="mt-3">
-                    {message}
+                    <Trans i18nKey={message.i18nKey} values={message.values} />
                   </Alert>
                 ))}
               </Form>

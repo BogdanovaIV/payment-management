@@ -1,31 +1,26 @@
 /**
  * Validates form fields based on the provided form name.
  * @param {string} formName - The name of the form (e.g., "user_profile", "partner", "payment_request").
- * @param {Function} t - Translation function for validation messages.
- * @param {Function} Trans - Component for handling translations with dynamic values.
  * @returns {Function} A validation function for the given form, checking field values and returning error messages.
  */
-export const validateField = (formName = "", t, Trans) => {
+export const validateField = (formName = "") => {
   if (formName === "user_profile") {
     return (name, value) => {
       switch (name) {
         case "first_name":
         case "last_name":
-          if (!value) return t("validation.required");
+          if (!value) return { i18nKey: "validation.required" };
           else if (value.length > 20)
-            return (
-              <Trans
-                i18nKey="validation.more_than"
-                values={{
-                  length: "20",
-                }}
-                components={[]}
-              />
-            );
+            return {
+              i18nKey: "validation.more_than",
+              values: {
+                length: "20",
+              },
+            };
           break;
         case "email":
           if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))
-            return t("validation.invalid_email");
+            return { i18nKey: "validation.invalid_email" };
         default:
           break;
       }
@@ -36,71 +31,56 @@ export const validateField = (formName = "", t, Trans) => {
     return (name, value) => {
       switch (name) {
         case "trade_name":
-          if (!value) return t("validation.required");
+          if (!value) return { i18nKey: "validation.required" };
           else if (value.length > 255)
-            return (
-              <Trans
-                i18nKey="validation.more_than"
-                values={{
-                  length: "255",
-                }}
-                components={[]}
-              />
-            );
+            return {
+              i18nKey: "validation.more_than",
+              values: {
+                length: "255",
+              },
+            };
           break;
         case "full_name":
           if (value.length > 255)
-            return (
-              <Trans
-                i18nKey="validation.more_than"
-                values={{
-                  length: "255",
-                }}
-                components={[]}
-              />
-            );
+            return {
+              i18nKey: "validation.more_than",
+              values: {
+                length: "255",
+              },
+            };
           break;
         case "bin":
-          if (!value) return t("validation.required");
+          if (!value) return { i18nKey: "validation.required" };
           else if (value.length > 20)
-            return (
-              <Trans
-                i18nKey="validation.more_than"
-                values={{
-                  length: "20",
-                }}
-                components={[]}
-              />
-            );
+            return {
+              i18nKey: "validation.more_than",
+              values: {
+                length: "20",
+              },
+            };
           break;
 
         case "phone_number":
           if (value.length > 255)
-            return (
-              <Trans
-                i18nKey="validation.more_than"
-                values={{
-                  length: "255",
-                }}
-                components={[]}
-              />
-            );
+            return {
+              i18nKey: "validation.more_than",
+              values: {
+                length: "255",
+              },
+            };
           else if (value && !/^(\+\d{3,15})(,\s*\+\d{3,15})*$/.test(value)) {
-            return t("validation.phone_number");
+            return { i18nKey: "validation.phone_number" };
           }
           break;
         case "contact_person":
-          if (!value) return t("validation.required");
+          if (!value) return { i18nKey: "validation.required" };
           if (value.length > 255)
-            return (
-              <Trans
-                i18nKey="validation.more_than"
-                values={{
-                  length: "255",
-                }}
-                components={[]}
-              />
-            );
+            return {
+              i18nKey: "validation.more_than",
+              values: {
+                length: "255",
+              },
+            };
           break;
 
         default:
@@ -114,43 +94,37 @@ export const validateField = (formName = "", t, Trans) => {
       switch (name) {
         case "payment_priority":
           if (value < 1 || value > 10) {
-            return (
-              <Trans
-                i18nKey="validation.between"
-                values={{
-                  from: "1",
-                  to: "10",
-                }}
-                components={[]}
-              />
-            );
+            return {
+              i18nKey: "validation.more_than",
+              values: {
+                from: "1",
+                to: "10",
+              },
+            };
           }
           break;
 
         case "invoice_number":
         case "invoice_date":
           if (!value) {
-            return t("validation.required");
+            return { i18nKey: "validation.required" };
           }
           break;
         case "payer":
         case "recipient":
           if (!value.id) {
-            return t("validation.required");
+            return { i18nKey: "validation.required" };
           }
           break;
         case "invoice_amount":
         case "payment_amount":
           if (value < 0) {
-            return (
-              <Trans
-                i18nKey="validation.greater_than_equal"
-                values={{
-                  value: "0",
-                }}
-                components={[]}
-              />
-            );
+            return {
+              i18nKey: "validation.more_than",
+              values: {
+                length: "0",
+              },
+            };
           }
           break;
 
@@ -158,6 +132,20 @@ export const validateField = (formName = "", t, Trans) => {
           break;
       }
 
+      return "";
+    };
+  } else if (formName === "sign_in") {
+    return (name, value) => {
+      if (!value) {
+        return { i18nKey: "validation.required" };
+      }
+      return "";
+    };
+  } else if (formName === "sign_up") {
+    return (name, value) => {
+      if (!value) return { i18nKey: "validation.required" };
+      else if ((name === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)))
+        return { i18nKey: "validation.invalid_email" };
       return "";
     };
   }
