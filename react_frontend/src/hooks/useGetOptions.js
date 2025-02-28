@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { getData } from "../api/axiosURL";
 
-const useGetOptions = (extraItems = [], url) => {
-  const { i18n } = useTranslation();
+const useGetOptions = (extraItems = "", url) => {
+  const { i18n, t } = useTranslation();
   const [options, setOptions] = useState([]);
 
   useEffect(() => {
@@ -16,7 +16,15 @@ const useGetOptions = (extraItems = [], url) => {
           type.label,
         ]);
         if (isMounted) {
-          setOptions(() => [...extraItems, ...newOptions]);
+          if (extraItems) {
+            setOptions([
+              ["", t(extraItems)],
+              ...newOptions,
+            ]);
+          }
+          else {
+            setOptions(newOptions);
+          }
         }
       } catch (error) {
         if (process.env.NODE_ENV === "development") {

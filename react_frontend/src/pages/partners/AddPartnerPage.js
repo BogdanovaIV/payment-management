@@ -24,7 +24,7 @@ const AddPartnerPage = () => {
     is_own: false,
   });
 
-  const [optionPartnerTypes] = useGetOptions([], getPartnerTypesUrl());
+  const [optionPartnerTypes] = useGetOptions("", getPartnerTypesUrl());
 
   if (isLoading || shouldRedirect) {
     return null;

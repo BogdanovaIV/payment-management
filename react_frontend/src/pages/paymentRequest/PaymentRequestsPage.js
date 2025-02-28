@@ -35,7 +35,7 @@ const PaymentRequestsPage = () => {
   }, [userProfileData]);
 
   const [optionsStatus] = useGetOptions(
-    [["", t("payment_request.all_statuses")]],
+    "payment_request.all_statuses",
     getPaymentRequestStatusesUrl()
   );
 

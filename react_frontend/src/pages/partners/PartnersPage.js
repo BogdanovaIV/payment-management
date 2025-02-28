@@ -19,7 +19,7 @@ const PartnersPage = () => {
   });
 
   const [optionPartnerTypes] = useGetOptions(
-    [["", t("partner.all_types")]],
+    "partner.all_types",
     getPartnerTypesUrl()
   );
 

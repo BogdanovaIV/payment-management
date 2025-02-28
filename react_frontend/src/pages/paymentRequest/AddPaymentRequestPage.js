@@ -1,12 +1,13 @@
 import React, { useState, useMemo } from "react";
 import { useTranslation, Trans } from "react-i18next";
 
-import { getPaymentRequestsUrl } from "../../api/axiosURL";
+import { getPaymentRequestStatusesUrl, getPaymentRequestsUrl } from "../../api/axiosURL";
 import { getParametersByName } from "../../utils/selectFormParameters";
 
 import ObjectView from "../../components/ObjectView";
 import { getInstructionByFormName } from "../../utils/instructions";
 import { useRedirect } from "../../hooks/useRedirect";
+import useGetOptions from "../../hooks/useGetOptions";
 
 const AddPaymentRequestPage = () => {
   const { isLoading, shouldRedirect } = useRedirect("loggedOut");
@@ -22,6 +23,8 @@ const AddPaymentRequestPage = () => {
     payment_amount: 0,
     comment: "",
   });
+
+  const [optionsStatus] = useGetOptions("", getPaymentRequestStatusesUrl());
 
   const parametersPartner = useMemo(() => {
     return getParametersByName("partner", t);
@@ -108,6 +111,16 @@ const AddPaymentRequestPage = () => {
         as: "input",
         placeholder: t("payment_request.deadline"),
         rows: 2,
+      },
+    ],
+    [
+      {
+        id: "status",
+        name: "status",
+        type: "select",
+        as: "select",
+        placeholder: t("payment_request.status"),
+        options: optionsStatus,
       },
     ],
     [

@@ -29,7 +29,7 @@ const ViewPaymentRequestPage = ({ typeView = "view", objectName }) => {
     comment: "",
   });
 
-  const [optionsStatus] = useGetOptions([], getPaymentRequestStatusesUrl());
+  const [optionsStatus] = useGetOptions("", getPaymentRequestStatusesUrl());
 
   const parametersPartner = useMemo(() => {
     return getParametersByName("partner", t);
