@@ -354,7 +354,7 @@
         "desc2": "When a user clicks <0>Edit</0>, the system locks the item for <0>20 minutes</0>.",
         "desc3": "While locked, other users cannot modify the item.",
         "desc4": "The lock automatically expires after <0>20 minutes</0> if no action is taken.",
-        "desc5": {
+        "desc5_dict": {
           "title": "The item is <0>unlocked</0> when the user:",
           "desc1": "<0>Saves</0> the changes.",
           "desc2": "<0>Cancels</0> the edit.",
