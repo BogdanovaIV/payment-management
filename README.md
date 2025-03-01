@@ -734,3 +734,344 @@ To prevent conflicts in multi-user environments, the system uses **pessimistic l
 **"The record has been updated by another user. Please refresh the page and try again."**
 
    ![Locking](documentation/features/locking-expired.png)
+
+
+## Design
+The design of the application follows a modern and clean aesthetic, utilizing Bootstrap's standard font and a custom color palette for consistency and user-friendly interface design.
+
+### Color Palette
+![Color palette](documentation/features/color-palette.png)
+| Color Name | Hex Code  | Influence on Design |
+|-|-|-|
+| **White** | `#ffffff` | Used as the background color of inputs and sections to create a clean, spacious, and readable interface. Enhances contrast and ensures a neutral base for other elements. |
+| **Blue** | `#00497C` | Represents reliability, professionalism, and trust. It is used for links, and common font color to guide users' attention effectively. |
+| **Grey** | `#8b8b8b` | Used for subtle UI elements such as secondary text, borders, and placeholders. It adds depth and hierarchy without overwhelming the design. |
+| **Orange** | `#ff5722` | Used for interactive elements that require user engagement, such as warnings, notifications, and call-to-action buttons. It draws attention without being too aggressive. |
+| **Red** | `#D72638` | Represents errors and critical warnings. It ensures users immediately recognize areas that require caution. |
+| **Green** | `#2E7D32` | Symbolizes success, confirmation, and positive actions. Used for success messages, completed tasks, and confirmation buttons to reassure users. |
+
+### Typography
+The design uses DM Sans as the primary typeface, ensuring a modern, clean, and highly readable interface. The font was selected for its minimalist style, excellent legibility, and versatile weight options, making it suitable for both headings and body text.
+```
+font-family: "DM Sans", sans-serif;
+```
+
+### Technology Used (Frontend)
+The frontend of the project is built using React, a popular JavaScript library for building user interfaces, along with various dependencies to enhance functionality, styling, and performance.
+
+**Core Framework & Libraries**
+- React (17.0.2): The main JavaScript library for building the user interface.
+- React-DOM (17.0.2): Handles rendering React components in the browser.
+- React-Router-DOM (5.3.0): Enables client-side routing for navigation.
+
+**State Management & API Handling**
+- @tanstack/react-query (4.36.1): Manages server state and caching efficiently.
+- Axios (0.21.4): A promise-based HTTP client for making API requests.
+
+**UI & Styling**
+-Bootstrap (4.6.0): Provides responsive design and pre-styled components.
+-React-Bootstrap (1.6.3): React components for Bootstrap styling.
+
+**Internationalization & Localization**
+- i18next (21.6.0): Handles translations and multi-language support.
+- React-i18next (11.14.0): Integrates i18next with React components.
+
+**Authentication & Security**
+- JWT-Decode (3.1.2): Decodes and verifies JSON Web Tokens (JWT) for authentication.
+
+**Data Display & Tables**
+- React-Table (7.8.0): A lightweight and customizable table library for displaying data.
+
+**Testing & Performance Monitoring**
+- @testing-library/react (11.2.7): Provides utilities for testing React components.
+- @testing-library/user-event (12.8.3): Simulates user interactions in tests.
+- @testing-library/jest-dom (5.17.0): Extends Jest with DOM-specific matchers.
+- Web-Vitals (1.1.2): Measures and reports Core Web Vitals for performance monitoring.
+
+**Development Tools & Build System**
+- React-Scripts (4.0.3): Manages the build process and development server.
+- MSW (0.35.0): Mocks API requests for testing.
+
+**Runtime & Package Management**
+- Node.js (16.19.1): JavaScript runtime environment.
+- NPM (8.19.3): Package manager for managing dependencies.
+
+**Proxy Configuration**
+The frontend is set to communicate with the backend via a proxy:
+Proxy: http://localhost:8000/api
+
+### Technology Used (Backend)
+The backend of the project is built using Django, a high-level Python web framework, along with a set of essential libraries and tools to ensure security, scalability, and maintainability.
+
+**Core Frameworks & Libraries**
+- Django (4.2.18): The primary web framework used for rapid development and clean, maintainable design.
+- Django REST Framework (3.15.2): Provides powerful API development capabilities.
+- Django Filter (24.3): Enables easy filtering of querysets in Django REST Framework.
+- Django-Allauth (65.3.1): Handles user authentication, registration, and account management.
+- Dj-Rest-Auth (7.0.1): Adds authentication endpoints for Django REST Framework.
+Django CORS Headers (4.6.0): Manages Cross-Origin Resource Sharing (CORS) policies.
+
+**Security & Authentication**
+- Djangorestframework-SimpleJWT (4.7.2): Provides JWT-based authentication.
+- OAuthlib (3.2.2) & Requests-OAuthlib (2.0.0): Enables OAuth authentication.
+- Cryptography (44.0.0): Ensures secure password hashing and encryption.
+- Defusedxml (0.7.1): Protects against XML-related security vulnerabilities.
+- Database & ORM
+- Psycopg2-Binary (2.9.10): PostgreSQL adapter for Django.
+- SQLParse (0.5.3): Used for parsing and formatting SQL queries.
+- Dj-Database-URL (2.3.0): Simplifies database configuration using environment variables.
+
+**Utilities & Performance**
+- Gunicorn (23.0.0): WSGI HTTP Server for deploying Django applications.
+- Whitenoise (6.4.0): Enables serving static files efficiently.
+- Python-Decouple (3.8): Helps manage application configuration using environment variables.
+- Timezone Support (Tzdata 2025.1 & Pytz 2024.2): Ensures correct handling of date and time across different regions.
+
+**Networking & Requests**
+- Requests (2.32.3): A simple and elegant HTTP library for handling API requests.
+- Charset-Normalizer (3.4.1) & IDNA (3.10): Helps with character encoding and domain name resolution.
+- URllib3 (2.3.0) & Certifi (2024.12.14): Enhances secure HTTP requests.
+
+**Development & Testing**
+- Faker (35.2.0): Generates fake data for testing purposes.
+- Asgiref (3.8.1): Supports Django’s asynchronous capabilities.
+
+## Data Model
+The data model defines the structure and relationships of data within the system. It ensures consistency, integrity, and efficient management of user-related information.
+
+### Entity-Relationship (ER) Diagram
+![Database diagram](documentation/features/database-diagram.png)
+
+### UserProfile Model
+The UserProfile model extends the built-in User model by adding profile-specific attributes.
+
+| Field | Type | Description |
+|---|---|---|
+| `user`| `OneToOneField(User)`| A **one-to-one** relationship with Django's built-in `User` model, ensuring that each user has a unique profile. |
+| `checked` | `BooleanField` | A flag that indicates whether the user profile has been verified. Defaults to `False`. |
+| `created_at` | `DateTimeField` | Stores the timestamp when the profile was created. |
+| `updated_at` | `DateTimeField` | Stores the timestamp when the profile was last updated. |
+
+### LockableModel (Abstract Model)
+The `LockableModel` is an abstract Django model that provides **pessimistic locking** to prevent simultaneous modifications by multiple users. It ensures that only one user can modify an instance at a time within a defined lock duration.
+
+| Field | Type | Description |
+|---|---|---|
+| `locked_by`| `ForeignKey(User, null=True, blank=True, on_delete=models.SET_NULL)`| The user who locked the instance. Can be `null` if not locked. |
+| `locked_at` | `DateTimeField(null=True, blank=True)` | The timestamp when the instance was locked. Can be `null` if not locked. |
+| `version` | `PositiveIntegerField(default=1)` | A version counter to track updates. Defaults to `1`. |
+
+### Partner Model
+The `Partner` model represents business partners, including companies and individuals. It is based on `LockableModel`, which means it includes functionality for record locking to prevent concurrent modifications. This is useful in multi-user environments where data integrity is critical. 
+It stores key details such as trade name, legal name, identification number (BIN), and contact information. The model also tracks whether the partner is owned by the company.
+
+**Inheritance:**
+`Partner(LockableModel)` – Inherits from LockableModel, providing locking mechanisms to control concurrent data access.
+| Field | Type | Description |
+|---|---|---|
+| `trade_name` | `CharField(255)` | The trade name of the partner. Required and indexed. |
+| `full_name` | `CharField(255)` | The full legal name of the partner. Optional. |
+| `bin` | `CharField(20)` | The unique Business Identification Number (BIN). Required and indexed. |
+| `partner_type` | `IntegerField` | Specifies the type of partner (`Company` or `Individual`). Uses `PartnerTypes` choices. Indexed. |
+| `legal_address` | `TextField` | The legal address of the partner. Optional. |
+| `actual_address`| `TextField` | The actual physical address of the partner. Optional. |
+| `phone_number` | `CharField(255)` | The contact phone number. Optional. |
+| `contact_person`| `CharField(255)` | The main contact person for the partner. Defaults to `"Unknown"`. |
+| `is_own` | `BooleanField` | Indicates if the partner is owned by the company. Indexed. |
+| `created_at` | `DateTimeField` | Timestamp when the record was created. Auto-generated. |
+| `updated_at` | `DateTimeField` | Timestamp when the record was last updated. Auto-updated. |
+
+#### PartnerTypes Model
+Defines the possible types of business partners. 
+
+| Value | Name       | Description |
+|-------|-----------|-------------|
+| `1`   | Company   | A business entity. |
+| `2`   | Individual | A private individual. |
+
+#### Indexes:
+The following indexes are added for faster queries:
+
+- `trade_name_idx`: Index on `trade_name`
+- `bin_idx`: Index on `bin`
+- `partner_type_idx`: Index on `partner_type`
+- `trade_name_is_own_idx`: Index on `trade_name` and `is_own`
+- `bin_is_own_idx`: Index on `bin` and `is_own`
+- `partner_type_is_own_idx`: Index on `partner_type` and `is_own`
+- `trade_name_bin_idx`: Index on `trade_name` and `bin`
+
+### Payment Request Model
+The `PaymentRequest` model represents a financial request between a payer and a recipient, capturing key details such as invoice information, payment priority, deadlines, and status tracking. It is based on `LockableModel`, which means it includes functionality for record locking to prevent concurrent modifications. This is useful in multi-user environments where data integrity is critical. 
+
+**Inheritance:**
+`PaymentRequest(LockableModel)` – Inherits from LockableModel, providing locking mechanisms to control concurrent data access.
+
+| Field | Type | Description |
+|---|---|---|
+| `created_at` | `DateTimeField` | Timestamp when the payment request was created. Auto-generated. |
+| `updated_at` | `DateTimeField` | Timestamp when the payment request was last updated. Auto-updated. |
+| `payer` | `ForeignKey(Partner)` | The partner initiating the payment request. Cannot be null. |
+| `recipient` | `ForeignKey(Partner)` | The partner receiving the payment request. Cannot be null. |
+| `payment_priority`| `PositiveIntegerField`| Priority level (1-10, default: 1). |
+| `invoice_number` | `CharField(50)` | Invoice number (default: "Undefined"). |
+| `invoice_date` | `DateField` | Date of the invoice (default: `now`). |
+| `invoice_amount` | `PositiveIntegerField`| Invoice amount (default: 0). |
+| `deadline` | `DateField` | Due date for payment (default: `now`). |
+| `payment_amount` | `PositiveIntegerField`| Amount to be paid (default: 0). |
+| `comment` | `TextField` | Optional comments regarding the payment request. |
+| `user` | `ForeignKey(User)` | User associated with the request (default: 1). |
+| `status` | `IntegerField` | Status of the request (`Draft`, `Pending Approval`, `Approved`, `Paid`). Uses `PaymentRequestStatus` choices. |
+
+#### Status Choices
+The `PaymentRequestStatus` enumeration defines possible statuses for a payment request:
+
+| Status Name         | Value | Description |
+|---------------------|-------|-------------|
+| `DRAFT`            | `0`   | The request is in draft mode. |
+| `PENDING_APPROVAL` | `1`   | Awaiting approval. |
+| `APPROVED`         | `2`   | The request has been approved. |
+| `PAID`            | `3`   | The payment has been completed. |
+
+#### Indexes
+To optimize queries, the following indexes are used:
+
+- `payer_idx`: Index on `payer`
+- `recipient_idx`: Index on `recipient`
+- `invoice_number_idx`: Index on `invoice_number`
+- `invoice_date_idx`: Index on `invoice_date`
+- `deadline_idx`: Index on `deadline`
+- `user_idx`: Index on `user`
+- `status_idx`: Index on `status`
+- `user_status_idx`: Index on `user` and `status`
+- `payer_recipient_idx`: Index on `payer` and `recipient`
+
+## Testing
+
+Please refer to the [TESTING.md](TESTING.md) file for all test-related documentation.
+
+## Deployment
+The application was deployed to Heroku using the web interface. 
+The live link can be found [here](https://payment-management-biv-cc4a949bb411.herokuapp.com/)
+The steps to deploy are as follows:
+- 1. Login to Heroku
+     Go to [Heroku](https://dashboard.heroku.com/) and log in to your account. If you don't have an account, you can sign up for free.
+- 2. Create a New Application
+     - Click on the "New" button in the top right corner of the dashboard.
+     - Select "Create new app" from the dropdown menu.
+     - Enter a name for your app and select your region.
+     - Click the "Create app" button.
+     ![Heroku - create a new application](documentation/heroku/heroku-create-app.png)
+- 3. Set Up Environment Variables
+     - Go to the "Settings" tab of your Heroku app.
+     - Click "Reveal Config Vars".
+     - Add any necessary environment variables with your values: ALLOWED_HOST, DATABASE_URL, DISABLE_COLLECTSTATIC, SECRET_KEY (DJango) and STATIC_PATH
+      ![Heroku - config var](documentation/heroku/heroku-config-var.png)
+- 4. Buildpacks
+     - Click "Add buildpack"
+     - Chose Python and Nodejs
+     ![Heroku - buildpacks](documentation/heroku/heroku-buildpacks.png)
+- 5. Connect to GitHub
+     - In the "Deploy" tab, go to the "Deployment method" section.
+     - Click on the "GitHub" button to connect your GitHub account to Heroku.
+     - Once connected, search for the repository you want to deploy.
+     - Click the "Connect" button next to your repository.
+     ![Heroku - github](documentation/heroku/heroku-github.png)
+- 6. Automatic Deploys (Optional)
+     - In the "Automatic deploys" section, you can enable automatic deploys for a specific branch (typically main or master).
+     - Click "Enable Automatic Deploys" if you want Heroku to automatically deploy every time you push changes to the specified branch.
+     ![Heroku - automatic deploys](documentation/heroku/heroku-automatic-deploys.png)
+- 7. Manual Deploy
+     - In the "Manual deploy" section, select the branch you want to deploy and click "Deploy Branch".
+     - Heroku will start the deployment process. You can view the build progress in the activity feed.
+     ![Heroku - manual deploys](documentation/heroku/heroku-manual-deploys.png)
+
+## Local Deployment
+
+### Prerequisites
+Ensure you have the following installed:
+- Python (>=3.11.6)
+- Node.js (>=16.x) and npm/yarn
+- PostgreSQL
+- Virtual environment tools (e.g., venv or virtualenv)
+- Git
+### Steps to Deploy Locally
+1. Clone the Repository
+```
+    git clone https://github.com/BogdanovaIV/payment-management
+    cd payment-management
+```
+2.  Set Up the Backend (Django + DRF)
+   - **Create and Activate a Virtual Environment**
+   ```
+   python -m venv venv
+   source venv/bin/activate  # On macOS/Linux
+   venv\Scripts\activate      # On Windows
+   ```
+   - **Install Dependencies**
+   ```
+   pip install -r backend/requirements.txt
+   ```
+   - **Configure Environment Variables**
+   Create a `.env` and configure database settings:
+   ```
+   SECRET_KEY=Your secret key
+   DEBUG=False
+   ALLOWED_HOSTS=127.0.0.1,localhost
+   DATABASE_URL=postgresql
+   CLIENT_ORIGIN=http://localhost:3000,http://localhost:8000,https://localhost:3000,https://localhost:8000
+   STATIC_PATH=staticfiles
+   ```
+   - **Apply Migrations and Create a Superuser**
+   ```
+   python django_api/manage.py migrate
+   python django_api/manage.py createsuperuser
+   ```
+   - **Run the Django Development Server**
+   ```
+   python django_api/manage.py runserver
+   ```
+3. Set Up the Frontend (React)
+   - **Navigate to the React App Directory**
+   ```
+   cd react_frontend
+   ```
+   - **Install Dependencies**
+   ```
+   npm install 
+   ```
+   - **Run the React Development Server**
+   ```
+   npm start
+   ```
+4. Test the Setup
+   - **Backend**: Open `http://localhost:8000/api/` in your browser or use Postman.
+   - **Frontend**: Open `http://localhost:3000` in your browser.
+
+## Future Improvements
+
+- [15](https://github.com/BogdanovaIV/payment-management/issues/15) Expand Analytics for Payment Requests, Cost Items, and Coordination.
+- [16](https://github.com/BogdanovaIV/payment-management/issues/16) Add Roles to Edit Partners and Payment Requests Based on Status
+- [17](https://github.com/BogdanovaIV/payment-management/issues/17) Send Editing Notification to Owner via Email
+
+## Credits 
+- [Github](https://github.com/) provided free access to a versioning system.
+- [Heroku](heroku.com) provided a service to deploy an application.
+- [Django](https://www.djangoproject.com/): was used to manage the core application logic, database interactions, and routing, enabling efficient handling of complex backend functionalities.
+- [Django REST Framework (DRF)](https://www.django-rest-framework.org/): enabled the development of a robust API, supporting authentication, serialization, and request handling.
+- [React](https://react.dev/): powered the frontend, providing a dynamic and interactive user experience with component-based architecture.
+- [WhiteNoise](http://whitenoise.evans.io/): simplified static file management and improved performance by serving static files directly in production without requiring an additional server.  
+- [Gunicorn](https://gunicorn.org/): a Python WSGI HTTP server used to run the application in production, ensuring stability and reliability.  
+- [Bootstrap](https://getbootstrap.com/): provided pre-styled components and responsive grid systems, ensuring consistent and mobile-friendly UI elements.
+- [Pxhere](https://pxhere.com/): provided free images which helped to create awesome backgrounds.
+- [PostgreSQL](https://www.postgresql.org/): the primary database system used for data storage, ensuring reliability, scalability, and performance.
+
+
+### Content 
+
+- Information about authors and books was taken from free sources like Wikipedia
+- [Blog](https://github.com/Code-Institute-Solutions/blog/tree/main/15_testing) is a tutorial project that covers the general principles of writing code and deploying it.
+
+### Acknowledgments
+
+- [Juliia Konovalova](https://github.com/IuliiaKonovalova/) was a great mentor who helped me to reveal my abilities and gave valuable advice.
+- [Code Institute team](https://codeinstitute.net/) supported me and provided all the information that I needed.
