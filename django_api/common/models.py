@@ -3,7 +3,7 @@ from django.db import models
 from django.utils.timezone import now
 from django.contrib.auth.models import User
 
-LOCK_TIMEOUT = timedelta(minutes=1)
+LOCK_TIMEOUT = timedelta(minutes=20)
 
 
 class LockableModel(models.Model):
