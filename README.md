@@ -1,10 +1,103 @@
 # PAYMENT MANAGEMENT
 
-The Payment Management System is a web-based platform that enables users to manage financial transactions efficiently. It provides secure authentication with token-based login, user role management, and an intuitive interface for handling partners and payment requests.
+The **Payment Management System** is a web-based platform designed for efficient financial transaction management. It ensures **secure authentication**, **user role management**, and an **intuitive interface** for handling partners and payment requests.
 
-The website can be accessed by this [link](https://payment-management-biv-cc4a949bb411.herokuapp.com/)
-The repository can be accessed by this [link](https://github.com/BogdanovaIV/payment-management)
+🔗 **Website:** [link](https://payment-management-biv-cc4a949bb411.herokuapp.com/)
+
+🔗 **Repository:** [link](https://github.com/BogdanovaIV/payment-management)
+
 ![The Home page](documentation/features/home.png)
+
+## Business Model
+
+### Value Proposition
+- **Secure & Structured Management:** A centralized platform for managing partners and payment requests.
+- **User-Friendly Interface:** Simplifies navigation and enhances the user experience.
+- **Advanced Security:** Authentication, role-based access, and pessimistic locking for data integrity.
+- **Efficient Data Handling:** Advanced filtering, infinite scrolling, and mobile responsiveness.
+
+### Target Audience</br>
+1. **Business Owners & Organizations**</br>
+**Who They Are:**</br>
+🎯 Entrepreneurs, small business owners, and corporate representatives looking to manage financial transactions and partnerships efficiently.</br>
+**How the Platform Helps:** </br>
+✅ **Partner Management:** Easily add, edit, and view partner details.</br>
+✅ **Payment Requests:** Monitor and manage outgoing payments.</br>
+✅ **Secure Access:** Role-based authentication for sensitive data.</br>
+✅ **Conflict Prevention:** Pessimistic locking prevents simultaneous edits..</br>
+
+2. **Finance & Accounting Professionals**</br>
+**Who They Are:**</br>
+🎯 Accountants, financial analysts, and corporate finance teams responsible for managing business transactions.</br>
+**How the Platform Helps:**</br>
+✅ **Streamlined Payment Requests:** Create, edit, and track payment requests seamlessly.</br>
+✅ **Transaction Filtering:** Easily filter payment requests and partner information.</br>
+✅ **Error Prevention:** Automated validation prevents errors, such as duplicate or incomplete entries.</br>
+
+3. **New Users & Prospective Clients**</br>
+**Who They Are:**</br>
+🎯 Individuals or businesses considering joining the platform.</br>
+**How the Platform Helps:**</br>
+✅ **Smooth Onboarding**: Secure and user-friendly sign-up and authentication.</br>
+✅ **Clear Platform Overview**: The home page provides insights into features and benefits.</br>
+✅ **Social Media Integration**: Access resources and support via social channels.</br>
+
+4. **Technical Users & IT Support Teams**</br>
+**Who They Are:**</br>
+🎯 IT personnel responsible for maintaining and troubleshooting system operations.</br>
+**How the Platform Helps:**</br>
+✅ **Data Integrity & Error Handling**: Ensures smooth operation through validation and error messages.</br>
+✅ **Conflict-Free Editing**: Pessimistic locking prevents multi-user conflicts.</br>
+✅ **Role-Based Security**: Ensures appropriate access control for different users.</br>
+
+### Marketing Strategy</br>
+#### Revenue Streams</br>
+💰 **Subscription Plans:** Premium features for businesses.</br>
+💰 **Transaction Fees:** Processing payments (if applicable).</br>
+💰 **Customization Services:** Tailored solutions for enterprises</br>
+
+#### Key Features</br>
+🚀 **Navigation Bar:** Access authentication, user profile, dictionaries, and transactions.</br>
+🔐 **Authentication System:** Secure sign-up, login, and password management.</br>
+👤 **User Profile Management:** Read-only details with edit and password change options.</br>
+🤝 **Partner Management:**</br>
+   - View, add, edit, and delete partners with validation checks.</br>
+   - Prevents deletion of referenced partners.</br>
+📑 **Payment Request Management:**</br>
+   - View, add, edit, and delete payment requests with validation criteria.</br>
+   - Tracks invoices, amounts, deadlines, and comments.</br>
+   - Assigns requests to the logged-in user automatically.</br>
+🔒 **Security & Data Integrity:**</br>
+   - Role-based access control for sensitive data.</br>
+   - Pessimistic locking for concurrent editing.</br>
+
+#### Key Resources</br>
+- **Cloud Hosting**: Ensures scalability and availability.</br>
+- **Secure Database:** Stores partner and transaction records safely.</br>
+- **Authentication Framework:** Manages user authorization and security.</br>
+
+#### Customer Relationships</br>
+📞 **Support System:** Help desk and ticketing for issue resolution.</br>
+📘 **User Documentation:** Guides, FAQs, and onboarding tutorials.</br>
+💬 **Community Engagement:** Feedback channels and feature requests.</br>
+
+#### Promotional Channels</br>
+🔎 **SEO Optimization:** Improves search visibility.</br>
+📱 **Social Media Marketing:** Engaging content on LinkedIn, Facebook, and Twitter.</br>
+📧 **Email Campaigns:** Newsletters to attract users.</br>
+📢 **Paid Ads:** Google Ads and social media promotions.</br>
+✍️ **Content Marketing:** Blog posts and tutorials.</br>
+
+#### Cost Structure</br>
+💼 **Hosting & Infrastructure:** Maintenance costs.</br>
+🛠 **Development & Updates:** Continuous improvements.</br>
+🛡 **Security & Compliance:** Ensuring safe transactions.</br>
+
+#### Competitive Advantage</br>
+✔ **Intuitive UI:** Easy-to-use interface for financial management.</br>
+✔ **Advanced Security:** Pessimistic locking prevents data conflicts.</br>
+✔ **Smart Filtering:** Infinite scrolling for better navigation.</br>
+✔ *Role-Based Access:* Maintains data privacy and integrity.</br>
 
 ## User Stories
 
@@ -353,15 +446,16 @@ The **Partner List** enables users to efficiently view, filter, and manage Partn
    - If additional pages exist, new Partners appear without requiring a manual refresh. 
 5. **Handling No Results:**
    - If no matching Partners are found, a ‘No results found’ message is displayed.
-7. **Loading Indicator:**
+6. **Loading Indicator:**
    - A spinner animation appears while data is loading.
    - Once loaded, the Partner details are displayed instantly.
 
    ![Partners (spinner)](documentation/features/partners-spinner.png)
 
-8. **Instruction**
+7. **Instruction**
     - A dedicated Instructions section provides clear guidelines on how to update profile details correctly.
     - The Instruction button features a hover effect, improving visibility and user interaction.
+
     ![Partners (instruction)](documentation/features/partners-instruction.png)
 
     ![Partners (instruction) (Kazakh)](documentation/features/partners-instruction-kk.png)
@@ -406,6 +500,7 @@ The **Add Partner Page** allows users to create a Partner record by entering rel
       - All buttons feature a hover effect, changing color and slightly enlarging to improve visibility and user interaction.
 - **Error Handling & Feedback:**
     - If a required field is left blank or contains an incorrect format, an error message is displayed, guiding the user to correct the input.
+
    ![Add Partner (error)](documentation/features/add-partner-error.png)
 
    ![Add Partner (error) (Kazakh)](documentation/features/add-partner-error-kk.png)
@@ -436,7 +531,7 @@ The **Partner View** allows users to view Partner details in a read-only format.
    - All Partner details are displayed in a structured format.
    - Fields cannot be edited from this page.
 
-1. **Action Buttons**:
+2. **Action Buttons**:
       - **Edit** –  Redirects to the **Edit Partner** page, allowing modifications.
       - **Delete** –  Redirects to the **Delete Partner** page for removal confirmation.
       - **Cancel** – Navigates back to the previous page without saving any changes.
@@ -551,15 +646,16 @@ The **Payment Request's List** enables users to efficiently view, filter, and ma
 3. **Foreign Key Selection**
    - Some filters require selecting values from another list (e.g., categories, references).
    - The system opens a selection modal for easy assignment.
+
    ![Selection form](documentation/features/selection-form.png)
 
-3. **Managing Payment Requests Details**
+4. **Managing Payment Requests Details**
    - To edit Payment Requests details, users can click anywhere on a row (for larger screens) or any part of a card (for smaller screens) to access the details page.
 
-4. **Infinite Scrolling:**
+5. **Infinite Scrolling:**
    - The list automatically loads more data as the user scrolls.
    - If additional pages exist, new Partners appear without requiring a manual refresh. 
-5. **Handling No Results:**
+6. **Handling No Results:**
    - If no matching Payment Requests are found, a ‘No results found’ message is displayed.
 7. **Loading Indicator:**
    - A spinner animation appears while data is loading.
@@ -631,7 +727,7 @@ The **Payment Request View** allows users to view Payment Request details in a r
    - All Partner details are displayed in a structured format.
    - Fields cannot be edited from this page.
 
-1. **Action Buttons**:
+2. **Action Buttons**:
       - **Edit** –  Redirects to the **Edit Payment Request** page, allowing modifications.
       - **Delete** –  Redirects to the **Delete Payment Request** page for removal confirmation.
       - **Cancel** – Navigates back to the previous page without saving any changes.
@@ -645,7 +741,7 @@ __Edit Payment Request__
 
 The **Edit Payment Request Page** allows users to edit a Payment Request record by entering relevant details and ensuring all required fields meet validation criteria. 
 
-![Edit Payment Request](documentation/features/ed)
+![Edit Payment Request](documentation/features/edit-payment-request.png)
 
 ![Edit Payment Request (Kazagh)](documentation/features/add-payment-request-kk.png)
 
@@ -734,7 +830,6 @@ To prevent conflicts in multi-user environments, the system uses **pessimistic l
 **"The record has been updated by another user. Please refresh the page and try again."**
 
    ![Locking](documentation/features/locking-expired.png)
-
 
 ## Design
 The design of the application follows a modern and clean aesthetic, utilizing Bootstrap's standard font and a custom color palette for consistency and user-friendly interface design.
@@ -1064,7 +1159,6 @@ Ensure you have the following installed:
 - [Bootstrap](https://getbootstrap.com/): provided pre-styled components and responsive grid systems, ensuring consistent and mobile-friendly UI elements.
 - [Pxhere](https://pxhere.com/): provided free images which helped to create awesome backgrounds.
 - [PostgreSQL](https://www.postgresql.org/): the primary database system used for data storage, ensuring reliability, scalability, and performance.
-
 
 ### Content 
 
