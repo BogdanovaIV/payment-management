@@ -3,6 +3,7 @@ from rest_framework.permissions import IsAuthenticated
 from django_filters.rest_framework import DjangoFilterBackend
 from django.shortcuts import get_object_or_404
 from django.utils.dateparse import parse_date
+from django_api.permissions import IsOwnerOrAdminOrReadOnly
 from common.mixins import (
     PessimisticLockMixin,
     PessimisticLockUpdateDestroyMixin
@@ -43,7 +44,7 @@ class PaymentRequestListCreateView(generics.ListCreateAPIView):
         - Creates a new PaymentRequest instance, automatically assigning
         the requesting user as the owner.
     """
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwnerOrAdminOrReadOnly]
     queryset = PaymentRequest.objects.all().order_by('deadline')
     serializer_class = PaymentRequestSerializer
     filter_backends = [DjangoFilterBackend]
@@ -93,7 +94,7 @@ class PaymentRequestRetrieveUpdateDestroyView(
     PessimisticLockUpdateDestroyMixin,
     generics.RetrieveUpdateDestroyAPIView
 ):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwnerOrAdminOrReadOnly]
     queryset = PaymentRequest.objects.all()
     serializer_class = PaymentRequestSerializer
 
@@ -104,12 +105,13 @@ class PaymentRequestLockView(generics.GenericAPIView, PessimisticLockMixin):
     Ensures only authenticated users can lock a PaymentRequest instance.
     """
 
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated, IsOwnerOrAdminOrReadOnly]
     queryset = PaymentRequest.objects.all()
 
     def post(self, request, pk):
         """Locks the specified PaymentRequest instance."""
         payment_request = get_object_or_404(PaymentRequest, pk=pk)
+        self.check_object_permissions(request, payment_request)
         return self.lock_item(request, payment_request)
 
 
@@ -124,10 +126,11 @@ class PaymentRequestUnlockView(generics.GenericAPIView, PessimisticLockMixin):
             Unlocks the specified PaymentRequest instance if the requesting
             user holds the lock.
     """
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsOwnerOrAdminOrReadOnly]
     queryset = PaymentRequest.objects.all()
 
     def post(self, request, pk):
         """Unlocks the specified PaymentRequest instance."""
         payment_request = get_object_or_404(PaymentRequest, pk=pk)
+        self.check_object_permissions(request, payment_request)
         return self.unlock_item(request, payment_request)

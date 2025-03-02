@@ -1,4 +1,5 @@
 from datetime import timedelta
+from django.http import QueryDict
 from django.utils.timezone import now
 from django.utils.translation import gettext_lazy as _
 from django.db import transaction
@@ -124,7 +125,6 @@ class PessimisticLockUpdateDestroyMixin:
             return locked["response"]
 
         incoming_version = request.data.get("version")
-
         if incoming_version is None:
             return Response(
                 {"error": _("Version is required to update the record.")},
@@ -140,11 +140,17 @@ class PessimisticLockUpdateDestroyMixin:
                 },
                 status=status.HTTP_409_CONFLICT
             )
-
-        request.data["version"] = instance.version + 1
+        if isinstance(request.data, QueryDict):
+            data = request.data.copy()
+        else:
+            data = request.data
+        data["version"] = instance.version + 1
         with transaction.atomic():
             self.unlock_item(request, instance)
-            return super().update(request, *args, **kwargs)
+            serializer = self.get_serializer(instance, data=data, partial=True)
+            serializer.is_valid(raise_exception=True)
+            self.perform_update(serializer)
+            return Response(serializer.data, status=status.HTTP_200_OK)
 
     def destroy(self, request, *args, **kwargs):
         """
