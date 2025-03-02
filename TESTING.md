@@ -252,34 +252,193 @@ Functional testing ensures that all features and functionalities of the applicat
 | **Hover Effects** | Hover over buttons | Buttons change color and slightly enlarge. | ✅ | ✅ |  |
 | **Loading Indicator** | Load the Delete Payment Request page | A spinner appears while data is loading, then disappears when data is loaded | ✅ | ✅ |  |
 | **Language Support** | Switch between Kazakh, English, and Russian | The page should be fully translated in the selected language | ✅ | ✅ |  |
-
-| Locking on Edit       | User clicks **Edit** on an item                  | The item is locked, preventing other users from editing         |            |            |             |
-| Lock Expiration       | User does not take any action for 20 minutes      | The lock expires automatically after 20 minutes                 |            |            |             |
-| Lock Prevention       | Another user attempts to edit a locked item      | The system displays a message stating the item is locked        |            |            |             |
-| Lock Release - Save   | User makes changes and clicks **Save**           | The lock is released, and other users can edit the item         |            |            |             |
-| Lock Release - Cancel | User clicks **Cancel**                           | The lock is released, and other users can edit the item         |            |            |             |
-| Lock Release - Exit   | User navigates away from the page                | The lock is released, and other users can edit the item         |            |            |             |
-| Lock Notification     | Another user tries to edit a locked item         | The system displays a clear message about the lock status       |            |            |             |
-| Edit After Lock Expiry | Another user edits after the 20-minute expiry   | The edit is allowed, as the lock has been automatically removed |            |            |             |
-| System Version Check  | One user locks the item, lock expires, another user edits, first user tries to edit | System detects version conflict and shows message: **"The record has been updated by another user. Please refresh the page and try again."** |            |            |             |
-
-## Admin Panel Functional Testing
-
-Admin panel testing ensures that the admin interface works as expected and provides the correct functionality for managing the application's data.
-
-| feature | action  | expected result  | tested | passed | comments |
-|---|---|---|----|---|---|
-
-
-### Admin Panel Access Control
-
-| feature | action | expected result  | tested | passed | comments |
-|---|---|---|---|---|---|
-| Admin login without permissions | Log in as a non-admin user | The system prevents access to the admin panel and redirects to the home page or appropriate page. | Yes | Yes | - |
-| Access control on models | Log in as an admin user and navigate to various models | The admin user has access to all models, can add/edit/delete data, and access restricted functionalities. | Yes | Yes | - |
+| **Pessimistic Locking** | | | | | |
+| **Locking on Edit** | User clicks **Edit** on an item | The item is locked, preventing other users from editing | ✅ | ✅ |  |
+| **Lock Expiration** | User does not take any action for 20 minutes | The lock expires automatically after 20 minutes | ✅ | ✅ |  |
+| **Lock Prevention** | Another user attempts to edit a locked item | The system displays a message stating the item is locked | ✅ | ✅ |  |
+| **Lock Release - Save** | User makes changes and clicks **Save** | The lock is released, and other users can edit the item | ✅ | ✅ |  |
+| **Lock Release - Cancel** | User clicks **Cancel** | The lock is released, and other users can edit the item | ✅ | ✅ |  |
+| **Lock Release - Exit** | User navigates away from the page | The lock is released, and other users can edit the item | ✅ | ✅ |  |
+| **Lock Notification** | Another user tries to edit a locked item | The system displays a clear message about the lock status | ✅ | ✅ |  |
+| **Edit After Lock Expiry** | Another user edits after the 20-minute expiry | The edit is allowed, as the lock has been automatically removed | ✅ | ✅ |  |
+| **System Version Check** | One user locks the item, lock expires, another user edits, first user tries to edit | System detects version conflict and shows message: **"The record has been updated by another user. Please refresh the page and try again."** | ✅ | ✅ |  |
 
 ## Testing User Stories
+### First Time Visitors
+| **ID** | **Test Case** | **Expected Outcome** |
+|---|---|---|
+| 4 | **User Authentication**: Test user registration, login, logout, and session management. Verify that unverified users receive a welcome message. | - A new user can register with a username, email, first name, last name, and password. <br> - After registration, the user can log in with the provided credentials. <br> - Upon login, a session token is issued and stored. <br> - If the user is unverified, they see a welcome message explaining restricted access. <br> - Logged-in users can access protected routes; unauthenticated users are redirected to login. <br> - Upon logout, the session token is cleared, and access to protected pages is revoked. <br> - Incorrect login attempts result in an error message. |
+| 5 | **Language Selection**: Ensure users can select their preferred language and the choice persists across sessions. | - Users can switch languages via a language selector. <br> - The selected language is stored (in the backend for logged-in users, in localStorage for guests). <br> - UI elements (buttons, menus, messages) update according to the chosen language. <br> - Language preference is maintained across page reloads. |
+| 14 | **Clear Instructions**: Verify that instructions are displayed clearly and concisely on relevant pages. | - Users see simple and understandable instructions on how to use features. <br> - Instructions are formatted for readability (e.g., bullet points, numbered lists). <br> - Important guidance is placed near interactive elements. |
 
+### Returning or Regular Visitors
+| **ID** | **Test Case** | **Expected Outcome** |
+|---|---|---|
+| 6 | **Profile Management**: Test user ability to update their profile data, including first name, last name, email, and password. | - Users can successfully edit their first name, last name, and email address. <br> - Users can change their password by entering a new one. <br> - Changes persist after saving and refreshing the page. <br> - Validation errors are displayed if invalid data is entered. |
+| 7 | **Partner Management**: Test the creation, viewing, filtering, and listing of partners in a structured table. | - Users can create a new partner by filling in required fields. <br> - Created partners appear in the table with correct details. <br> - Users can filter partners based on criteria such as Trade Name, BIN, Partner Type, and Is Own Partner. <br> - The table updates dynamically when filters are applied. |
+| 8 | **Payment Request Management**: Verify CRUD operations for Payment Requests, ensuring selection of payer and recipient from partner list. | - Users can create a Payment Request by selecting payer/recipient, entering invoice details, amount, priority, and deadline. <br> - Payment Requests appear in a list sorted by deadline. <br> - Users can update and delete Payment Requests, with validation ensuring correct data entry. <br> - System prompts for confirmation before deletion. |
+| 9 | **Error Handling & Notifications**: Ensure clear, structured error messages are displayed consistently. | - Errors are classified and displayed using Toast notifications or UI alerts. <br> - Different error types (e.g., authentication, validation) have distinct messages. <br> - Errors are logged for debugging, without exposing sensitive details. |
+| 10 | **Data Deletion Restrictions**: Test that users can delete "Partners" and "Payment Requests" only if they are not referenced elsewhere. | - Users can successfully delete a Partner or Payment Request if no dependencies exist. <br> - If a Partner is referenced in other records, the system prevents deletion and displays an appropriate message. |
+| 11 | **Concurrency Management**: Verify that users are notified when another user is editing a Partner or Payment Request. | - If User A is editing a record, User B sees a message indicating the record is locked. <br> - The lock is released when User A saves, cancels, or is inactive for 20 minutes. <br> - Admins can force unlock if needed. |
+| 12 | **Payment Request Status Management**: Ensure users can update and filter payment request statuses. | - The status of a new Payment Request defaults to "Draft." <br> - Users can update the status through predefined steps (Draft → Pending Approval → Approved → Paid). <br> - Unauthorized status changes (e.g., skipping approval) are blocked. <br> - Users can filter requests by status. |
+| 13 | **Unauthorized Access Handling**: Verify redirection to the home page for unauthorized users. | - If a user attempts to access restricted pages (Partners, Payment Requests, Profile) without authentication, they are redirected to the home page. <br> - Authorized users can access these pages without redirection. |
+
+### Developers
+| **ID** | **Test Case** | **Expected Outcome** |
+|---|---|---|
+| 1 | Test Django project setup with environment variables | The project reads sensitive settings (SECRET_KEY, DEBUG, ALLOWED_HOSTS) from environment variables successfully. |  
+| 2 | Test UserProfile model and API endpoints | Users can view and update their profile through secure API calls with proper authentication and validation. |  
+| 3 | Test deployment of Django app to Heroku | The application deploys successfully, runs on Heroku, and loads environment variables correctly. |  
+
+## Testing Api
+
+### Login<br/>
+✅ Correct Password<br/>
+**Endpoint:** POST /api/dj-rest-auth/login/<br/>
+If the credentials are correct, the API should return a success response.<br/>
+![login Correct Password](documentation/postman/post-login.png)<br/>
+❌ Incorrect Password<br/>
+If the credentials are incorrect, the API should return an error message.<br/>
+![login Incorrect Password](documentation/postman/post-login-incorrect.png)<br/>
+### 🔄 Refresh Access Token<br/>
+**Endpoint:** POST /api/dj-rest-auth/token/refresh/<br/>
+This endpoint allows users to refresh their access token using a valid refresh token.<br/>
+![Refresh Access Token](documentation/postman/post-token-refresh.png)<br/>
+### 🚪 Log Out <br/>
+**Endpoint:** POST /api/dj-rest-auth/logout/<br/>
+This endpoint logs out the user by invalidating the authentication token.<br/>
+![Log Out](documentation/postman/post-logout.png)<br/>
+### Sign Up (User Registration)<br/>
+📝 Register a New User<br/>
+**Endpoint**: POST /api/dj-rest-auth/registration/<br/>
+This endpoint allows a new user to create an account.<br/>
+✅ Correct Request<br/>
+![Sign Up Correct Password](documentation/postman/post-signup.png)<br/>
+❌ Incorrect Request<br/>
+![Sign Up Incorrect Request](documentation/postman/post-signup-incorrect.png)<br/>
+### Get User Profile<br/>
+👤 Retrieve User Profile<br/>
+**Endpoint:** GET /api/user-profiles/{id}/<br/>
+Fetches the details of a user profile by providing the user’s ID.<br/>
+![Get User Profile](documentation/postman/get-user-profile.png)<br/>
+### Update User Profile
+✏️ Edit Profile (Owner Only)
+**Endpoint:** PUT /api/user-profiles/{id}/
+✅ Correct Request<br/>
+Allows the owner of the profile to update their details.
+![Update User Profile Correct Request](documentation/postman/put-user-profile.png)<br/>
+❌ Incorrect Request<br/>
+If a user tries to edit someone else’s profile, the system should return an error.<br/>
+![Update User Profile Incorrect Request](documentation/postman/put-user-profile-not-owner.png)<br/>
+### 🔒 Change Password<br/>
+**Endpoint:** POST /api/dj-rest-auth/password/change/<br/>
+✅ Successful Request<br/>
+Allows an authenticated user to change their password.<br/>
+![Change Password Successful Request](documentation/postman/put-change-password.png)<br/>
+❌ Incorrect Old Password<br/>
+The user enters an incorrect `old_password`.<br/>
+![Change Password Incorrect Old Password](documentation/postman/put-change-password-incorrect-old-password.png)<br/>
+❌ New Password is Too Short<br/>
+The `new_password1` does not meet the password length requirement.<br/>
+![Change Password New Password is Too Short](documentation/postman/put-change-password-shot.png)<br/>
+❌ Passwords Do Not Match<br/>
+The `new_password1` and `new_password2` do not match.<br/>
+![Change Password New Password is Too Short](documentation/postman/put-change-password-not-match.png)<br/>
+### 🛠️ Partner Management<br/>
+✅ Get Partner List<br/>
+**Endpoint:** GET /api/partners/{id}/<br/>
+Returns a list of all available partners.<br/>
+![Get Partner List](documentation/postman/get-partners.png)<br/>
+✅ Get Partner<br/>
+**Endpoint:** GET /api/partners/<br/>
+Returns the partner details.<br/>
+![Get Partner](documentation/postman/get-partner.png)<br/>
+✅ Create Partner (Correct Request)<br/>
+**Endpoint:** POST /api/partners/<br/>
+Create the partner.<br/>
+![Create Partner (Correct Request)](documentation/postman/post-partners.png)<br/>
+❌ Create Partner (Incorrect Request)
+If required fields are missing or invalid, the system should return a validation error.
+![Create Partner (Incorrect Request)](documentation/postman/post-partners-error.png)<br/>
+✅ Update Partner (Correct Request)<br/>
+**Endpoint:** PUT /api/partners/{id}/
+If the request is valid, the partner information should be updated successfully.
+![Update Partner (Correct Request)](documentation/postman/put-partner.png)<br/>
+❌ Update Partner (Incorrect Request)<br/>
+If the request has invalid data, the system should return a validation error.<br/>
+![Update Partner (Incorrect Request)](documentation/postman/put-partner-incorrect.png)<br/>
+✅ Delete Partner (No References)<br/>
+**Endpoint:** DELETE /api/partners/{id}/<br/>
+![Delete Partner (No References)](documentation/postman/delete-partner.png)<br/>
+If the partner is not referenced elsewhere, it should be deleted successfully.<br/>
+❌ Delete Partner (Has References)<br/>
+![Delete Partner (Has References)](documentation/postman/delete-partner-error.png)<br/>
+If the partner is referenced in other objects, the system should prevent deletion and return an error.<br/>
+✅ Lock Partner (Correct Request)<br/>
+**Endpoint:** POST /api/partners/{id}/lock/<br/>
+If the partner is available, the system should successfully lock it.<br/>
+![Lock Partner (Correct Request)](documentation/postman/post-partner-lock.png)<br/>
+❌ Lock Partner (Already Locked by Another User)<br/>
+If another user has already locked the partner, the system should return an error.<br/>
+![Lock Partner (Correct Request)](documentation/postman/post-partner-lock-error.png)<br/>
+✅ Unlock Partner (Correct Request)<br/>
+**Endpoint:** POST /api/partners/{id}/unlock/<br/>
+If the partner is currently locked and the user is authorized, it should be unlocked successfully.<br/>
+![Unlock Partner (Correct Request)](documentation/postman/post-partner-unlock.png)<br/>
+❌ Unlock Partner (Locked by Another User)<br/>
+If the partner is locked by someone else, the system should return an error preventing the unlock.<br/>
+![Unlock Partner (Locked by Another User)](documentation/postman/post-partner-unlock-error.png)<br/>
+### 🏢 Partner Types<br/>
+**Endpoint:** GET http://localhost:8000/api/partner-types/<br/>
+Returns the available types of partners.<br/>
+![Partner Types](documentation/postman/get-partner-types.png)<br/>
+### 💳 Payment Requests<br/>
+✅ Get Payment Request List<br/>
+**Endpoint:** GET /api/payment-request/<br/>
+Returns a list of all available payment requests.<br/>
+![Get Payment Request List](documentation/postman/get-payment-request.png)<br/>
+✅ Get Payment Request<br/>
+**Endpoint:** GET /api/payment-request/{id}/<br/>
+Returns the payment request's details.<br/>
+![Get Payment Request](documentation/postman/get-payment-request-item.png)<br/>
+✅ Create Payment Request (Correct Request)<br/>
+Endpoint: POST /api/payment-request/<br/>
+![Create Payment Request (Correct Request)](documentation/postman/post-payment-request.png)<br/>
+❌ Create Payment Request (Incorrect Request)<br/>
+If required fields are missing or invalid, the system should return a validation error.<br/>
+![Create Payment Request (Incorrect Request)](documentation/postman/post-payment-request-error.png)<br/>
+✅ Update Payment Request (Correct Request)<br/>
+**Endpoint:** PUT /api/payment-request/{id}/<br/>
+If the request is valid, the payment request should be updated successfully.<br/>
+![Create Payment Request (Incorrect Request)](documentation/postman/put-payment-request.png)<br/>
+❌ Update Payment Request (Incorrect Request)<br/>
+If the request has invalid data, the system should return a validation error.<br/>
+![Create Payment Request (Incorrect Request)](documentation/postman/put-payment-request-error.png)<br/>
+✅ Delete Payment Request(Correct Request)<br/>
+**Endpoint:** DELETE /api/payment-request/{id}/<br/>
+If the payment request is not referenced elsewhere, it should be deleted successfully.<br/>
+![Delete Payment Request(Correct Request)](documentation/postman/delete-payment-request.png)<br/>
+❌ Delete Payment Request(Incorrect Request)<br/>
+If the payment request is referenced in other objects, the system should prevent deletion and return an error.<br/>
+![Delete Payment Request(Incorrect Request)](documentation/postman/delete-payment-request-error.png)<br/>
+✅ Lock Payment Request (Correct Request)<br/>
+**Endpoint:** POST /api/payment-request/{id}/lock/<br/>
+If the payment request is available, the system should successfully lock it.<br/>
+![Lock Payment Request (Correct Request)](documentation/postman/post-payment-request-lock.png)<br/>
+❌ Lock Payment Request (owned by Another User)<br/>
+If another user has already locked the payment request, the system should return an error.<br/>
+![Lock Payment Request (owned by Another User)](documentation/postman/post-payment-request-lock-error.png)<br/>
+✅ Unlock Payment Request (Correct Request)<br/>
+**Endpoint:** POST /api/payment-request/{id}/unlock/<br/>
+If the payment request is currently locked and the user is authorized, it should be unlocked successfully.<br/>
+![Unlock Payment Request (Correct Request)](documentation/postman/post-payment-request-unlock.png)<br/>
+❌ Unlock Payment Request (owned by Another User)<br/>
+If the payment request is locked by someone else, the system should return an error preventing the unlock.<br/>
+![Unlock Payment Request (Correct Request)](documentation/postman/post-payment-request-unlock-error.png)<br/>
+### ✅ Statuses<br/>
+**Endpoint:** GET http://localhost:8000/api/payment-request-statuses/<br/>
+Returns the available statuses of payment requests.<br/>
+![Statuses](documentation/postman/get-statuses.png)<br/>
 
 ## Performance Testing
 To ensure the application is optimized and performs efficiently, we use **[Lighthouse](https://developers.google.com/web/tools/lighthouse)** for performance testing. 
