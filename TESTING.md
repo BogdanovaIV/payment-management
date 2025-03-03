@@ -733,23 +733,6 @@ OK
 
     ![coverage - user](documentation/coverage/user.png)
 
-### Jest (React)
-1. **Prerequisites**
-Before running the tests, make sure you have installed all the dependencies by running:
-```
-npm install
-```
-2. **Running the Tests**
-To run the test suite, use the following command:
-```
-npm test
-```
-3. **Key Test Results**
-After running the tests, here are the results obtained from the project:
-- Command: `npm test`
-- Output Summary:
-  ![outcomes - jest](documentation/jest/jest-outcomes.png)
-
 ## Validation
 ### W3C Validator (HTML)
 Quality checking was tested by [Markup validator service](https://validator.w3.org/)<br/>
@@ -869,11 +852,6 @@ These warnings are **purely informational and can be safely ignored**. They do n
 - variables.css<br/>
 ![validator - variables.css](documentation/css-validator/variables.png)<br/>
 
-### JS Hint
-Quality checking was tested by [JS Hint](https://jshint.com/).
-All files were checked and did not have errors or warnings.
-- dashboard.js
- 
 ### Validator PEP8 (Python)
 Quality checking was tested by [PEP8](https://pep8ci.herokuapp.com/#).
 All files were checked and did not have errors or warnings.
@@ -1072,17 +1050,131 @@ Notes: Each Python file contains a newline at the end of the file.
 
   ![validator - views.py](documentation/validator/pep8/user/views.png)
 
+### JavaScript Quality Validation
+The project has been checked using ESLint to ensure code quality and compliance with best practices. The validation process included:
+- Checking for syntax errors, unused variables, and potential bugs.
+- Verifying adherence to the configured coding standards.
+- Reviewing and addressing any reported issues or warnings.
+**What is ESLint?**<br/>
+ESLint is a powerful tool for identifying and fixing problems in JavaScript and TypeScript code. It helps enforce coding standards, detect potential errors, and improve overall code quality.
+
+**Advantages of Using ESLint**
+✅ **Error Prevention** – Detects syntax errors, undefined variables, and problematic patterns before execution.
+✅ **Code Consistency** – Enforces a uniform coding style across the project.
+✅ **Improved Readability** – Helps maintain clean, structured, and easy-to-read code.
+✅ **Better Debugging** – Highlights issues early in development, reducing debugging time.
+✅ **Customizable Rules** – Supports custom configurations to match project-specific requirements.
+✅ **Integration with Code Editors** – Works seamlessly with VS Code, WebStorm, and other editors for real-time linting.
+
+1. **Prerequisites**
+Before running ESLint, ensure all dependencies are installed:
+```
+npm install
+```
+2. **Running ESLint**
+To analyze code quality and detect potential issues, run:
+```
+npx eslint src
+```
+3. **Generating an HTML Report**
+For a detailed HTML report, use:
+```
+npx eslint src --format html --output-file eslint-report.html
+```
+Open eslint-report.html in a browser to view the results visually.
+
+4. **Key Findings**
+After running ESLint, the results will include:
+- **Errors:** Critical issues that must be fixed.
+- **Warnings:** Best practices and recommendations.
+- **Unused Variables:** Variables declared but never used.
+- ** Code Style Issues:** Enforcing consistent formatting (if a style guide is used).
+
+🔍 Understanding Warnings
+Some warnings, such as:
+```sh
+... Warning React Hook useEffect has missing dependencies: .... Either include them or remove the dependency array. react-hooks/exhaustive-deps
+```
+are **not actual problems** but recommendations to ensure correctness. These warnings help prevent unintended behavior but do not necessarily indicate an issue affecting performance or functionality.
+
+5. **Outcomes**
+The project was checked using ESLint, ensuring code quality and best practices.
+📄 View the ESLint Report: [link](./react_frontend/eslint-report.html)
 
 ## Bugs
 
-__Solved Bugs__
+### Solved Bugs
+#### 1. Fix changing version to pessimistic_locking_view.py. request is mutable
+**Issue:**  
+The `request` object is mutable, which can cause unexpected behavior when modifying its data directly.  
 
-   
-__Unsolved Bugs__
+**Solution:**  
+Create a copy of `request.data` before modifying it to ensure immutability.  
+
+**Fixed Code:**
+```python
+if isinstance(request.data, QueryDict):
+    data = request.data.copy()
+else:
+    data = request.data
+data["version"] = instance.version + 1
+with transaction.atomic():
+    self.unlock_item(request, instance)
+    serializer = self.get_serializer(instance, data=data, partial=True)
+    serializer.is_valid(raise_exception=True)
+    self.perform_update(serializer)
+    return Response(serializer.data, status=status.HTTP_200_OK)
+```
+#### 2. Fix: Preventing Errors When Accessing a Non-Existent Item in `ObjectList.js`
+**Issue:**
+When a user tries to open a view for an item that doesn't exist, the frontend crashes due to an unhandled 404 error.
+
+**Solution:**
+Introduce an `isExist` state. If the API response returns a 404 error, set `isExist` to false to handle the missing item gracefully.
+
+Fixed Code:
+```javascript
+const [isExist, setIsExist] = useState(true);
+
+...
+
+if (err.response?.status === 404) {
+    setIsExist(false);
+}
+
+...
+
+{isExist ? (
+  ...
+) : (
+  <p className={headerStyles.HeaderNotFound}>
+    {t("toast.no_results_found")}
+  </p>
+)}
+```
+#### 3. Fix: Language Selector Closes Prematurely When Clicking the Flag Image
+**Issue:**
+When a user clicks on the flag image in the language selector, the dropdown menu closes immediately, disrupting the user experience.
+
+**Solution:**
+Modify the event handler to ignore clicks on the flag image, preventing unintended menu closure.
+
+**Fixed Code:**
+```javascript
+if (
+  ref.current &&
+  !ref.current.contains(event.target) &&
+  !event.target.classList.contains("dropdown-toggle") &&
+  !event.target.classList.contains(lngStyles.ImgFlag)
+) {
+  setExpanded(false);
+}
+```
+### Unsolved Bugs
 
  - None.
 
-__Mistakes__
+### Mistakes
 
  - Using different formats of 'Commit' comments.
  - Some grammar and spelling mistakes.
