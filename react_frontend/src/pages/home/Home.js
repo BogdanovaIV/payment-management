@@ -84,28 +84,28 @@ const Home = () => {
                 <Card.Text as="div">
                   <ListGroup variant="flush">
                     <ListGroup.Item>
-                      <i className="fa-solid fa-user-gear text-primary me-3"></i>
+                      <i className={`fa-solid fa-user-gear text-primary me-3 ${styles.Icon}`}></i>
                       <strong>
                         {t("home.features.user_management_title")}:
                       </strong>{" "}
                       {t("home.features.user_management_desc")}
                     </ListGroup.Item>
                     <ListGroup.Item>
-                      <i className="fa-solid fa-lock text-danger me-3"></i>
+                      <i className={`fa-solid fa-lock text-danger me-3 ${styles.Icon}`}></i>
                       <strong>
                         {t("home.features.secure_requests_title")}:
                       </strong>{" "}
                       {t("home.features.secure_requests_desc")}
                     </ListGroup.Item>
                     <ListGroup.Item>
-                      <i className="fa-solid fa-users text-success me-3"></i>
+                      <i className={`fa-solid fa-users text-success me-3 ${styles.Icon}`}></i>
                       <strong>
                         {t("home.features.multi_user_title")}:
                       </strong>{" "}
                       {t("home.features.multi_user_desc")}
                     </ListGroup.Item>
                     <ListGroup.Item>
-                      <i className="fa-solid fa-clipboard-check text-warning me-3"></i>
+                      <i className={`fa-solid fa-clipboard-check text-warning me-3 ${styles.Icon}`}></i>
                       <strong>{t("home.features.transparent_title")}:</strong>{" "}
                       {t("home.features.transparent_desc")}
                     </ListGroup.Item>
@@ -124,17 +124,17 @@ const Home = () => {
                 <Card.Text as="div" className={styles.CardText}>
                   <ListGroup variant="flush">
                     <ListGroup.Item>
-                      <i className="fa-solid fa-tasks text-info me-3"></i>
+                      <i className={`fa-solid fa-tasks text-info me-3 ${styles.Icon}`}></i>
                       <strong>{t("home.benefits.workflow_title")}:</strong>{" "}
                       {t("home.benefits.workflow_desc")}
                     </ListGroup.Item>
                     <ListGroup.Item>
-                      <i className="fa-solid fa-shield-alt text-danger me-3"></i>
+                      <i className={`fa-solid fa-shield-alt text-danger me-3 ${styles.Icon}`}></i>
                       <strong>{t("home.benefits.access_title")}:</strong>{" "}
                       {t("home.benefits.access_desc")}
                     </ListGroup.Item>
                     <ListGroup.Item>
-                      <i className="fa-solid fa-face-smile text-success me-3"></i>
+                      <i className={`fa-solid fa-face-smile text-success me-3 ${styles.Icon}`}></i>
                       <strong>{t("home.benefits.user_friendly_title")}:</strong>{" "}
                       {t("home.benefits.user_friendly_desc")}
                     </ListGroup.Item>

@@ -43,14 +43,18 @@ p {
 .LinkRed {
   color: #dc3545;
 }
-.LinkBlue:hover, .LinkRed:hover {
-  color: --var(--grey-color) !important;
+.LinkBlue:hover,
+.LinkRed:hover {
+  color: var(--grey-color) !important;
 }
 
 i:hover.Introduction {
-  color: --var(--grey-color) !important;
+  color: var(--grey-color) !important;
 }
 
+.Icon {
+  cursor: text !important;
+}
 
 .CardFeatures {
   margin-bottom: 15px;
@@ -59,7 +63,7 @@ i:hover.Introduction {
 
 .CardBenefits {
   margin-bottom: 15px;
-  padding-right: 0;  
+  padding-right: 0;
 }
 
 .Card {
@@ -103,10 +107,10 @@ i:hover.Introduction {
     margin-bottom: 15px;
     padding: 0;
   }
-  
+
   .CardBenefits {
     margin-bottom: 15px;
-    padding: 0;  
+    padding: 0;
   }
 }
 
