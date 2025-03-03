@@ -25,6 +25,7 @@ import DataTable from "./DataTable";
 import useInfiniteData from "../hooks/useInfiniteData";
 import useInfiniteScroll from "../hooks/useInfiniteScroll";
 import Instruction from "./Instruction";
+import { use } from "react";
 
 const ObjectList = ({
   filters,
@@ -99,6 +100,10 @@ const ObjectList = ({
     setFilters((prevFilters) => ({ ...prevFilters, ...newValue }));
     refetch();
   };
+
+  useEffect(() => {
+    refetch();
+  }, [t]);
 
   const handleForeignKeyClick = (e, foreignKey, additional_filter) => {
     setSelectedFiled((prevSelected) => ({
@@ -281,7 +286,9 @@ const ObjectList = ({
           <SpinnerSecondary />
         ) : objects.length === 0 ? (
           <>
-            <p className={headerStyles.HeaderNotFound}>{t("toast.no_results_found")}</p>
+            <p className={headerStyles.HeaderNotFound}>
+              {t("toast.no_results_found")}
+            </p>
           </>
         ) : isSmallScreen ? (
           <CardCollection

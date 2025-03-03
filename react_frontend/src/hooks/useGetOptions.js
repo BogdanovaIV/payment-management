@@ -46,7 +46,7 @@ const useGetOptions = (extraItems = "", url) => {
       i18n.off("languageChanged", handleLanguageChange);
       isMounted = false;
     };
-  }, [i18n]);
+  }, [i18n, t]);
 
   return [options, setOptions];
 };
