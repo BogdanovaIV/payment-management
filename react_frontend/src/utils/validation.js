@@ -21,6 +21,7 @@ export const validateField = (formName = "") => {
         case "email":
           if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value))
             return { i18nKey: "validation.invalid_email" };
+          break;
         default:
           break;
       }

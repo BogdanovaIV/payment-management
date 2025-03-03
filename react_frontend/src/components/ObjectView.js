@@ -372,12 +372,13 @@ const ObjectView = ({
                                             : undefined
                                         }
                                         rows={
-                                          as == "textarea" ? rows : undefined
+                                          as === "textarea" ? rows : undefined
                                         }
                                         readOnly={
-                                          typeView === "view" && as !== "select" ||
-                                          readOnly ||
-                                          !isOwner
+                                          (typeView === "view" ||
+                                            readOnly ||
+                                            !isOwner) &&
+                                          as !== "select"
                                         }
                                         disabled={
                                           foreignKey === undefined

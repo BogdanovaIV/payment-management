@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useTranslation, Trans } from "react-i18next";
 import { Link, useHistory } from "react-router-dom";
 import axios from "axios";
@@ -22,7 +22,7 @@ import { setTokenTimestamp } from "../../utils/localStorage";
 import { useToast } from "../../contexts/ToastContext";
 import { handleRequestError } from "../../utils/errorHandler";
 import { useRedirect } from "../../hooks/useRedirect";
-import { validateAll, validateField } from "../../utils/validation";
+import { validateField } from "../../utils/validation";
 
 function SignInForm() {
   useRedirect("loggedIn");
