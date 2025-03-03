@@ -450,7 +450,40 @@ Lighthouse is an open-source, automated tool for improving the quality of web pa
 3. **Best Practices**: Analyzes adherence to modern web development practices.
 4. **SEO**: Assesses the website's ability to rank on search engines.
 5. **Progressive Web App (PWA)**: Verifies the features and reliability of a PWA (if applicable).
-- the 'Home' page
+- Home<br/>
+![Lighthouse - Home](documentation/lighthouse/home.png)<br/>
+- Sign In<br/>
+![Lighthouse - Sign In](documentation/lighthouse/sign-in.png)<br/>
+- Sign Up<br/>
+![Lighthouse - Sign Up](documentation/lighthouse/sign-up.png)<br/>
+- Sign Out<br/>
+![Lighthouse - Sign Out](documentation/lighthouse/sign-out.png)<br/>
+- User Profile<br/>
+![Lighthouse - User Profile](documentation/lighthouse/user-profile.png)<br/>
+- Edit User Profile<br/>
+![Lighthouse - Edit User Profile](documentation/lighthouse/user-profile-edit.png)<br/>
+- User Profile (Change Password)<br/>
+![Lighthouse - User Profile (Change Password)](documentation/lighthouse/user-profile-change-password.png)<br/>
+- Partners List<br/>
+![Lighthouse - Partners List](documentation/lighthouse/partners-list.png)<br/>
+- Add Partners<br/>
+![Lighthouse - Add Partners](documentation/lighthouse/partners-add.png)<br/>
+- View Partners<br/>
+![Lighthouse - View Partners](documentation/lighthouse/partners-view.png)<br/>
+- Edit Partners<br/>
+![Lighthouse - Edit Partners](documentation/lighthouse/partners-edit.png)<br/>
+- Delete Partners<br/>
+![Lighthouse - Delete Partners](documentation/lighthouse/partners-delete.png)<br/>
+- Payment Requests List<br/>
+![Lighthouse - Payment Requests List](documentation/lighthouse/payment-request-list.png)<br/>
+- Add Payment Requests<br/>
+![Lighthouse - Add Payment Requests](documentation/lighthouse/payment-request-add.png)<br/>
+- View Payment Requests<br/>
+![Lighthouse - View Payment Requests](documentation/lighthouse/payment-request-view.png)<br/>
+- Edit Payment Requests<br/>
+![Lighthouse - Edit Payment Requests](documentation/lighthouse/payment-request-edit.png)<br/>
+- Delete Payment Requests<br/>
+![Lighthouse - Delete Payment Requests](documentation/lighthouse/payment-request-delete.png)<br/>
 
 ## User Interface Testing
 
@@ -461,18 +494,150 @@ The application was tested on various screen sizes and devices to ensure respons
 1. **Desktop Screens**: Verify layout and design on common resolutions like 1920x1080 and 1366x768.
 2. **Tablet Screens**: Check functionality and layout for resolutions such as 768x1024 (portrait) and 1024x768 (landscape).
 3. **Mobile Screens**: Test responsiveness on small screens like 360x640 and 375x667.
-- the 'Home' page
+- Home<br/>
+![responsiveness - Home](documentation/responsiveness/home.png)<br/>
+- Sign In<br/>
+![responsiveness - Sign In](documentation/responsiveness/sign-in.png)<br/>
+- Sign Up<br/>
+![responsiveness - Sign Up](documentation/responsiveness/sign-up.png)<br/>
+- Sign Out<br/>
+![responsiveness - Sign Out](documentation/responsiveness/sign-out.png)<br/>
+- User Profile<br/>
+![responsiveness - User Profile](documentation/responsiveness/user-profile.png)<br/>
+- Edit User Profile<br/>
+![responsiveness - Edit User Profile](documentation/responsiveness/user-profile-edit.png)<br/>
+- User Profile (Change Password)<br/>
+![responsiveness - User Profile (Change Password)](documentation/responsiveness/user-profile-change-password.png)<br/>
+- Partners List<br/>
+![responsiveness - Partners List](documentation/responsiveness/partners-list.png)<br/>
+- Add Partners<br/>
+![responsiveness - Add Partners](documentation/responsiveness/partners-add.png)<br/>
+- View Partners<br/>
+![responsiveness - View Partners](documentation/responsiveness/partners-view.png)<br/>
+- Edit Partners<br/>
+![responsiveness - Edit Partners](documentation/responsiveness/partners-edit.png)<br/>
+- Delete Partners<br/>
+![responsiveness - Delete Partners](documentation/responsiveness/partners-delete.png)<br/>
+- Payment Requests List<br/>
+![responsiveness - Payment Requests List](documentation/responsiveness/payment-request-list.png)<br/>
+- Add Payment Requests<br/>
+![responsiveness - Add Payment Requests](documentation/responsiveness/payment-request-add.png)<br/>
+- View Payment Requests<br/>
+![responsiveness - View Payment Requests](documentation/responsiveness/payment-request-view.png)<br/>
+- Edit Payment Requests<br/>
+![responsiveness - Edit Payment Requests](documentation/responsiveness/payment-request-edit.png)<br/>
+- Delete Payment Requests<br/>
+![responsiveness - Delete Payment Requests](documentation/responsiveness/payment-request-delete.png)<br/>
 
 ### Testing on Different Browsers
 The following browsers are commonly tested to ensure broad compatibility:
 **Google Chrome**: Latest version and recent updates.
-- the 'Home' page
+- Home<br/>
+![Google Chrome - Home](documentation/chrome/home.png)<br/>
+- Sign In<br/>
+![Google Chrome - Sign In](documentation/chrome/sign-in.png)<br/>
+- Sign Up<br/>
+![Google Chrome - Sign Up](documentation/chrome/sign-up.png)<br/>
+- Sign Out<br/>
+![Google Chrome - Sign Out](documentation/chrome/sign-out.png)<br/>
+- User Profile<br/>
+![Google Chrome - User Profile](documentation/chrome/user-profile.png)<br/>
+- Edit User Profile<br/>
+![Google Chrome - Edit User Profile](documentation/chrome/user-profile-edit.png)<br/>
+- User Profile (Change Password)<br/>
+![Google Chrome - User Profile (Change Password)](documentation/chrome/user-profile-change-password.png)<br/>
+- Partners List<br/>
+![Google Chrome - Partners List](documentation/chrome/partners-list.png)<br/>
+- Add Partners<br/>
+![Google Chrome - Add Partners](documentation/chrome/partners-add.png)<br/>
+- View Partners<br/>
+![Google Chrome - View Partners](documentation/chrome/partners-view.png)<br/>
+- Edit Partners<br/>
+![Google Chrome - Edit Partners](documentation/chrome/partners-edit.png)<br/>
+- Delete Partners<br/>
+![Google Chrome - Delete Partners](documentation/chrome/partners-delete.png)<br/>
+- Payment Requests List<br/>
+![Google Chrome - Payment Requests List](documentation/chrome/payment-request-list.png)<br/>
+- Add Payment Requests<br/>
+![Google Chrome - Add Payment Requests](documentation/chrome/payment-request-add.png)<br/>
+- View Payment Requests<br/>
+![Google Chrome - View Payment Requests](documentation/chrome/payment-request-view.png)<br/>
+- Edit Payment Requests<br/>
+![Google Chrome - Edit Payment Requests](documentation/chrome/payment-request-edit.png)<br/>
+- Delete Payment Requests<br/>
+![Google Chrome - Delete Payment Requests](documentation/chrome/payment-request-delete.png)<br/>
 
 **Mozilla Firefox**: Standard version and ESR (Extended Support Release).
-- the 'Home' page
+- Home<br/>
+![Mozilla Firefox - Home](documentation/firefox/home.png)<br/>
+- Sign In<br/>
+![Mozilla Firefox - Sign In](documentation/firefox/sign-in.png)<br/>
+- Sign Up<br/>
+![Mozilla Firefox - Sign Up](documentation/firefox/sign-up.png)<br/>
+- Sign Out<br/>
+![Mozilla Firefox - Sign Out](documentation/firefox/sign-out.png)<br/>
+- User Profile<br/>
+![Mozilla Firefox - User Profile](documentation/firefox/user-profile.png)<br/>
+- Edit User Profile<br/>
+![Mozilla Firefox - Edit User Profile](documentation/firefox/user-profile-edit.png)<br/>
+- User Profile (Change Password)<br/>
+![Mozilla Firefox - User Profile (Change Password)](documentation/firefox/user-profile-change-password.png)<br/>
+- Partners List<br/>
+![Mozilla Firefox - Partners List](documentation/firefox/partners-list.png)<br/>
+- Add Partners<br/>
+![Mozilla Firefox - Add Partners](documentation/firefox/partners-add.png)<br/>
+- View Partners<br/>
+![Mozilla Firefox - View Partners](documentation/firefox/partners-view.png)<br/>
+- Edit Partners<br/>
+![Mozilla Firefox - Edit Partners](documentation/firefox/partners-edit.png)<br/>
+- Delete Partners<br/>
+![Mozilla Firefox - Delete Partners](documentation/firefox/partners-delete.png)<br/>
+- Payment Requests List<br/>
+![Mozilla Firefox - Payment Requests List](documentation/firefox/payment-request-list.png)<br/>
+- Add Payment Requests<br/>
+![Mozilla Firefox - Add Payment Requests](documentation/firefox/payment-request-add.png)<br/>
+- View Payment Requests<br/>
+![Mozilla Firefox - View Payment Requests](documentation/firefox/payment-request-view.png)<br/>
+- Edit Payment Requests<br/>
+![Mozilla Firefox - Edit Payment Requests](documentation/firefox/payment-request-edit.png)<br/>
+- Delete Payment Requests<br/>
+![Mozilla Firefox - Delete Payment Requests](documentation/firefox/payment-request-delete.png)<br/>
 
 **Microsoft Edge**: Chromium-based versions.
-- the 'Home' page
+- Home<br/>
+![Microsoft Edge - Home](documentation/edge/home.png)<br/>
+- Sign In<br/>
+![Microsoft Edge - Sign In](documentation/edge/sign-in.png)<br/>
+- Sign Up<br/>
+![Microsoft Edge - Sign Up](documentation/edge/sign-up.png)<br/>
+- Sign Out<br/>
+![Microsoft Edge - Sign Out](documentation/edge/sign-out.png)<br/>
+- User Profile<br/>
+![Mozilla Firefox - User Profile](documentation/edge/user-profile.png)<br/>
+- Edit User Profile<br/>
+![Microsoft Edge - Edit User Profile](documentation/edge/user-profile-edit.png)<br/>
+- User Profile (Change Password)<br/>
+![Microsoft Edge - User Profile (Change Password)](documentation/edge/user-profile-change-password.png)<br/>
+- Partners List<br/>
+![Microsoft Edge - Partners List](documentation/edge/partners-list.png)<br/>
+- Add Partners<br/>
+![Microsoft Edge - Add Partners](documentation/edge/partners-add.png)<br/>
+- View Partners<br/>
+![Mozilla Firefox - View Partners](documentation/edge/partners-view.png)<br/>
+- Edit Partners<br/>
+![Microsoft Edge - Edit Partners](documentation/edge/partners-edit.png)<br/>
+- Delete Partners<br/>
+![Microsoft Edge - Delete Partners](documentation/edge/partners-delete.png)<br/>
+- Payment Requests List<br/>
+![Mozilla Firefox - Payment Requests List](documentation/edge/payment-request-list.png)<br/>
+- Add Payment Requests<br/>
+![Microsoft Edge - Add Payment Requests](documentation/edge/payment-request-add.png)<br/>
+- View Payment Requests<br/>
+![Microsoft Edge - View Payment Requests](documentation/edge/payment-request-view.png)<br/>
+- Edit Payment Requests<br/>
+![Microsoft Edge - Edit Payment Requests](documentation/edge/payment-request-edit.png)<br/>
+- Delete Payment Requests<br/>
+![Microsoft Edge - Delete Payment Requests](documentation/edge/payment-request-delete.png)<br/>
  
 ## Automated Testing
 This project includes a suite of automated tests to ensure the functionality, reliability, and stability of the application. Below is an overview of the testing setup, the process, and the results.
