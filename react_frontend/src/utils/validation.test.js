@@ -15,14 +15,15 @@ describe("validateField function", () => {
      * - Do not exceed 20 characters.
      */
     test("validates first_name and last_name correctly", () => {
-      expect(validate("first_name", "")).toBe("validation.required");
-      expect(validate("last_name", "a".repeat(21))).toMatchObject(
-        <Trans
-          i18nKey="validation.more_than"
-          values={{ length: "20" }}
-          components={[]}
-        />
-      );
+      expect(validate("first_name", "")).toEqual({
+        i18nKey: "validation.required",
+      });
+      expect(validate("last_name", "a".repeat(21))).toMatchObject({
+        i18nKey: "validation.more_than",
+        values: {
+          length: "20",
+        },
+      });
       expect(validate("first_name", "John")).toBe("");
     });
     /**
@@ -30,9 +31,9 @@ describe("validateField function", () => {
      * - Matches valid email format.
      */
     test("validates email correctly", () => {
-      expect(validate("email", "invalid-email")).toBe(
-        "validation.invalid_email"
-      );
+      expect(validate("email", "invalid-email")).toEqual({
+        i18nKey: "validation.invalid_email",
+      });
       expect(validate("email", "valid@example.com")).toBe("");
     });
   });
@@ -47,14 +48,15 @@ describe("validateField function", () => {
      * - Does not exceed 255 characters.
      */
     test("validates trade_name correctly", () => {
-      expect(validate("trade_name", "")).toBe("validation.required");
-      expect(validate("trade_name", "a".repeat(256))).toMatchObject(
-        <Trans
-          i18nKey="validation.more_than"
-          values={{ length: "255" }}
-          components={[]}
-        />
-      );
+      expect(validate("trade_name", "")).toEqual({
+        i18nKey: "validation.required",
+      });
+      expect(validate("trade_name", "a".repeat(256))).toMatchObject({
+        i18nKey: "validation.more_than",
+        values: {
+          length: "255",
+        },
+      });
       expect(validate("trade_name", "John")).toBe("");
     });
     /**
@@ -63,14 +65,15 @@ describe("validateField function", () => {
      * - Does not exceed 20 characters.
      */
     test("validates bin correctly", () => {
-      expect(validate("bin", "")).toBe("validation.required");
-      expect(validate("bin", "a".repeat(21))).toMatchObject(
-        <Trans
-          i18nKey="validation.more_than"
-          values={{ length: "20" }}
-          components={[]}
-        />
-      );
+      expect(validate("bin", "")).toEqual({
+        i18nKey: "validation.required",
+      });
+      expect(validate("bin", "a".repeat(21))).toMatchObject({
+        i18nKey: "validation.more_than",
+        values: {
+          length: "20",
+        },
+      });
       expect(validate("bin", "12345")).toBe("");
     });
     /**
@@ -78,13 +81,12 @@ describe("validateField function", () => {
      * - Does not exceed 255 characters.
      */
     test("validates full_name correctly", () => {
-      expect(validate("full_name", "John".repeat(100))).toMatchObject(
-        <Trans
-          i18nKey="validation.more_than"
-          values={{ length: "255" }}
-          components={[]}
-        />
-      );
+      expect(validate("full_name", "John".repeat(100))).toMatchObject({
+        i18nKey: "validation.more_than",
+        values: {
+          length: "255",
+        },
+      });
       expect(validate("full_name", "John")).toBe("");
     });
     /**
@@ -93,14 +95,15 @@ describe("validateField function", () => {
      * - Does not exceed 255 characters.
      */
     test("validates contact_person correctly", () => {
-      expect(validate("contact_person", "")).toBe("validation.required");
-      expect(validate("contact_person", "John".repeat(100))).toMatchObject(
-        <Trans
-          i18nKey="validation.more_than"
-          values={{ length: "255" }}
-          components={[]}
-        />
-      );
+      expect(validate("contact_person", "")).toEqual({
+        i18nKey: "validation.required",
+      });
+      expect(validate("contact_person", "John".repeat(100))).toMatchObject({
+        i18nKey: "validation.more_than",
+        values: {
+          length: "255",
+        },
+      });
       expect(validate("contact_person", "John")).toBe("");
     });
     /**
@@ -109,16 +112,15 @@ describe("validateField function", () => {
      * - Matches a valid phone number format.
      */
     test("validates phone_number correctly", () => {
-      expect(validate("phone_number", "123".repeat(100))).toMatchObject(
-        <Trans
-          i18nKey="validation.more_than"
-          values={{ length: "255" }}
-          components={[]}
-        />
-      );
-      expect(validate("phone_number", "invalid-phone")).toBe(
-        "validation.phone_number"
-      );
+      expect(validate("phone_number", "123".repeat(100))).toMatchObject({
+        i18nKey: "validation.more_than",
+        values: {
+          length: "255",
+        },
+      });
+      expect(validate("phone_number", "invalid-phone")).toEqual({
+        i18nKey: "validation.phone_number",
+      });
       expect(validate("phone_number", "+123456789")).toBe("");
     });
     /**
@@ -138,13 +140,9 @@ describe("validateField function", () => {
      * - Is between 1 and 10.
      */
     test("validates payment_priority correctly", () => {
-      expect(validate("payment_priority", 0)).toMatchObject(
-        <Trans
-          i18nKey="validation.between"
-          values={{ from: "1", to: "10" }}
-          components={[]}
-        />
-      );
+      expect(validate("payment_priority", 0)).toMatchObject({
+        i18nKey: "validation.more_than",
+      });
       expect(validate("payment_priority", 5)).toBe("");
     });
     /**
@@ -152,8 +150,12 @@ describe("validateField function", () => {
      * - Are required.
      */
     test("validates invoice_number and invoice_date correctly", () => {
-      expect(validate("invoice_number", "")).toBe("validation.required");
-      expect(validate("invoice_date", "")).toBe("validation.required");
+      expect(validate("invoice_number", "")).toEqual({
+        i18nKey: "validation.required",
+      });
+      expect(validate("invoice_date", "")).toEqual({
+        i18nKey: "validation.required",
+      });
       expect(validate("invoice_number", "11111")).toBe("");
       expect(validate("invoice_date", "01.01.1980")).toBe("");
     });
@@ -162,7 +164,9 @@ describe("validateField function", () => {
      * - Must contain an ID.
      */
     test("validates payer and recipient correctly", () => {
-      expect(validate("payer", {})).toBe("validation.required");
+      expect(validate("payer", {})).toEqual({
+        i18nKey: "validation.required",
+      });
       expect(validate("recipient", { id: 1 })).toBe("");
     });
     /**
@@ -170,13 +174,12 @@ describe("validateField function", () => {
      * - Must be greater than or equal to 0.
      */
     test("validates invoice_amount and payment_amount correctly", () => {
-      expect(validate("invoice_amount", -1)).toMatchObject(
-        <Trans
-          i18nKey="validation.greater_than_equal"
-          values={{ value: "0" }}
-          components={[]}
-        />
-      );
+      expect(validate("invoice_amount", -1)).toMatchObject({
+        i18nKey: "validation.more_than",
+        values: {
+          length: "0",
+        },
+      });
       expect(validate("invoice_amount", 100)).toBe("");
     });
     /**

@@ -644,7 +644,7 @@ This project includes a suite of automated tests to ensure the functionality, re
 ### Django
 1. **Running the Tests**
 You can run the test suite using the Django management command:
-```
+```bash
 python manage.py test
 ```
 2. **Testing Structure**
@@ -703,11 +703,11 @@ OK
 - Code Coverage:
   - Prerequisites:
   Before getting reports, make sure you have installed all the dependencies by running:
-  ```
+  ```bash
   pip install coverage
   ```
   - Command:
-  ```
+  ```bash
   coverage run --source=app_name manage.py test app_name
   coverage report
   ```
@@ -732,6 +732,23 @@ OK
   **user**
 
     ![coverage - user](documentation/coverage/user.png)
+
+### Jest
+1. **Prerequisites**
+Before running the tests, make sure you have installed all the dependencies by running:
+```bash
+npm install
+```
+2. **Running the Tests**
+To run the test suite, use the following command:
+```bash
+npm test
+```
+3. **Key Test Results**
+After running the tests, here are the results obtained from the project:
+- Command: `npm test`
+- Output Summary:
+  ![outcomes - jest](documentation/jest.png)
 
 ## Validation
 ### W3C Validator (HTML)
@@ -1050,56 +1067,57 @@ Notes: Each Python file contains a newline at the end of the file.
 
   ![validator - views.py](documentation/validator/pep8/user/views.png)
 
-### JavaScript Quality Validation
-The project has been checked using ESLint to ensure code quality and compliance with best practices. The validation process included:
-- Checking for syntax errors, unused variables, and potential bugs.
-- Verifying adherence to the configured coding standards.
-- Reviewing and addressing any reported issues or warnings.
+### JavaScript Quality Validation<br/>
+The project has been checked using ESLint to ensure code quality and compliance with best practices. The validation process included:<br/>
+- Checking for syntax errors, unused variables, and potential bugs.<br/>
+- Verifying adherence to the configured coding standards.<br/>
+- Reviewing and addressing any reported issues or warnings.<br/>
 **What is ESLint?**<br/>
-ESLint is a powerful tool for identifying and fixing problems in JavaScript and TypeScript code. It helps enforce coding standards, detect potential errors, and improve overall code quality.
+ESLint is a powerful tool for identifying and fixing problems in JavaScript and TypeScript code. It helps enforce coding standards, detect potential errors, and improve overall code quality.<br/>
 
-**Advantages of Using ESLint**
-✅ **Error Prevention** – Detects syntax errors, undefined variables, and problematic patterns before execution.
-✅ **Code Consistency** – Enforces a uniform coding style across the project.
-✅ **Improved Readability** – Helps maintain clean, structured, and easy-to-read code.
-✅ **Better Debugging** – Highlights issues early in development, reducing debugging time.
-✅ **Customizable Rules** – Supports custom configurations to match project-specific requirements.
-✅ **Integration with Code Editors** – Works seamlessly with VS Code, WebStorm, and other editors for real-time linting.
+**Advantages of Using ESLint**<br/>
+✅ **Error Prevention** – Detects syntax errors, undefined variables, and problematic patterns before execution.<br/>
+✅ **Code Consistency** – Enforces a uniform coding style across the project.<br/>
+✅ **Improved Readability** – Helps maintain clean, structured, and easy-to-read code.<br/>
+✅ **Better Debugging** – Highlights issues early in development, reducing debugging time.<br/>
+✅ **Customizable Rules** – Supports custom configurations to match project-specific requirements.<br/>
+✅ **Integration with Code Editors** – Works seamlessly with VS Code, WebStorm, and other editors for real-time linting.<br/>
 
-1. **Prerequisites**
-Before running ESLint, ensure all dependencies are installed:
+1. **Prerequisites**<br/>
+Before running ESLint, ensure all dependencies are installed:<br/>
 ```
 npm install
 ```
-2. **Running ESLint**
-To analyze code quality and detect potential issues, run:
+2. **Running ESLint**<br/>
+To analyze code quality and detect potential issues, run:<br/>
 ```
 npx eslint src
 ```
-3. **Generating an HTML Report**
-For a detailed HTML report, use:
+3. **Generating an HTML Report**<br/>
+For a detailed HTML report, use:<br/>
 ```
 npx eslint src --format html --output-file eslint-report.html
 ```
-Open eslint-report.html in a browser to view the results visually.
+Open eslint-report.html in a browser to view the results visually.<br/>
 
-4. **Key Findings**
-After running ESLint, the results will include:
-- **Errors:** Critical issues that must be fixed.
-- **Warnings:** Best practices and recommendations.
-- **Unused Variables:** Variables declared but never used.
-- ** Code Style Issues:** Enforcing consistent formatting (if a style guide is used).
+4. **Key Findings**<br/>
+After running ESLint, the results will include:<br/>
+- **Errors:** Critical issues that must be fixed.<br/>
+- **Warnings:** Best practices and recommendations.<br/>
+- **Unused Variables:** Variables declared but never used.<br/>
+- ** Code Style Issues:** Enforcing consistent formatting (if a style guide is used).<br/>
 
-🔍 Understanding Warnings
-Some warnings, such as:
+🔍 Understanding Warnings<br/>
+Some warnings, such as:<br/>
 ```sh
 ... Warning React Hook useEffect has missing dependencies: .... Either include them or remove the dependency array. react-hooks/exhaustive-deps
 ```
-are **not actual problems** but recommendations to ensure correctness. These warnings help prevent unintended behavior but do not necessarily indicate an issue affecting performance or functionality.
+are **not actual problems** but recommendations to ensure correctness. These warnings help prevent unintended behavior but do not necessarily indicate an issue affecting performance or functionality.<br/>
 
-5. **Outcomes**
-The project was checked using ESLint, ensuring code quality and best practices.
-📄 View the ESLint Report: [link](./react_frontend/eslint-report.html)
+5. **Outcomes**<br/>
+The project was checked using ESLint, ensuring code quality and best practices.<br/>
+📄 View the ESLint Report: [link](./react_frontend/eslint-report.html)<br/>
+![EDLint Report](documentation/eslint-report.png)
 
 ## Bugs
 

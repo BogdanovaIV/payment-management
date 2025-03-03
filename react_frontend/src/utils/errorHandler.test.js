@@ -105,7 +105,7 @@ describe("handleRequestError", () => {
     const err = { response: { status: 404 } };
     handleRequestError(err, showToast, t);
 
-    expect(console.log).toHaveBeenCalledWith(404);
+    expect(console.log).toHaveBeenCalledWith(err);
   });
 
   /**

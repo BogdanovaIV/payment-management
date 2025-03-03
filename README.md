@@ -1091,24 +1091,24 @@ Ensure you have the following installed:
 - Git
 ### Steps to Deploy Locally
 1. Clone the Repository
-```
+```bash
     git clone https://github.com/BogdanovaIV/payment-management
     cd payment-management
 ```
 2.  Set Up the Backend (Django + DRF)
    - **Create and Activate a Virtual Environment**
-   ```
+   ```bash
    python -m venv venv
    source venv/bin/activate  # On macOS/Linux
    venv\Scripts\activate      # On Windows
    ```
    - **Install Dependencies**
-   ```
+   ```bash
    pip install -r backend/requirements.txt
    ```
    - **Configure Environment Variables**
    Create a `.env` and configure database settings:
-   ```
+   ```ini
    SECRET_KEY=Your secret key
    DEBUG=False
    ALLOWED_HOSTS=127.0.0.1,localhost
@@ -1117,25 +1117,25 @@ Ensure you have the following installed:
    STATIC_PATH=staticfiles
    ```
    - **Apply Migrations and Create a Superuser**
-   ```
+   ```bash
    python django_api/manage.py migrate
    python django_api/manage.py createsuperuser
    ```
    - **Run the Django Development Server**
-   ```
+   ```bash
    python django_api/manage.py runserver
    ```
 3. Set Up the Frontend (React)
    - **Navigate to the React App Directory**
-   ```
+   ```bash
    cd react_frontend
    ```
    - **Install Dependencies**
-   ```
+   ```bash
    npm install 
    ```
    - **Run the React Development Server**
-   ```
+   ```bash
    npm start
    ```
 4. Test the Setup

@@ -32,13 +32,12 @@ describe("Token utilities", () => {
   /**
    * Tests if shouldRefreshToken returns true when the current time exceeds the expiration time.
    */
-  test("shouldRefreshToken returns true if current time exceeds expiration", () => {
+  test("shouldRefreshToken returns true if current time exceeds expiration", async () => {
     const pastTime = new Date(Date.now() - 1000).toISOString();
     localStorage.setItem("tokenAccessExpiration", pastTime);
     localStorage.setItem("refreshTokenTimestamp", "123456");
-    waitFor(() => {
+    await waitFor(() => {
       expect(shouldRefreshToken()).toBe(true);
-      done();
     });
   });
 
