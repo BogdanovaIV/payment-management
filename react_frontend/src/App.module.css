@@ -1,6 +1,6 @@
 .App {
   font-family: "DM Sans", sans-serif;
-  background-color:  var(--white-color);
+  background-color: var(--white-color);
   min-height: 100vh;
 }
 
@@ -34,7 +34,6 @@ i:hover {
   transition: color ease-in-out 0.3s;
   color: var(--grey-color);
 }
-
 
 @media screen and (max-width: 991px) {
   .Main {

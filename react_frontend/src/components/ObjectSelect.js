@@ -65,6 +65,14 @@ const ObjectSelect = ({
     return () => clearTimeout(delayDebounce);
   }, [query]);
 
+  useEffect(() => {
+    const noscript = document.querySelector("noscript");
+
+    if (noscript) {
+      noscript.removeAttribute("aria-hidden");
+    }
+  }, [show]);
+
   const handleQueryChange = (e) => {
     setQuery(e.target.value);
   };

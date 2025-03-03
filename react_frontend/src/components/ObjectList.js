@@ -220,8 +220,16 @@ const ObjectList = ({
                         key={name}
                         className={styles.Input}
                         as={type === "select" ? "select" : undefined}
-                        type={type !== "select" ? type : undefined}
-                        placeholder={placeholder}
+                        type={
+                          type !== "select" && type !== "textarea"
+                            ? type
+                            : undefined
+                        }
+                        placeholder={
+                          type !== "select" && type !== "date"
+                            ? placeholder
+                            : undefined
+                        }
                         name={name}
                         value={
                           foreignKey !== undefined

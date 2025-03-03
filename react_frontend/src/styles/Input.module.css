@@ -12,11 +12,10 @@
 }
 
 .Input:disabled {
-  background-color: rgba(var(--grey-color-rgb), 0.90) !important;
+  background-color: rgba(var(--grey-color-rgb), 0.9) !important;
   color: var(--white-color);
   font-weight: 600;
 }
-
 
 .InputObject {
   border: 1px solid var(--blue-color);
@@ -29,11 +28,10 @@
   letter-spacing: 0.05em;
   font-size: larger;
   padding-bottom: 5px;
-  
 }
 
 .CheckBoxObject input[type="checkbox"] {
-  width: 25px !important;  
+  width: 25px !important;
   height: 25px !important;
   margin-top: 0;
 }
@@ -42,9 +40,8 @@
   padding-left: 10px;
 }
 
-
 .InputObject:disabled {
-  background-color: rgba(var(--blue-color-rgb), 0.30) !important;
+  background-color: rgba(var(--blue-color-rgb), 0.3) !important;
   color: var(--white-color);
   font-weight: 600;
 }

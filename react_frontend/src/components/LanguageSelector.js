@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { axiosReq, axiosRes } from "../api/axiosDefaults";
 import { useTranslation } from "react-i18next";
@@ -37,6 +37,10 @@ const LanguageSelector = () => {
     setLanguage(lng);
     setDropdownOpen(false);
   };
+
+  useEffect(() => {
+    document.documentElement.lang = i18n.language || "en";
+  }, [i18n.language]);
 
   return (
     <div className="dropdown align-content-center">

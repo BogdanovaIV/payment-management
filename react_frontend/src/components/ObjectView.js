@@ -367,11 +367,15 @@ const ObjectView = ({
                                         className={inputStyles.InputObject}
                                         as={as}
                                         type={
-                                          type !== "select" ? type : undefined
+                                          type !== "select" && as !== "textarea"
+                                            ? type
+                                            : undefined
                                         }
-                                        rows={rows || 1}
+                                        rows={
+                                          as == "textarea" ? rows : undefined
+                                        }
                                         readOnly={
-                                          typeView === "view" ||
+                                          typeView === "view" && as !== "select" ||
                                           readOnly ||
                                           !isOwner
                                         }
@@ -384,7 +388,11 @@ const ObjectView = ({
                                               disabled ||
                                               !isOwner
                                         }
-                                        placeholder={placeholder}
+                                        placeholder={
+                                          as !== "select" && type !== "date"
+                                            ? placeholder
+                                            : undefined
+                                        }
                                         name={name}
                                         value={
                                           foreignKey !== undefined

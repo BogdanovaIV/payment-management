@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import Modal from "react-bootstrap/Modal";
 import Button from "react-bootstrap/Button";
@@ -31,6 +31,13 @@ const Instruction = ({
   setShowInstruction,
 }) => {
   const { t } = useTranslation();
+  useEffect(() => {
+    const noscript = document.querySelector("noscript");
+
+    if (noscript) {
+      noscript.removeAttribute("aria-hidden");
+    }
+  }, [showInstruction]);
   return (
     <Modal
       dialogClassName={instructionStyles.ContainerModal}
