@@ -436,7 +436,7 @@ If the payment request is currently locked and the user is authorized, it should
 If the payment request is locked by someone else, the system should return an error preventing the unlock.<br/>
 ![Unlock Payment Request (Correct Request)](documentation/postman/post-payment-request-unlock-error.png)<br/>
 ### ✅ Statuses<br/>
-**Endpoint:** GET http://localhost:8000/api/payment-request-statuses/<br/>
+**Endpoint:** GET /api/payment-request-statuses/<br/>
 Returns the available statuses of payment requests.<br/>
 ![Statuses](documentation/postman/get-statuses.png)<br/>
 
